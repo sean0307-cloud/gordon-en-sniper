@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Gordon英文閃卡" />
+  <title>⚡ Gordon 專屬英文閃卡＆弱點狙擊系統</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #1e293b;
+      --card: #1e293b;
+      --card-hover: #26354d;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.18);
+      --green: #22c55e;
+      --green-bg: rgba(34, 197, 94, 0.16);
+      --yellow: #f59e0b;
+      --yellow-bg: rgba(245, 158, 11, 0.16);
+      --red: #ef4444;
+      --red-bg: rgba(239, 68, 68, 0.18);
+      --border: #334155;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      padding: 12px 12px 90px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* Top Header & Cloud Status */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    .brand-title { font-size: 1.15rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 6px; }
+    .brand-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .sync-badge {
+      font-size: 0.75rem;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.15);
+      color: #86efac;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .sync-badge.syncing {
+      background: rgba(56, 189, 248, 0.2);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Mini Dashboard Counters */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .stat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .stat-box.active {
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.14);
+      transform: translateY(-1px);
+    }
+    .stat-num { font-size: 1.25rem; font-weight: 800; }
+    .stat-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+    /* Intuitive Guide Banner */
+    .guide-banner {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+    }
+    .guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      color: var(--accent);
+      cursor: pointer;
+    }
+    .guide-body {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(56, 189, 248, 0.3);
+      display: grid;
+      gap: 6px;
+    }
+    .guide-body.hidden { display: none; }
+    .guide-row { display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
+    .g-pill {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    /* Main Navigation Tabs */
+    .main-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .m-tab {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px 8px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-align: center;
+      cursor: pointer;
+    }
+    .m-tab.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+    }
+
+    /* Filter Chips (Progress Pack & Category) */
+    .filter-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+    }
+    .filter-title {
+      font-size: 0.74rem;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .chip-row {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .chip-row::-webkit-scrollbar { display: none; }
+    .chip {
+      background: #0f172a;
+      color: #cbd5e1;
+      border: 1px solid var(--border);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .chip.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Flashcard Item */
+    .fc-list { display: flex; flex-direction: column; gap: 14px; }
+    .fc-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .fc-card.status-sos { border-left: 5px solid var(--red); }
+    .fc-card.status-review { border-left: 5px solid var(--yellow); }
+    .fc-card.status-mastered { border-left: 5px solid var(--green); opacity: 0.85; }
+
+    .fc-top {
+      padding: 14px 16px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .fc-badges { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .badge-pack { font-size: 0.7rem; background: #0f172a; color: #94a3b8; padding: 2px 8px; border-radius: 6px; border: 1px solid #334155; }
+    .badge-cat { font-size: 0.7rem; background: rgba(56, 189, 248, 0.12); color: var(--accent); padding: 2px 8px; border-radius: 6px; font-weight: 600; }
+    .badge-err { font-size: 0.7rem; background: var(--red-bg); color: #fca5a5; padding: 2px 8px; border-radius: 6px; font-weight: 700; }
+    .status-pill { font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 99px; }
+    .status-pill.new { background: #334155; color: #e2e8f0; }
+    .status-pill.sos { background: var(--red-bg); color: #fca5a5; border: 1px solid var(--red); }
+    .status-pill.review { background: var(--yellow-bg); color: #fcd34d; border: 1px solid var(--yellow); }
+    .status-pill.mastered { background: var(--green-bg); color: #86efac; border: 1px solid var(--green); }
+
+    .fc-body {
+      padding: 6px 16px 16px;
+      cursor: pointer;
+    }
+    .fc-word-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .fc-word {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+    .fc-syllable {
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .speak-btn {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 10px;
+      padding: 6px 11px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .speak-btn:active { transform: scale(0.95); }
+
+    .fc-flip-hint {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .fc-answer {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+      font-size: 0.92rem;
+    }
+    .fc-card.flipped .fc-answer { display: block; }
+    .fc-card.flipped .fc-flip-hint { display: none; }
+
+    .ans-meaning { font-size: 1.05rem; font-weight: 800; color: #fde047; margin-bottom: 6px; }
+    .ans-hack {
+      background: rgba(15, 23, 42, 0.75);
+      border-left: 3px solid var(--accent);
+      padding: 8px 10px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 8px;
+      color: #e2e8f0;
+      font-size: 0.86rem;
+    }
+    .ans-ex { font-size: 0.84rem; color: #94a3b8; font-style: italic; }
+
+    /* 3 Intuitive Action Buttons (Action -> Consequence) */
+    .fc-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 10px 12px 12px;
+      background: rgba(15, 23, 42, 0.6);
+      border-top: 1px solid var(--border);
+    }
+    .act-btn {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 4px;
+      text-align: center;
+      cursor: pointer;
+      background: #0f172a;
+      color: var(--text);
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .act-btn:active { transform: scale(0.96); }
+    .act-title { font-size: 0.82rem; font-weight: 800; margin-bottom: 2px; }
+    .act-res { font-size: 0.66rem; color: var(--muted); line-height: 1.2; }
+
+    .act-btn.btn-seal:hover, .act-btn.btn-seal.selected {
+      background: var(--green-bg);
+      border-color: var(--green);
+    }
+    .act-btn.btn-seal .act-title { color: #86efac; }
+
+    .act-btn.btn-later:hover, .act-btn.btn-later.selected {
+      background: var(--yellow-bg);
+      border-color: var(--yellow);
+    }
+    .act-btn.btn-later .act-title { color: #fcd34d; }
+
+    .act-btn.btn-sos:hover, .act-btn.btn-sos.selected {
+      background: var(--red-bg);
+      border-color: var(--red);
+    }
+    .act-btn.btn-sos .act-title { color: #fca5a5; }
+
+    /* Quiz Section */
+    .q-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .q-meta { font-size: 0.75rem; color: var(--yellow); font-weight: 700; margin-bottom: 6px; }
+    .q-text { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+    .q-opts { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    .q-opt {
+      background: #0f172a;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .q-opt.correct { background: var(--green-bg); border-color: var(--green); color: #86efac; font-weight: 700; }
+    .q-opt.wrong { background: var(--red-bg); border-color: var(--red); color: #fca5a5; }
+    .q-exp {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(56, 189, 248, 0.1);
+      border-left: 4px solid var(--accent);
+      font-size: 0.85rem;
+    }
+    .q-auto-tag {
+      margin-top: 8px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: #fff;
+      border: 2px solid var(--accent);
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      z-index: 999;
+      display: none;
+      max-width: 92vw;
+      text-align: center;
+    }
+
+    /* Report & Sync Panel */
+    .report-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0f172a;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    .btn-secondary {
+      background: #0f172a;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 36px 20px;
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px dashed var(--border);
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div>
+      <div class="brand-title">⚡ Gordon 英文弱點狙擊卡</div>
+      <div class="brand-sub">音節切分 × 字根樂高 × 黃金語塊</div>
+    </div>
+    <div id="sync-indicator" class="sync-badge" onclick="forceCloudSync()">☁️ 雲端已同步</div>
+  </div>
+
+  <!-- 4 Intuitive Filter Counters -->
+  <div class="stats-strip">
+    <div class="stat-box active" id="st-todo" onclick="setStatusFilter('todo')">
+      <div class="stat-num" style="color: var(--accent);" id="cnt-todo">0</div>
+      <div class="stat-label">🔥 待消滅清單</div>
+    </div>
+    <div class="stat-box" id="st-sos" onclick="setStatusFilter('sos')">
+      <div class="stat-num" style="color: var(--red);" id="cnt-sos">0</div>
+      <div class="stat-label">🛏️ 睡前急救(🆘)</div>
+    </div>
+    <div class="stat-box" id="st-mastered" onclick="setStatusFilter('mastered')">
+      <div class="stat-num" style="color: var(--green);" id="cnt-mastered">0</div>
+      <div class="stat-label">😎 已封印墓地</div>
+    </div>
+    <div class="stat-box" id="st-all" onclick="setStatusFilter('all')">
+      <div class="stat-num" style="color: #cbd5e1;" id="cnt-all">0</div>
+      <div class="stat-label">📚 全部題庫</div>
+    </div>
+  </div>
+
+  <!-- Intuitive Action->Result Guide -->
+  <div class="guide-banner">
+    <div class="guide-header" onclick="document.getElementById('guide-content').classList.toggle('hidden')">
+      <span>💡 3 秒看懂：卡片下方的按鈕選了會有什麼結果？（點此展開/收合）</span>
+      <span>▼</span>
+    </div>
+    <div class="guide-body" id="guide-content">
+      <div class="guide-row">
+        <span class="g-pill" style="background: var(--green-bg); color: #86efac;">😎 秒懂！封印</span>
+        <span><b>結果：</b>直接從「🔥待消滅清單」消失（待背數 -1），明天不用再背它！</span>
+      </div>
+      <div class="guide-row">
+        <span class="g-pill" style="background: var(--yellow-bg); color: #fcd34d;">🤔 明天再考我</span>
+        <span><b>結果：</b>剛才想超過 3 秒才記起來，留在日常清單，明天車上繼續刷。</span>
+      </div>
+      <div class="guide-row">
+        <span class="g-pill" style="background: var(--red-bg); color: #fca5a5;">🆘 睡前急救室</span>
+        <span><b>結果：</b>自動收進上方「🛏️睡前急救(🆘)」，睡前只看這幾張！且 <b>AI 下週會幫你換口訣＆出進模擬考</b>！</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Mode Tabs -->
+  <div class="main-tabs">
+    <div class="m-tab active" id="tab-fc" onclick="switchMainTab('fc')">🃏 1. 刷閃卡消滅單字</div>
+    <div class="m-tab" id="tab-quiz" onclick="switchMainTab('quiz')">✍️ 2. 極速測驗驗收</div>
+    <div class="m-tab" id="tab-report" onclick="switchMainTab('report')">📊 3. AI 戰報與同步</div>
+  </div>
+
+  <!-- Progress Pack & Topic Filter Panel -->
+  <div class="filter-panel" id="filter-panel">
+    <div class="filter-title">
+      <span>📅 選擇考試進度範圍：</span>
+      <span id="current-filter-desc" style="color: var(--accent);">顯示全部進度</span>
+    </div>
+    <div class="chip-row" id="pack-chips">
+      <div class="chip active" onclick="setPackFilter('all', this)">🌟 全部進度 (40)</div>
+      <div class="chip" onclick="setPackFilter('lichi_1025', this)">🔥 李奇 10/25 小考 (16)</div>
+      <div class="chip" onclick="setPackFilter('lichi_1018', this)">⚡ 李奇 10/18 小考 (12)</div>
+      <div class="chip" onclick="setPackFilter('midterm1', this)">🏫 一中一段核心 (12)</div>
+    </div>
+    <div class="filter-title" style="margin-top: 8px;">
+      <span>🎯 選擇弱點武器類型：</span>
+    </div>
+    <div class="chip-row" id="cat-chips">
+      <div class="chip active" onclick="setCatFilter('all', this)">全部類型</div>
+      <div class="chip" onclick="setCatFilter('roots', this)">🧩 字根樂高(新聞長字)</div>
+      <div class="chip" onclick="setCatFilter('phonics', this)">🔤 音節拼讀(防拼錯)</div>
+      <div class="chip" onclick="setCatFilter('chunks', this)">🔗 黃金語塊(動詞+介系詞)</div>
+      <div class="chip" onclick="setCatFilter('grammar', this)">⚡ 文法時態秒殺</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: FLASHCARDS -->
+  <div id="sec-fc">
+    <div id="fc-container" class="fc-list"></div>
+  </div>
+
+  <!-- SECTION 2: QUIZ -->
+  <div id="sec-quiz" style="display: none;">
+    <div class="report-box" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px;">
+      <div>🎯 本輪測驗答對：<strong id="q-score" style="color: var(--accent); font-size: 1.2rem;">0</strong> / <span id="q-total">0</span> 題</div>
+      <button onclick="resetQuiz()" style="background: var(--accent); color: #0f172a; border: none; padding: 6px 12px; border-radius: 8px; font-weight: 800; cursor: pointer;">🔄 重新測驗</button>
+    </div>
+    <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 10px;">💡 提示：測驗答錯的題目，系統會<b>自動幫你把對應單字送進「🛏️ 睡前急救室(🆘)」</b>！</p>
+    <div id="quiz-container"></div>
+  </div>
+
+  <!-- SECTION 3: AI REPORT & CLOUD SYNC -->
+  <div id="sec-report" style="display: none;">
+    <div class="report-box">
+      <h3 style="margin-bottom: 8px; color: var(--accent);">📊 Gordon 目前學習狀態總覽</h3>
+      <p style="font-size: 0.84rem; color: var(--muted); margin-bottom: 12px;">
+        你在手機上按的每一個「😎 封印」或「🆘 睡前急救」，都會自動記錄在下方，並透過雲端同步給 AI 分析下週計畫！
+      </p>
+      <div id="report-summary" style="font-size: 0.9rem; background: #0f172a; padding: 12px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 12px;"></div>
+
+      <button class="btn-primary" onclick="forceCloudSync(true)">☁️ 立即同步最新狀態至雲端 (供 AI 判讀)</button>
+      <button class="btn-secondary" onclick="copyReportText()">📋 一鍵複製「本週學習戰報」文字 (傳給爸媽 / AI)</button>
+      <button class="btn-secondary" onclick="exportCSV()">📥 下載 Excel 試算表紀錄檔 (.csv)</button>
+      <button class="btn-secondary" onclick="exportJSON()">📥 下載 AI 診斷狀態檔 (.json)</button>
+    </div>
+
+    <div class="report-box">
+      <h3 style="margin-bottom: 6px; color: #86efac;">🔗 進階：綁定 Google 雲端試算表 Webhook (選用)</h3>
+      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 8px;">
+        系統已內建免設定雲端同步頻道。若您有部署專屬 Google Sheet 試算表腳本，可將網址貼在下方：
+      </p>
+      <input type="text" id="gas-url-input" placeholder="https://script.google.com/macros/s/.../exec" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border); background: #0f172a; color: #fff; font-size: 0.82rem; margin-bottom: 8px;" />
+      <button class="btn-secondary" onclick="saveGasUrl()">💾 儲存 Google 試算表同步網址</button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    // ============================================================================
+    // 1. MASTER FLASHCARD & QUIZ DATABASE (All Exams Categorized)
+    // ============================================================================
+    const CARDS_DB = [
+      // ---------------- 李奇 10/25 小考 (16 Cards) ----------------
+      {
+        id: "c_1025_01", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高",
+        word: "undermine", syllable: "un · der · mine",
+        meaning: "v. 暗中削弱、損害（信任／威信／基礎）",
+        hack: "【字根樂高】<code>under</code>（在下面）+ <code>mine</code>（挖地道/埋地雷）➔ 從底部暗中挖空侵蝕！",
+        example: "Spreading rumors will undermine public trust. (原卷 Q17/Q38)"
+      },
+      {
+        id: "c_1025_02", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高",
+        word: "supervision", syllable: "su · per · vi · sion",
+        meaning: "n. 監督、管理、監管",
+        hack: "【字根樂高】<code>super-</code>（在上方）+ <code>vis</code>（看，如 vision）+ <code>-ion</code> ➔ 居高臨下往下看 ➔ 監督！",
+        example: "Without proper parental supervision, teens may fall prey to scams. (原卷 Q18/Q39)"
+      },
+      {
+        id: "c_1025_03", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高",
+        word: "scaremonger", syllable: "scare · mon · ger",
+        meaning: "n. 製造恐慌者、危言聳聽的人",
+        hack: "【Gordon 卷上畫圈字】<code>scare</code>（恐嚇）+ <code>monger</code>（散播商人，如 warmonger 好戰者）➔ 賣恐懼的人！",
+        example: "Don't listen to that online scaremonger! (原卷 Q19)"
+      },
+      {
+        id: "c_1025_04", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "YouTube personalities", syllable: "per · son · al · i · ties",
+        meaning: "n. 知名網紅、風雲人物、公眾名人",
+        hack: "【資優班熟詞生義】<code>personality</code> 單數是「個性」，但複數 <code>personalities</code> = celebrities（名人/網紅），絕非 puppets（傀儡）！",
+        example: "Many famous YouTube personalities were invited to the launch. (原卷 Q27)"
+      },
+      {
+        id: "c_1025_05", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "tell A and B apart", syllable: "tell ... a · part",
+        meaning: "phr. 分辨、區分兩者 (= distinguish A from B)",
+        hack: "【高頻片語】<code>tell them apart</code> = 把它們區分開來。注意：<code>take apart</code> 才是「拆解機器」！",
+        example: "Deepfakes are so realistic that it is hard to tell them apart. (原卷 Q28)"
+      },
+      {
+        id: "c_1025_06", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "lacks real proof", syllable: "lacks · real · proof",
+        meaning: "phr. 缺乏真實的證據",
+        hack: "【搭配語塊】<code>lack</code> 當及物動詞直接加受詞（不加 of）：<code>lack proof</code>（缺乏證據）。名詞才用 <code>a lack of</code>。",
+        example: "The controversial claim completely lacks real proof. (原卷 Q26)"
+      },
+      {
+        id: "c_1025_07", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高",
+        word: "interaction", syllable: "in · ter · ac · tion",
+        meaning: "n. 互動、交流",
+        hack: "【字根樂高】<code>inter-</code>（在...之間、互相）+ <code>act</code>（行動）+ <code>-ion</code> ➔ 人與人之間的互動！",
+        example: "Genuine human interaction between teachers and peers is irreplaceable. (原卷 Q34)"
+      },
+      {
+        id: "c_1025_08", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高",
+        word: "reject", syllable: "re · ject",
+        meaning: "v. 拒絕、駁回、排斥",
+        hack: "【字根樂高】<code>re-</code>（往回）+ <code>ject</code>（丟、投擲，如 project 投射、inject 注射）➔ 把東西丟回去 ➔ 拒絕、駁回！",
+        example: "The committee decided to reject the proposal. (原卷 Q36)"
+      },
+      {
+        id: "c_1025_09", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高",
+        word: "decline", syllable: "de · cline",
+        meaning: "v./n. 下滑、衰退；婉拒",
+        hack: "【字根樂高】<code>de-</code>（往下）+ <code>cline</code>（傾斜）➔ 往下傾斜 ➔ 數量下滑、衰退！",
+        example: "Test scores have declined in districts that overused tablets. (原卷 Q33)"
+      },
+      {
+        id: "c_1025_10", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "nationwide debate", syllable: "de · bate",
+        meaning: "n./v. （全國性的）辯論、爭論",
+        hack: "【搭配語塊】<code>spark / initiate a debate on...</code>（引發一場關於...的辯論）。",
+        example: "The AI ban sparked a nationwide debate in Norway. (原卷 Q37)"
+      },
+      {
+        id: "c_1025_11", pack: "lichi_1025", packName: "李奇 10/25", cat: "grammar", catName: "⚡ 文法時態",
+        word: "Up to now + have/has p.p.", syllable: "現在完成式鐵律",
+        meaning: "直到目前為止 ➔ 主句必用「現在完成式」",
+        hack: "【時態秒殺】看到 <code>Up to now / So far</code>，時間從過去累積到現在，必選 <code>have/has + p.p.</code>，絕不可選進行式 <code>are finishing</code>！",
+        example: "Up to now, the team has rescued 300 survivors. (原卷 Q42)"
+      },
+      {
+        id: "c_1025_12", pack: "lichi_1025", packName: "李奇 10/25", cat: "grammar", catName: "⚡ 文法時態",
+        word: "have gone to vs. have been to", syllable: "第一人稱 I 的時態悖論",
+        meaning: "have gone to (去了沒回) vs. have been to (去過已回)",
+        hack: "【魔鬼邏輯】說話者 <code>I</code> 站在你面前講話，絕不可能說 <code>I have gone to Tainan</code>（因為 gone to 代表人不在這裡）！只能說 <code>I have been to...</code>！",
+        example: "He has gone to the library. / I have been to Paris twice. (原卷 Q43)"
+      },
+      {
+        id: "c_1025_13", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 音節拼讀",
+        word: "diseases", syllable: "dis · eas · es",
+        meaning: "n. 疾病 (複數)",
+        hack: "【音節防錯】<code>dis-</code>（不安）+ <code>ease</code>（舒適安逸）= 身體不舒適。記住 <code>ease</code>，絕不會拼成 <code>diseqe</code>！",
+        example: "protect your body from infectious diseases. (原卷 Q54)"
+      },
+      {
+        id: "c_1025_14", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 音節拼讀",
+        word: "exposure", syllable: "ex · po · sure",
+        meaning: "n. 暴露、接觸 (常配 to)",
+        hack: "【音節防錯】第一音節大聲念出 <code>/ɪk/</code> ➔ <code>ex-</code>（向外）！千萬不可漏掉字首寫成 <code>posur</code>！",
+        example: "Excessive exposure to sunlight can damage skin. (原卷 Q55)"
+      },
+      {
+        id: "c_1025_15", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 音節拼讀",
+        word: "assignments", syllable: "as · sign · ments",
+        meaning: "n. 作業、指派的任務",
+        hack: "【音節防錯】<code>as</code> + <code>sign</code>（簽名標記）+ <code>ment</code> + <code>s</code>（注意可數名詞常加複數 s）！",
+        example: "submit weekly writing assignments before Friday. (原卷 Q51)"
+      },
+      {
+        id: "c_1025_16", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 音節拼讀",
+        word: "rewards", syllable: "re · wards",
+        meaning: "n. 回報、獎賞、報酬",
+        hack: "【音節防錯】<code>re-</code> + <code>ward</code> + <code>s</code>（注意字尾 d 與複數 s，常搭 <code>reap the rewards</code>）。",
+        example: "Hard work will bring fruitful rewards. (原卷 Q58)"
+      },
+
+      // ---------------- 李奇 10/18 小考 (12 Cards) ----------------
+      {
+        id: "c_1018_01", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "associate with sb", syllable: "as · so · ci · ate",
+        meaning: "phr. 與某人交往、打交道；be associated with 與...有關",
+        hack: "【跨考卷連錯2次】看到空格後有 <code>with</code> ➔ 秒選 <code>associate</code>！<code>attend to</code> 才是照料！",
+        example: "Few people like to associate with those who spread negative energy. (10/18 Q3)"
+      },
+      {
+        id: "c_1018_02", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "assume a serious look", syllable: "as · sume",
+        meaning: "phr. 擺出、呈現出（嚴肅的表情或態度）",
+        hack: "【熟詞生義】<code>assume</code> 三大考點：1. 假設 2. 承擔(責任) 3. 擺出(表情/態度)！",
+        example: "Jeff assumed a serious look during the meeting. (10/18 Q6)"
+      },
+      {
+        id: "c_1018_03", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "attempt to V vs. arrest", syllable: "at · tempt / ar · rest",
+        meaning: "attempt to V (企圖做...) vs. make an arrest (逮捕)",
+        hack: "【形近字拆解】<code>attempt</code> 後接不定詞 <code>to escape</code>；<code>arrest</code> 是警察逮捕嫌犯。",
+        example: "The thief attempted to escape, but police made a swift arrest. (10/18 Q5/Q8)"
+      },
+      {
+        id: "c_1018_04", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "wait on sb", syllable: "wait · on",
+        meaning: "phr. 服侍、伺候（客人／主人）",
+        hack: "【介系詞辨析】<code>wait FOR sb</code> 是等待某人；<code>wait ON sb</code> 是當侍者服侍某人！",
+        example: "They hired a servant to wait on the woman and attend to her needs. (10/18 Q14)"
+      },
+      {
+        id: "c_1018_05", pack: "lichi_1018", packName: "李奇 10/18", cat: "roots", catName: "🧩 字根樂高",
+        word: "overtake vs. recruit", syllable: "o · ver · take / re · cruit",
+        meaning: "overtake (超越/超車) vs. recruit (招募/延攬人才)",
+        hack: "【字根樂高】<code>over</code>(越過)+<code>take</code> = 超車勝過；<code>recruit</code> = 招募新血/科學家。",
+        example: "EVs may overtake traditional cars. / He was recruited by the team. (10/18 Q25/Q28)"
+      },
+      {
+        id: "c_1018_06", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "strong figures", syllable: "fig · ures",
+        meaning: "n. 強而有力的「統計數據、數字」",
+        hack: "【新聞高頻熟詞生義】<code>figures</code> 複數在新聞英文中常指「官方統計數字、數據」！",
+        example: "convince him with strong figures and solid evidence. (10/18 Q30)"
+      },
+      {
+        id: "c_1018_07", pack: "lichi_1018", packName: "李奇 10/18", cat: "grammar", catName: "⚡ 文法時態",
+        word: "take place / result from", syllable: "絕對無被動式動詞 (1)",
+        meaning: "舉行(take place) ／ 起因於(result from) ➔ 永遠主動！",
+        hack: "【秒殺鐵律】看到 <code>be taken place</code> 或 <code>be resulted from</code> ➔ 0.5 秒直接刪掉！",
+        example: "The sports meet will take place in December. (10/18 Q51)"
+      },
+      {
+        id: "c_1018_08", pack: "lichi_1018", packName: "李奇 10/18", cat: "grammar", catName: "⚡ 文法時態",
+        word: "break out / collapse", syllable: "絕對無被動式動詞 (2)",
+        meaning: "爆發(break out) ／ 倒塌崩潰(collapse) ➔ 永遠主動！",
+        hack: "【秒殺鐵律】火災爆發 <code>broke out</code>、大樓倒塌 <code>collapsed</code>，絕對沒有 <code>was broken out / was collapsed</code>！",
+        example: "It is reported that a severe fire broke out last night. (10/18 Q53)"
+      },
+      {
+        id: "c_1018_09", pack: "lichi_1018", packName: "李奇 10/18", cat: "grammar", catName: "⚡ 文法時態",
+        word: "Let + O + be + p.p.", syllable: "使役動詞被動公式",
+        meaning: "讓某事被...（中間的 be 絕對不可省略！）",
+        hack: "【文法秒殺】主動是 <code>Let + O + V</code>，但受詞若「被討論/被決定」，必須寫 <code>Let the issue BE discussed</code>！",
+        example: "Let the issue be discussed openly before deciding. (10/18 Q51)"
+      },
+      {
+        id: "c_1018_10", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "be stripped of + N", syllable: "stripped · of",
+        meaning: "phr. 被剝除、被剝奪（裝飾／頭銜／財產）",
+        hack: "【詞性卡位】<code>was ______ of</code> 需要過去分詞 p.p. ➔ <code>was stripped of its decorations</code>。",
+        example: "The statue was stripped of its gold leaves. (10/18 Q58)"
+      },
+      {
+        id: "c_1018_11", pack: "lichi_1018", packName: "李奇 10/18", cat: "roots", catName: "🧩 字根樂高",
+        word: "too overwhelmed to V", syllable: "o · ver · whelmed",
+        meaning: "phr. 太過不知所措／招架不住而無法...",
+        hack: "【字根樂高】<code>over</code>（過度）+ <code>whelm</code>（淹沒）➔ 被壓力淹沒 ➔ 不知所措！",
+        example: "Some leaders freeze, too overwhelmed to make decisions. (10/18 Q36)"
+      },
+      {
+        id: "c_1018_12", pack: "lichi_1018", packName: "李奇 10/18", cat: "roots", catName: "🧩 字根樂高",
+        word: "navigate recessions / emerge", syllable: "nav · i · gate / e · merge",
+        meaning: "度過經濟衰退 ／ 從低谷重新崛起 (emerge from)",
+        hack: "【字根樂高】<code>nav-</code>（船/航行）➔ 駕馭度過難關；<code>e-</code>（向外）+ <code>merge</code>（浮現）➔ 脫困崛起！",
+        example: "emerge from each downturn in stronger shape. (10/18 Q39/Q40)"
+      },
+
+      // ---------------- 台中一中 高一上一段 (12 Cards) ----------------
+      {
+        id: "c_mid1_01", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 音節拼讀",
+        word: "complete ignorance of", syllable: "ig · no · rance",
+        meaning: "n. 對...完全無知／不知情 (動詞 ignore / 形容詞 ignorant)",
+        hack: "【詞性轉換】形容詞 <code>complete</code> 後面必接名詞 <code>ignorance</code>（字尾 <code>-ance</code>）！",
+        example: "due to his complete ignorance of local customs. (一段字彙)"
+      },
+      {
+        id: "c_mid1_02", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 音節拼讀",
+        word: "accidentally", syllable: "ac · ci · den · tal · ly",
+        meaning: "adv. 不小心地、意外地 (= by accident)",
+        hack: "【拼字陷阱】<code>accident</code> + <code>al</code> + <code>ly</code>，結尾一定是 <code>-tally</code>（不可寫 accidently）！",
+        example: "She accidentally deleted the important file. (一段字彙)"
+      },
+      {
+        id: "c_mid1_03", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 音節拼讀",
+        word: "breathe vs. breath", syllable: "breathe (v.) / breath (n.)",
+        meaning: "breathe a sigh of relief (鬆一口氣 - 動詞有 e)",
+        hack: "【音節防錯】有助動詞 <code>could finally ______</code> 要填原形動詞 <code>breathe</code>（有 e）；<code>take a deep breath</code> 是名詞（無 e）！",
+        example: "He could finally breathe a sigh of relief. (一段字彙)"
+      },
+      {
+        id: "c_mid1_04", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "serve a practical purpose", syllable: "serve · a · pur · pose",
+        meaning: "phr. 達到實際的目的、發揮實際功用",
+        hack: "【黃金搭配】「發揮功用／達到目的」英文固定用動詞 <code>serve</code> + <code>a purpose</code>！",
+        example: "These stones actually serve a practical purpose. (一段克漏字)"
+      },
+      {
+        id: "c_mid1_05", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "remain glued to the screen", syllable: "re · main · glued · to",
+        meaning: "phr. （視線）依然緊盯著、黏在螢幕上",
+        hack: "【連綴動詞公式】<code>remain / stay + p.p. (glued / focused)</code> 表維持某種狀態！",
+        example: "My eyes remain glued to the phone screen. (一段克漏字)"
+      },
+      {
+        id: "c_mid1_06", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "easy to come by", syllable: "come · by",
+        meaning: "phr. 容易取得、容易獲得 (= obtain)",
+        hack: "【慣用片語】<code>come by</code> = 取得、得到。<code>hard / easy to come by</code>（難以／容易取得）。",
+        example: "Fresh fish from the sea was plentiful and easy to come by. (一段克漏字)"
+      },
+      {
+        id: "c_mid1_07", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "spice up + N", syllable: "spice · up",
+        meaning: "phr. 為...增添趣味、使...更生動 (= liven up)",
+        hack: "【慣用片語】<code>spice</code> 是香料，<code>spice up a daily routine</code> 就是幫平淡日常加點料！",
+        example: "The app helps spice up a daily walking routine. (一段選填)"
+      },
+      {
+        id: "c_mid1_08", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 音節拼讀",
+        word: "addictive [-] vs. beneficial [+]", syllable: "ad · dic · tive / ben · e · fi · cial",
+        meaning: "addictive (令人上癮的[-]) vs. beneficial (有益的[+])",
+        hack: "【正負向秒殺】看到 <code>trapping users / victim</code> 配負向 <code>addictive</code>；看到 <code>therapy / help</code> 配正向 <code>beneficial</code>！",
+        example: "trapping users in an addictive cycle. (一段文意選填)"
+      },
+      {
+        id: "c_mid1_09", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 音節拼讀",
+        word: "go outdoors / stay focused", syllable: "out · doors / fo · cused",
+        meaning: "go outdoors (去戶外-副詞加s) / stay focused on (保持專注)",
+        hack: "【混合題詞性轉換】修飾動詞 <code>go</code> 要把形容詞 <code>outdoor</code> 加 s 變副詞 <code>outdoors</code>！<code>stay</code> 後接 <code>focused</code>！",
+        example: "encourage players to go outdoors instead of staying at home. (一段混合題)"
+      },
+      {
+        id: "c_mid1_10", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "convenience store", syllable: "con · ven · ience · store",
+        meaning: "n. 便利商店（注意用名詞 convenience 修飾 store！）",
+        hack: "【中翻英必考】便利商店絕對不能寫形容詞 convenient store，必須寫複合名詞 <code>convenience store</code>！",
+        example: "There are roughly 10,500 convenience stores across Taiwan. (一段翻譯)"
+      },
+      {
+        id: "c_mid1_11", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "a variety of + 複數名詞", syllable: "a · va · ri · e · ty · of",
+        meaning: "phr. 各式各樣的... (= various + 複數名詞)",
+        hack: "【中翻英必考】<code>variety</code> 是名詞，必須寫 <code>a variety of services</code>；若用形容詞則寫 <code>various services</code>！",
+        example: "They provide a variety of services to residents. (一段翻譯)"
+      },
+      {
+        id: "c_mid1_12", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊",
+        word: "within walking distance of", syllable: "walk · ing · dis · tance",
+        meaning: "phr. 在步行可達（某地）的距離內",
+        hack: "【中翻英黃金塊】背熟整串：<code>live within walking distance of these stores</code>（住在步行可達這些店家的距離內）。",
+        example: "It is very convenient to live within walking distance of these stores. (一段翻譯)"
+      }
+    ];
+
+    const QUIZ_DB = [
+      // 10/25 Quiz Items (linked to cardId)
+      { id: "q_1025_1", pack: "lichi_1025", cardId: "c_1025_01", meta: "李奇 10/25 Q17 新聞高階字", q: "Spreading unverified rumors online will only ______ the public's trust in the healthcare policy.", opts: ["(A) decline", "(B) undermine", "(C) reinforce", "(D) subscribe"], ans: 1, exp: "<code>under</code>(下) + <code>mine</code>(挖地道) = 暗中削弱、損害（信任）。" },
+      { id: "q_1025_2", pack: "lichi_1025", cardId: "c_1025_02", meta: "李奇 10/25 Q18 字首字根", q: "Without proper parental ______, teenagers may easily fall prey to online scams.", opts: ["(A) supervision", "(B) substance", "(C) subscription", "(D) submission"], ans: 0, exp: "<code>super-</code>(在上方) + <code>vis</code>(看) = 居高臨下監督（supervision）。" },
+      { id: "q_1025_3", pack: "lichi_1025", cardId: "c_1025_03", meta: "李奇 10/25 Q19 Gordon 畫圈字", q: "Don't listen to that online ______; he is exaggerating the crisis merely to sell his products.", opts: ["(A) philosopher", "(B) politician", "(C) scaremonger", "(D) bystander"], ans: 2, exp: "<code>scare</code>(恐嚇) + <code>monger</code>(散播者) = 危言聳聽者、製造恐慌的人。" },
+      { id: "q_1025_4", pack: "lichi_1025", cardId: "c_1025_04", meta: "李奇 10/25 Q27 熟詞生義", q: "Many famous YouTube ______ were invited to the product launch event to promote the new phone.", opts: ["(A) puppets", "(B) audiences", "(C) personalities", "(D) spectators"], ans: 2, exp: "複數 <code>personalities</code> 常考熟詞生義 = 名人、網紅（celebrities）！" },
+      { id: "q_1025_5", pack: "lichi_1025", cardId: "c_1025_05", meta: "李奇 10/25 Q28 高頻片語", q: "Deepfake technology has advanced so rapidly that it is almost impossible to ______ real videos ______ fake ones.", opts: ["(A) tell ... apart", "(B) make ... out", "(C) take ... apart", "(D) look ... into"], ans: 0, exp: "<code>tell A and B apart</code> = 分辨、區分兩者。" },
+      { id: "q_1025_6", pack: "lichi_1025", cardId: "c_1025_06", meta: "李奇 10/25 Q26 實用語塊", q: "The committee rejected the controversial claim because the report completely ______ concrete proof.", opts: ["(A) defeats", "(B) lacks", "(C) deceives", "(D) abuses"], ans: 1, exp: "<code>lacks concrete proof</code> = 缺乏具體證據。" },
+      { id: "q_1025_7", pack: "lichi_1025", cardId: "c_1025_11", meta: "李奇 10/25 Q42 時態鐵律", q: "Up to now, the rescue team ______ nearly three hundred survivors from the earthquake zone.", opts: ["(A) rescues", "(B) is rescuing", "(C) has rescued", "(D) had rescued"], ans: 2, exp: "看到 <code>Up to now</code>（直到目前為止），必用現在完成式 <code>has rescued</code>！" },
+      { id: "q_1025_8", pack: "lichi_1025", cardId: "c_1025_12", meta: "李奇 10/25 Q43 時態人稱悖論", q: "Which of the following sentences is grammatically and logically CORRECT?", opts: ["(A) Where is David? He has been to the library and will return later.", "(B) Hello everyone! I have gone to Tainan three times.", "(C) I had never seen such a beautiful meteor shower before last night.", "(D) By the time Mom will come home, I will finish homework."], ans: 2, exp: "(B) 說話者 I 站在面前不能說 I have gone to（去了沒回）！正解為 (C)。" },
+      { id: "q_1025_9", pack: "lichi_1025", cardId: "c_1025_13", meta: "李奇 10/25 Q54 課本音節拼字", q: "Regular exercise can strengthen your immune system and protect you from infectious d________es.", opts: ["(A) diseases", "(B) diseqes", "(C) disasters", "(D) distances"], ans: 0, exp: "<code>dis-</code> + <code>ease</code>(舒適) = <code>diseases</code>（疾病）。" },
+      { id: "q_1025_10", pack: "lichi_1025", cardId: "c_1025_14", meta: "李奇 10/25 Q55 課本音節拼字", q: "Excessive e________re to ultraviolet radiation without sunscreen can damage your skin.", opts: ["(A) posure", "(B) exposure", "(C) explosion", "(D) expansion"], ans: 1, exp: "<code>ex-po-sure</code>，開頭發 /ɪk/ 必有字首 <code>ex-</code>！" },
+
+      // 10/18 Quiz Items
+      { id: "q_1018_1", pack: "lichi_1018", cardId: "c_1018_01", meta: "李奇 10/18 Q3 跨卷必考搭配", q: "Wise parents encourage their children not to ______ with peers who constantly spread negative energy.", opts: ["(A) attend", "(B) associate", "(C) attract", "(D) arrest"], ans: 1, exp: "看到 <code>with</code> ➔ <code>associate with sb</code>（與某人交往）！" },
+      { id: "q_1018_2", pack: "lichi_1018", cardId: "c_1018_02", meta: "李奇 10/18 Q6 熟詞生義", q: "Whenever the manager enters the office, Mark immediately ______ a busy and serious look.", opts: ["(A) assumes", "(B) attempts", "(C) assigns", "(D) assists"], ans: 0, exp: "<code>assume a serious look</code> = 擺出一副嚴肅的表情。" },
+      { id: "q_1018_3", pack: "lichi_1018", cardId: "c_1018_04", meta: "李奇 10/18 Q14 片語辨析", q: "During the royal banquet, twenty servants were hired to ______ the foreign guests.", opts: ["(A) wait for", "(B) take a seat", "(C) wait on", "(D) look up"], ans: 2, exp: "<code>wait on sb</code> = 服侍、伺候某人。" },
+      { id: "q_1018_4", pack: "lichi_1018", cardId: "c_1018_07", meta: "李奇 10/18 Q51 無被動動詞", q: "Choose the grammatically CORRECT sentence.", opts: ["(A) The sports meet will be taken place in May.", "(B) The crash was resulted from reckless driving.", "(C) Let the issue be discussed openly before deciding.", "(D) The old bridge was collapsed during the storm."], ans: 2, exp: "take place / result from / collapse 均無被動式！(C) <code>Let + O + be + p.p.</code> 正確。" },
+      { id: "q_1018_5", pack: "lichi_1018", cardId: "c_1018_08", meta: "李奇 10/18 Q53 無被動動詞", q: "______ that a severe forest fire ______ in northern California two days ago.", opts: ["(A) It reported; was broken out", "(B) It is reported; broke out", "(C) It was reported; was breaking out", "(D) It is reported; was broken out"], ans: 1, exp: "<code>break out</code>（爆發）是不及物片語，絕對無被動式！" }
+    ];
+
+    // ============================================================================
+    // 2. STATE MANAGEMENT & AUTOMATIC CLOUD SYNC (ntfy + Google Sheets + localStorage)
+    // ============================================================================
+    const STORAGE_KEY = "gordon_en_sniper_state_v2";
+    const CLOUD_TOPIC = "gordon_en_sniper_d72b5fa7";
+
+    let appState = {
+      student: "Gordon",
+      lastUpdated: new Date().toISOString(),
+      gasUrl: "",
+      cards: {}, // cardId -> { status: 'new'|'mastered'|'review'|'sos', errCount: 0, reviewCount: 0, updatedAt: '' }
+      quizHistory: []
+    };
+
+    let currentStatusFilter = "todo"; // 'todo' | 'sos' | 'mastered' | 'all'
+    let currentPackFilter = "all";
+    let currentCatFilter = "all";
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          appState = { ...appState, ...parsed };
+        }
+      } catch (e) { console.error(e); }
+
+      // Ensure all cards exist in state
+      CARDS_DB.forEach(c => {
+        if (!appState.cards[c.id]) {
+          appState.cards[c.id] = { status: "new", errCount: 0, reviewCount: 0, updatedAt: "" };
+        }
+      });
+
+      const gasInput = document.getElementById("gas-url-input");
+      if (gasInput && appState.gasUrl) gasInput.value = appState.gasUrl;
+    }
+
+    function saveState(triggerCloud = true) {
+      appState.lastUpdated = new Date().toISOString();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      updateCounters();
+      renderReportSummary();
+      if (triggerCloud) {
+        syncToCloudSilent();
+      }
+    }
+
+    let syncTimeout = null;
+    function syncToCloudSilent() {
+      const badge = document.getElementById("sync-indicator");
+      badge.className = "sync-badge syncing";
+      badge.innerText = "🔄 同步雲端中...";
+
+      if (syncTimeout) clearTimeout(syncTimeout);
+      syncTimeout = setTimeout(async () => {
+        try {
+          const payload = buildCompactSyncPayload();
+          // 1. Send to zero-config cloud relay so PC/AI can pull anytime
+          await fetch(`https://ntfy.sh/${CLOUD_TOPIC}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          // 2. If Google Apps Script URL is configured, also post to Google Sheets
+          if (appState.gasUrl && appState.gasUrl.startsWith("https://")) {
+            fetch(appState.gasUrl, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            }).catch(() => {});
+          }
+
+          badge.className = "sync-badge";
+          badge.innerText = "☁️ 雲端已同步";
+        } catch (err) {
+          badge.className = "sync-badge";
+          badge.innerText = "💾 已存手機本機";
+        }
+      }, 600);
+    }
+
+    function buildCompactSyncPayload() {
+      const summary = { mastered: [], review: [], sos: [], errCards: {} };
+      CARDS_DB.forEach(c => {
+        const st = appState.cards[c.id] || { status: "new", errCount: 0 };
+        if (st.status === "mastered") summary.mastered.push(c.word);
+        if (st.status === "review") summary.review.push(c.word);
+        if (st.status === "sos") summary.sos.push(c.word);
+        if (st.errCount > 0) summary.errCards[c.word] = st.errCount;
+      });
+      return {
+        type: "gordon_state_sync",
+        timestamp: new Date().toISOString(),
+        summary,
+        cards: appState.cards
+      };
+    }
+
+    function forceCloudSync(showNotice = false) {
+      syncToCloudSilent();
+      if (showNotice) showToast("☁️ 已將最新學習狀態同步至雲端！AI 可隨時讀取判讀！");
+    }
+
+    // ============================================================================
+    // 3. UI RENDERING & ACTIONS
+    // ============================================================================
+    function updateCounters() {
+      let todo = 0, sos = 0, mastered = 0, all = 0;
+      CARDS_DB.forEach(c => {
+        if (currentPackFilter !== "all" && c.pack !== currentPackFilter) return;
+        if (currentCatFilter !== "all" && c.cat !== currentCatFilter) return;
+        all++;
+        const st = (appState.cards[c.id] && appState.cards[c.id].status) || "new";
+        if (st === "mastered") {
+          mastered++;
+        } else {
+          todo++;
+          if (st === "sos") sos++;
+        }
+      });
+      document.getElementById("cnt-todo").innerText = todo;
+      document.getElementById("cnt-sos").innerText = sos;
+      document.getElementById("cnt-mastered").innerText = mastered;
+      document.getElementById("cnt-all").innerText = all;
+    }
+
+    function renderFlashcards() {
+      updateCounters();
+      const container = document.getElementById("fc-container");
+      const filtered = CARDS_DB.filter(c => {
+        if (currentPackFilter !== "all" && c.pack !== currentPackFilter) return false;
+        if (currentCatFilter !== "all" && c.cat !== currentCatFilter) return false;
+        const st = (appState.cards[c.id] && appState.cards[c.id].status) || "new";
+        if (currentStatusFilter === "todo") return st !== "mastered";
+        if (currentStatusFilter === "sos") return st === "sos";
+        if (currentStatusFilter === "mastered") return st === "mastered";
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        let msg = "🎉 太強了！這個分類下的卡片已經全部被你「😎 封印」光了！";
+        if (currentStatusFilter === "sos") msg = "✨ 目前「🛏️ 睡前急救室」是空的，沒有卡住的死穴單字！";
+        if (currentStatusFilter === "mastered") msg = "目前還沒有封印的卡片，快去「🔥 待消滅清單」把背熟的字封印起來吧！";
+        container.innerHTML = `<div class="empty-state"><h3>${msg}</h3></div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(c => {
+        const stObj = appState.cards[c.id] || { status: "new", errCount: 0 };
+        const st = stObj.status;
+        const statusLabel =
+          st === "sos" ? "🆘 睡前急救死穴" :
+          st === "review" ? "🤔 明天再考" :
+          st === "mastered" ? "😎 已封印" : "🆕 待測試";
+
+        return `
+          <div class="fc-card status-${st}" id="card-${c.id}">
+            <div class="fc-top">
+              <div class="fc-badges">
+                <span class="badge-pack">${c.packName}</span>
+                <span class="badge-cat">${c.catName}</span>
+                ${stObj.errCount > 0 ? `<span class="badge-err">⚠️ 測驗錯 ${stObj.errCount} 次</span>` : ""}
+              </div>
+              <span class="status-pill ${st}">${statusLabel}</span>
+            </div>
+
+            <div class="fc-body" onclick="toggleFlip('${c.id}')">
+              <div class="fc-word-row">
+                <div>
+                  <div class="fc-word">${c.word}</div>
+                  <div class="fc-syllable">🗣️ 音節/重點：${c.syllable}</div>
+                </div>
+                <button class="speak-btn" onclick="speakWord(event, '${c.word.replace(/'/g, "\\'")}')">🔊 念出聲</button>
+              </div>
+              <div class="fc-flip-hint">👆 點擊卡片翻面看「字根拆解＆秒殺公式」</div>
+
+              <div class="fc-answer">
+                <div class="ans-meaning">${c.meaning}</div>
+                <div class="ans-hack">${c.hack}</div>
+                <div class="ans-ex">📌 考卷真題：${c.example}</div>
+              </div>
+            </div>
+
+            <div class="fc-actions">
+              <button class="act-btn btn-seal ${st === 'mastered' ? 'selected' : ''}" onclick="markCard('${c.id}', 'mastered')">
+                <span class="act-title">😎 秒懂！封印</span>
+                <span class="act-res">➔ 待背清單 -1<br>明天不用再背</span>
+              </button>
+              <button class="act-btn btn-later ${st === 'review' ? 'selected' : ''}" onclick="markCard('${c.id}', 'review')">
+                <span class="act-title">🤔 明天再考我</span>
+                <span class="act-res">➔ 留在日常池<br>明天車上繼續刷</span>
+              </button>
+              <button class="act-btn btn-sos ${st === 'sos' ? 'selected' : ''}" onclick="markCard('${c.id}', 'sos')">
+                <span class="act-title">🆘 睡前急救室</span>
+                <span class="act-res">➔ 睡前必看5分鐘<br>呼叫AI換口訣</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function toggleFlip(cardId) {
+      const el = document.getElementById(`card-${cardId}`);
+      if (el) {
+        el.classList.toggle("flipped");
+        if (appState.cards[cardId]) {
+          appState.cards[cardId].reviewCount = (appState.cards[cardId].reviewCount || 0) + 1;
+        }
+      }
+    }
+
+    function speakWord(ev, text) {
+      ev.stopPropagation();
+      const clean = text.replace(/vs\.|\.\.\.|\/|\+/g, " ");
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(clean);
+        u.lang = "en-US";
+        u.rate = 0.92;
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    function markCard(cardId, newStatus) {
+      const card = CARDS_DB.find(x => x.id === cardId);
+      if (!card) return;
+      appState.cards[cardId] = {
+        ...appState.cards[cardId],
+        status: newStatus,
+        updatedAt: new Date().toISOString()
+      };
+      saveState(true);
+
+      if (newStatus === "mastered") {
+        showToast(`😎 已封印「${card.word}」！從待消滅清單移除！`);
+      } else if (newStatus === "review") {
+        showToast(`🤔「${card.word}」已留在日常清單，明天再考你一次！`);
+      } else if (newStatus === "sos") {
+        showToast(`🆘 已把「${card.word}」送進【🛏️睡前急救室】，AI 下週會幫你特別加強！`);
+      }
+      renderFlashcards();
+    }
+
+    function setStatusFilter(filter) {
+      currentStatusFilter = filter;
+      ["todo", "sos", "mastered", "all"].forEach(k => {
+        document.getElementById(`st-${k}`).classList.toggle("active", k === filter);
+      });
+      switchMainTab("fc");
+      renderFlashcards();
+    }
+
+    function setPackFilter(pack, btn) {
+      currentPackFilter = pack;
+      document.querySelectorAll("#pack-chips .chip").forEach(c => c.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById("current-filter-desc").innerText = btn.innerText;
+      renderFlashcards();
+      renderQuiz();
+    }
+
+    function setCatFilter(cat, btn) {
+      currentCatFilter = cat;
+      document.querySelectorAll("#cat-chips .chip").forEach(c => c.classList.remove("active"));
+      btn.classList.add("active");
+      renderFlashcards();
+    }
+
+    function switchMainTab(tab) {
+      ["fc", "quiz", "report"].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.toggle("active", t === tab);
+        document.getElementById(`sec-${t}`).style.display = (t === tab) ? "block" : "none";
+      });
+      document.getElementById("filter-panel").style.display = (tab === "report") ? "none" : "block";
+      if (tab === "report") renderReportSummary();
+    }
+
+    // ============================================================================
+    // 4. INTERACTIVE QUIZ WITH AUTO-SOS ESCALATION
+    // ============================================================================
+    let quizScore = 0;
+    let quizAnswered = new Set();
+
+    function renderQuiz() {
+      quizScore = 0;
+      quizAnswered.clear();
+      const list = QUIZ_DB.filter(q => currentPackFilter === "all" || q.pack === currentPackFilter);
+      document.getElementById("q-score").innerText = "0";
+      document.getElementById("q-total").innerText = list.length;
+
+      const container = document.getElementById("quiz-container");
+      container.innerHTML = list.map((q, idx) => `
+        <div class="q-card" id="qbox-${q.id}">
+          <div class="q-meta">${q.meta}</div>
+          <div class="q-text">${idx + 1}. ${q.q}</div>
+          <div class="q-opts">
+            ${q.opts.map((opt, oIdx) => `
+              <button class="q-opt" onclick="answerQuiz('${q.id}', ${oIdx}, this)">${opt}</button>
+            `).join("")}
+          </div>
+          <div class="q-exp" id="qexp-${q.id}"></div>
+        </div>
+      `).join("");
+    }
+
+    function answerQuiz(qId, optIdx, btn) {
+      if (quizAnswered.has(qId)) return;
+      quizAnswered.add(qId);
+
+      const q = QUIZ_DB.find(x => x.id === qId);
+      const box = document.getElementById(`qbox-${qId}`);
+      const btns = box.querySelectorAll(".q-opt");
+      const expEl = document.getElementById(`qexp-${qId}`);
+      btns.forEach(b => b.disabled = true);
+
+      const linkedCard = CARDS_DB.find(c => c.id === q.cardId);
+
+      if (optIdx === q.ans) {
+        btn.classList.add("correct");
+        quizScore++;
+        document.getElementById("q-score").innerText = quizScore;
+        expEl.innerHTML = `
+          <div>✅ <b>答對了！</b> ${q.exp}</div>
+          ${linkedCard ? `<div class="q-auto-tag" style="background: var(--green-bg); color: #86efac;">💡 這題你已經掌握了！<button onclick="markCard('${linkedCard.id}', 'mastered')" style="margin-left:8px; background:#22c55e; color:#0f172a; border:none; padding:3px 8px; border-radius:6px; font-weight:800; cursor:pointer;">點此直接 😎 封印「${linkedCard.word}」</button></div>` : ""}
+        `;
+      } else {
+        btn.classList.add("wrong");
+        btns[q.ans].classList.add("correct");
+        if (linkedCard) {
+          const prev = appState.cards[linkedCard.id] || { status: "new", errCount: 0 };
+          appState.cards[linkedCard.id] = {
+            ...prev,
+            status: "sos",
+            errCount: (prev.errCount || 0) + 1,
+            updatedAt: new Date().toISOString()
+          };
+          saveState(true);
+        }
+        expEl.innerHTML = `
+          <div>❌ <b>答錯囉！</b> ${q.exp}</div>
+          ${linkedCard ? `<div class="q-auto-tag" style="background: var(--red-bg); color: #fca5a5;">⚡ 系統已自動將「<b>${linkedCard.word}</b>」放進【🛏️ 睡前急救室(🆘)】，今晚睡前看 10 秒就搞定！</div>` : ""}
+        `;
+        showToast(`⚡ 答錯自動連動：已將「${linkedCard ? linkedCard.word : '此題'}」加入 🛏️ 睡前急救室！`);
+      }
+      expEl.style.display = "block";
+    }
+
+    function resetQuiz() {
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // ============================================================================
+    // 5. AI REPORT, EXPORT CSV/JSON & GOOGLE SHEETS CONFIG
+    // ============================================================================
+    function renderReportSummary() {
+      const box = document.getElementById("report-summary");
+      if (!box) return;
+      const mastered = [], review = [], sos = [];
+      CARDS_DB.forEach(c => {
+        const st = (appState.cards[c.id] && appState.cards[c.id].status) || "new";
+        if (st === "mastered") mastered.push(c.word);
+        if (st === "review") review.push(c.word);
+        if (st === "sos") sos.push(`${c.word} (${c.packName})`);
+      });
+
+      const pct = Math.round((mastered.length / CARDS_DB.length) * 100);
+      box.innerHTML = `
+        <div style="margin-bottom: 6px;">📈 <b>總體封印進度：</b> ${mastered.length} / ${CARDS_DB.length} 張 (${pct}%)</div>
+        <div style="margin-bottom: 6px; color: #86efac;">😎 <b>已秒懂封印 (${mastered.length})：</b> ${mastered.length ? mastered.join(", ") : "尚無"}</div>
+        <div style="margin-bottom: 6px; color: #fcd34d;">🤔 <b>明天再考 (${review.length})：</b> ${review.length ? review.join(", ") : "尚無"}</div>
+        <div style="color: #fca5a5;">🆘 <b>睡前急救室死穴 (${sos.length})：</b> ${sos.length ? sos.join("、") : "目前 0 死穴！"}</div>
+      `;
+    }
+
+    function copyReportText() {
+      const p = buildCompactSyncPayload();
+      const text = [
+        `【⚡ Gordon 英文閃卡學習狀態戰報】`,
+        `時間：${new Date().toLocaleString("zh-TW")}`,
+        `😎 已秒懂封印 (${p.summary.mastered.length}字)：${p.summary.mastered.join(", ") || "無"}`,
+        `🤔 明天再考 (${p.summary.review.length}字)：${p.summary.review.join(", ") || "無"}`,
+        `🆘 睡前急救室死穴 (${p.summary.sos.length}字)：${p.summary.sos.join(", ") || "無"}`,
+        `⚠️ 測驗累計答錯紀錄：${JSON.stringify(p.summary.errCards)}`
+      ].join("\n");
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("📋 已複製學習戰報！可直接貼給爸媽或 AI！");
+      });
+    }
+
+    function exportCSV() {
+      const rows = [["卡片ID", "考試進度", "分類", "英文單字/語塊", "音節/重點", "中文意義", "目前狀態", "測驗答錯次數", "最後更新時間"]];
+      CARDS_DB.forEach(c => {
+        const st = appState.cards[c.id] || { status: "new", errCount: 0, updatedAt: "" };
+        const label = st.status === "mastered" ? "已封印(✓)" : st.status === "sos" ? "睡前急救(★)" : st.status === "review" ? "明天再考(○)" : "未測試";
+        rows.push([c.id, c.packName, c.catName, `"${c.word}"`, `"${c.syllable}"`, `"${c.meaning}"`, label, st.errCount || 0, st.updatedAt || ""]);
+      });
+      const csvContent = "\uFEFF" + rows.map(r => r.join(",")).join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `Gordon_閃卡學習狀態總表.csv`;
+      a.click();
+      showToast("📥 已下載 CSV 試算表紀錄檔！");
+    }
+
+    function exportJSON() {
+      const data = JSON.stringify(buildCompactSyncPayload(), null, 2);
+      const blob = new Blob([data], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `Gordon_閃卡學習狀態紀錄.json`;
+      a.click();
+      showToast("📥 已下載 AI 診斷 JSON 檔！");
+    }
+
+    function saveGasUrl() {
+      const val = document.getElementById("gas-url-input").value.trim();
+      appState.gasUrl = val;
+      saveState(true);
+      showToast("💾 已儲存 Google 試算表同步網址！");
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.style.display = "block";
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { t.style.display = "none"; }, 3200);
+    }
+
+    window.onload = () => {
+      loadState();
+      renderFlashcards();
+      renderQuiz();
+    };
+  </script>
+</body>
+</html>
