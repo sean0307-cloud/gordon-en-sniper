@@ -6,15 +6,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Gordon閃卡" />
-  <title>🌿 Gordon 專屬英文單卡記憶系統</title>
+  <title>🌿 Gordon 專屬英文分週進度閃卡系統</title>
   <style>
     :root {
       --bg: #F5F4EF;
       --card: #FFFFFF;
       --text: #2C3539;
       --text-sub: #64748B;
-      --primary: #3B6E8C;
-      --primary-light: #EBF3F7;
+      --primary: #2563EB;
+      --primary-dark: #1E3A8A;
+      --primary-light: #EFF6FF;
       --green: #2E7D5B;
       --green-light: #E8F5EE;
       --amber: #C27803;
@@ -31,8 +32,8 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      line-height: 1.6;
-      padding: 14px 14px 40px;
+      line-height: 1.55;
+      padding: 12px 14px 40px;
       max-width: 540px;
       margin: 0 auto;
       min-height: 100vh;
@@ -45,7 +46,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .app-title {
       font-size: 1.05rem;
@@ -65,6 +66,106 @@
       cursor: pointer;
     }
 
+    /* =========================================================================
+       STEP 1: VISUAL WEEKLY PROGRESS SELECTOR (ISOLATED BY WEEK)
+       ========================================================================= */
+    .pack-selector-box {
+      background: #FFFFFF;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+    .pack-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .pack-header-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pack-isolation-badge {
+      font-size: 0.7rem;
+      background: #DBEAFE;
+      color: #1E40AF;
+      padding: 2px 7px;
+      border-radius: 99px;
+      font-weight: 700;
+    }
+    .pack-scroll {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .pack-card-btn {
+      border: 1.5px solid var(--border);
+      background: #FAF9F6;
+      border-radius: 10px;
+      padding: 7px 9px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .pack-card-btn.full-span {
+      grid-column: span 2;
+      flex-direction: row;
+      align-items: center;
+    }
+    .pack-card-btn.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.14);
+    }
+    .pack-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 2px;
+    }
+    .pack-name {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .pack-card-btn.active .pack-name {
+      color: var(--primary-dark);
+    }
+    .pack-badge-new {
+      background: #DC2626;
+      color: #FFFFFF;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+    .pack-sub {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+    .pack-prog-pill {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--green);
+      background: var(--green-light);
+      padding: 1px 6px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
     /* Mode Switcher Bar (4 Clean Tabs) */
     .mode-bar {
       display: grid;
@@ -73,22 +174,22 @@
       background: #EAE8E0;
       padding: 4px;
       border-radius: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .mode-btn {
       border: none;
       background: transparent;
       color: var(--text-sub);
-      padding: 8px 4px;
+      padding: 7px 4px;
       border-radius: 9px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.15s;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 1px;
     }
     .mode-btn.active {
       background: var(--card);
@@ -100,39 +201,47 @@
       font-weight: 800;
     }
 
-    /* Simple Dropdown Filters */
-    .filter-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 12px;
+    /* Category Pill Filter Row */
+    .cat-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+      scrollbar-width: none;
     }
-    .select-box {
-      width: 100%;
-      padding: 9px 12px;
-      border-radius: 10px;
+    .cat-bar::-webkit-scrollbar { display: none; }
+    .cat-pill {
       border: 1px solid var(--border);
       background: var(--card);
-      color: var(--text);
-      font-size: 0.85rem;
+      color: var(--text-sub);
+      padding: 5px 11px;
+      border-radius: 99px;
+      font-size: 0.78rem;
       font-weight: 700;
-      outline: none;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .cat-pill.active {
+      background: var(--text);
+      color: #FFFFFF;
+      border-color: var(--text);
     }
 
     /* Progress Bar */
     .progress-wrap {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .progress-info {
       display: flex;
       justify-content: space-between;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-sub);
-      font-weight: 600;
-      margin-bottom: 5px;
+      font-weight: 700;
+      margin-bottom: 4px;
     }
     .progress-track {
-      height: 8px;
+      height: 7px;
       background: #E2E0D8;
       border-radius: 99px;
       overflow: hidden;
@@ -149,28 +258,28 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 22px 20px;
+      padding: 20px 18px;
       box-shadow: var(--shadow);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 410px;
+      min-height: 395px;
     }
 
     .card-meta-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
     .meta-tag {
-      font-size: 0.76rem;
-      font-weight: 700;
+      font-size: 0.75rem;
+      font-weight: 800;
       padding: 3px 10px;
       border-radius: 99px;
       background: var(--primary-light);
-      color: var(--primary);
+      color: var(--primary-dark);
     }
     .status-tag {
       font-size: 0.75rem;
@@ -181,12 +290,12 @@
     /* Word Hero Display */
     .word-hero {
       text-align: center;
-      padding: 18px 8px 22px;
+      padding: 14px 8px 18px;
       border-bottom: 1px solid #F0EFEA;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .word-main {
-      font-size: 1.85rem;
+      font-size: 1.78rem;
       font-weight: 800;
       color: var(--text);
       letter-spacing: 0.3px;
@@ -195,7 +304,7 @@
       word-break: break-word;
     }
     .word-syllable {
-      font-size: 1.02rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 12px;
@@ -205,11 +314,11 @@
       align-items: center;
       gap: 6px;
       background: var(--primary-light);
-      color: var(--primary);
-      border: 1px solid #C5DCE8;
+      color: var(--primary-dark);
+      border: 1px solid #BFDBFE;
       padding: 7px 16px;
       border-radius: 99px;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 700;
       cursor: pointer;
     }
@@ -233,7 +342,7 @@
       background: #FAF9F6;
       border: 1.5px solid var(--border);
       border-radius: 12px;
-      padding: 12px 14px;
+      padding: 11px 14px;
       text-align: left;
       font-size: 0.92rem;
       font-weight: 600;
@@ -250,8 +359,8 @@
       background: transparent;
       border: 1px dashed #CBD5E1;
       border-radius: 10px;
-      padding: 9px;
-      font-size: 0.82rem;
+      padding: 8px;
+      font-size: 0.8rem;
       color: var(--text-sub);
       font-weight: 600;
       cursor: pointer;
@@ -270,9 +379,9 @@
     .result-banner {
       padding: 8px 12px;
       border-radius: 10px;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 800;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       text-align: center;
     }
     .result-banner.pass {
@@ -287,7 +396,7 @@
     }
 
     .meaning-title {
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       font-weight: 800;
       color: var(--text);
       margin-bottom: 8px;
@@ -296,19 +405,19 @@
     .hack-card {
       background: #F8FAFC;
       border-left: 4px solid var(--primary);
-      padding: 10px 12px;
+      padding: 9px 12px;
       border-radius: 0 10px 10px 0;
-      font-size: 0.88rem;
+      font-size: 0.87rem;
       color: var(--text);
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
     .example-line {
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       color: var(--text-sub);
       background: #F5F4EF;
       padding: 8px 10px;
       border-radius: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     /* Consequence Action Buttons */
@@ -320,7 +429,7 @@
     .conseq-btn {
       width: 100%;
       border-radius: 12px;
-      padding: 12px 14px;
+      padding: 11px 14px;
       border: 1.5px solid transparent;
       cursor: pointer;
       text-align: left;
@@ -330,8 +439,8 @@
       transition: transform 0.1s;
     }
     .conseq-btn:active { transform: scale(0.98); }
-    .c-main { font-size: 0.92rem; font-weight: 800; display: block; }
-    .c-sub { font-size: 0.75rem; opacity: 0.85; display: block; margin-top: 2px; }
+    .c-main { font-size: 0.9rem; font-weight: 800; display: block; }
+    .c-sub { font-size: 0.74rem; opacity: 0.85; display: block; margin-top: 2px; }
     .c-arrow { font-size: 1.1rem; font-weight: 800; }
 
     .btn-seal {
@@ -373,7 +482,7 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 18px;
+      padding: 16px;
       margin-bottom: 12px;
       box-shadow: var(--shadow);
     }
@@ -389,8 +498,20 @@
       border-radius: 10px;
       border: 1px solid var(--border);
     }
-    .stat-item-val { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
-    .stat-item-lbl { font-size: 0.76rem; color: var(--text-sub); }
+    .stat-item-val { font-size: 1.15rem; font-weight: 800; color: var(--primary); }
+    .stat-item-lbl { font-size: 0.75rem; color: var(--text-sub); }
+
+    .pack-breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 10px;
+      background: #FAF9F6;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+    }
 
     .full-btn {
       width: 100%;
@@ -400,7 +521,7 @@
       background: var(--card);
       color: var(--text);
       font-weight: 700;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       cursor: pointer;
       margin-bottom: 8px;
       text-align: center;
@@ -433,11 +554,70 @@
 
   <!-- Header -->
   <div class="header">
-    <div class="app-title">🌿 Gordon 英文單卡記憶</div>
+    <div class="app-title">🌿 Gordon 分週進度閃卡</div>
     <div id="sync-status" class="sync-pill" onclick="forceSync(true)">☁️ 自動同步中</div>
   </div>
 
-  <!-- 4 Clean Mode Tabs -->
+  <!-- =========================================================================
+       STEP 1: VISUAL WEEKLY PROGRESS SELECTOR (DEFAULT = THIS WEEK 11/01)
+       ========================================================================= -->
+  <div class="pack-selector-box">
+    <div class="pack-header-row">
+      <div class="pack-header-title">📅 選擇測驗進度（點選切換）</div>
+      <span class="pack-isolation-badge">獨立題庫 · 不混入別週單字</span>
+    </div>
+    <div class="pack-scroll">
+      <!-- THIS WEEK: 11/01 (Full-width prominent card, default active!) -->
+      <button class="pack-card-btn full-span active" id="pack-btn-lichi_1101" onclick="selectPack('lichi_1101')">
+        <div>
+          <div class="pack-card-top">
+            <span class="pack-name">🔥 本週進度：李奇 11/01 小考</span>
+            <span class="pack-badge-new">NEW 本週必背</span>
+          </div>
+          <div class="pack-sub">9000單 B篇 (p.26–30) 單字＋片語 · 共 28 張</div>
+        </div>
+        <span class="pack-prog-pill" id="prog-lichi_1101">0 / 28 已封印</span>
+      </button>
+
+      <!-- LAST WEEK: 10/25 -->
+      <button class="pack-card-btn" id="pack-btn-lichi_1025" onclick="selectPack('lichi_1025')">
+        <div class="pack-card-top">
+          <span class="pack-name">📅 李奇 10/25</span>
+          <span class="pack-prog-pill" id="prog-lichi_1025">0/16</span>
+        </div>
+        <div class="pack-sub">上週小考弱點 (16張)</div>
+      </button>
+
+      <!-- PREV WEEK: 10/18 -->
+      <button class="pack-card-btn" id="pack-btn-lichi_1018" onclick="selectPack('lichi_1018')">
+        <div class="pack-card-top">
+          <span class="pack-name">📅 李奇 10/18</span>
+          <span class="pack-prog-pill" id="prog-lichi_1018">0/12</span>
+        </div>
+        <div class="pack-sub">前週小考弱點 (12張)</div>
+      </button>
+
+      <!-- SCHOOL MIDTERM 1 -->
+      <button class="pack-card-btn" id="pack-btn-midterm1" onclick="selectPack('midterm1')">
+        <div class="pack-card-top">
+          <span class="pack-name">🏫 一中一段</span>
+          <span class="pack-prog-pill" id="prog-midterm1">0/12</span>
+        </div>
+        <div class="pack-sub">學校段考核心 (12張)</div>
+      </button>
+
+      <!-- ALL WEEKS REVIEW -->
+      <button class="pack-card-btn" id="pack-btn-all" onclick="selectPack('all')">
+        <div class="pack-card-top">
+          <span class="pack-name">📚 跨週總複習</span>
+          <span class="pack-prog-pill" id="prog-all">0/68</span>
+        </div>
+        <div class="pack-sub">全部進度合輯 (68張)</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- 4 Clean Mode Tabs (Counts apply strictly to the selected week!) -->
   <div class="mode-bar">
     <button class="mode-btn active" id="m-todo" onclick="switchMode('todo')">
       <span class="mode-count" id="num-todo">0</span>
@@ -457,28 +637,20 @@
     </button>
   </div>
 
-  <!-- Filter Dropdowns -->
-  <div class="filter-row" id="filter-bar">
-    <select class="select-box" id="pack-select" onchange="onFilterChange()">
-      <option value="all">📅 全部考試進度 (40)</option>
-      <option value="lichi_1025">🔥 李奇 10/25 小考 (16)</option>
-      <option value="lichi_1018">⚡ 李奇 10/18 小考 (12)</option>
-      <option value="midterm1">🏫 一中一段核心 (12)</option>
-    </select>
-    <select class="select-box" id="cat-select" onchange="onFilterChange()">
-      <option value="all">🎯 全部弱點類型</option>
-      <option value="roots">🧩 字根樂高 (新聞字)</option>
-      <option value="phonics">🔤 音節拼讀 (防拼錯)</option>
-      <option value="chunks">🔗 黃金語塊 (搭配詞)</option>
-      <option value="grammar">⚡ 文法時態秒殺</option>
-    </select>
+  <!-- One-Tap Category Pills within the Selected Week -->
+  <div class="cat-bar" id="filter-bar">
+    <button class="cat-pill active" id="cat-all" onclick="selectCat('all')">🎯 本週全部</button>
+    <button class="cat-pill" id="cat-phonics" onclick="selectCat('phonics')">🔤 單字與音節</button>
+    <button class="cat-pill" id="cat-chunks" onclick="selectCat('chunks')">🔗 必考片語＆搭配詞</button>
+    <button class="cat-pill" id="cat-roots" onclick="selectCat('roots')">⚠️ 熟詞生義＆字根</button>
+    <button class="cat-pill" id="cat-grammar" onclick="selectCat('grammar')">⚡ 文法秒殺</button>
   </div>
 
   <!-- MAIN SINGLE-CARD STAGE -->
   <div id="deck-view">
     <div class="progress-wrap">
       <div class="progress-info">
-        <span id="deck-label">目前卡堆：🔥 待消滅清單</span>
+        <span id="deck-label">目前範圍：李奇 11/01 · 🔥 待消滅</span>
         <span id="deck-counter">第 1 / 1 張</span>
       </div>
       <div class="progress-track">
@@ -490,7 +662,7 @@
 
     <div class="nav-bar" id="nav-bar">
       <button class="nav-btn" onclick="stepCard(-1)">⬅️ 上一張</button>
-      <span style="font-size: 0.76rem; color: var(--text-sub);">選對意思才可解鎖「😎 封印」</span>
+      <span style="font-size: 0.75rem; color: var(--text-sub); font-weight: 600;">選對意思才可解鎖「😎 封印」</span>
       <button class="nav-btn" onclick="stepCard(1)">下一張 ➡️</button>
     </div>
   </div>
@@ -498,12 +670,13 @@
   <!-- REPORT & AI SYNC VIEW -->
   <div id="report-view" style="display: none;">
     <div class="report-card">
-      <h3 style="font-size: 1rem; margin-bottom: 4px;">📊 真實熟練度＆防亂點檢測報告</h3>
-      <p style="font-size: 0.8rem; color: var(--text-sub);">
-        系統自動記錄每次微測試的「首次點擊正確率」與「思考秒數」，並同步給 AI 規劃下週重點。
+      <h3 style="font-size: 1rem; margin-bottom: 4px;">📊 分週進度熟練度 ＆ 防亂點報告</h3>
+      <p style="font-size: 0.78rem; color: var(--text-sub); margin-bottom: 10px;">
+        系統獨立統計每一週考試進度的完成率、首次點擊正確率與睡前急救清單。
       </p>
+      <div id="pack-breakdown-list" style="margin-bottom: 12px;"></div>
       <div class="stat-grid" id="report-metrics"></div>
-      <div id="sos-word-list" style="font-size: 0.84rem; background: #FAF9F6; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 12px;"></div>
+      <div id="sos-word-list" style="font-size: 0.83rem; background: #FAF9F6; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 12px;"></div>
 
       <button class="full-btn primary" onclick="forceSync(true)">☁️ 立即同步最新紀錄至雲端</button>
       <button class="full-btn" onclick="copyReport()">📋 複製學習戰報文字 (傳給爸媽 / AI)</button>
@@ -515,58 +688,104 @@
 
   <script>
     // ============================================================================
-    // 1. FLASHCARD DATABASE (With Short Meaning for 3-Option Gate Test)
+    // 1. FLASHCARD DATABASE (Separated cleanly by Weekly Exam Pack)
     // ============================================================================
+    const PACK_META = {
+      lichi_1101: { name: "李奇 11/01 (本週 9000單 B篇)", shortName: "李奇 11/01" },
+      lichi_1025: { name: "李奇 10/25 小考", shortName: "李奇 10/25" },
+      lichi_1018: { name: "李奇 10/18 小考", shortName: "李奇 10/18" },
+      midterm1:   { name: "一中一段核心", shortName: "一中一段" },
+      all:        { name: "跨週總複習 (全部進度)", shortName: "跨週全部" }
+    };
+
     const CARDS_DB = [
-      // 李奇 10/25 (16 Cards)
-      { id: "c_1025_01", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高", word: "undermine", syllable: "un · der · mine", shortAns: "暗中削弱、損害（信任或根基）", meaning: "v. 暗中削弱、損害（信任／威信／基礎）", hack: "<b>under</b>（在下面）+ <b>mine</b>（挖地道/地雷）➔ 從底部暗中挖空削弱！", example: "Spreading rumors will undermine public trust. (Q17/Q38)" },
-      { id: "c_1025_02", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高", word: "supervision", syllable: "su · per · vi · sion", shortAns: "監督、管理、監管", meaning: "n. 監督、管理、監管", hack: "<b>super-</b>（在上方）+ <b>vis</b>（看）+ <b>-ion</b> ➔ 居高臨下往下看 ➔ 監督！", example: "Without proper parental supervision, teens may fall prey to scams. (Q18/Q39)" },
-      { id: "c_1025_03", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高", word: "scaremonger", syllable: "scare · mon · ger", shortAns: "製造恐慌者、危言聳聽的人", meaning: "n. 製造恐慌者、危言聳聽的人", hack: "<b>scare</b>（恐嚇）+ <b>monger</b>（散播商人）➔ 專門散播恐慌賣焦慮的人！", example: "Don't listen to that online scaremonger! (Q19)" },
-      { id: "c_1025_04", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 黃金語塊", word: "YouTube personalities", syllable: "per · son · al · i · ties", shortAns: "知名網紅、風雲人物、名人", meaning: "n. 知名網紅、風雲人物、公眾名人", hack: "<b>熟詞生義</b>：personality 單數是個性，複數 <b>personalities</b> 指「名人、網紅」，絕非傀儡！", example: "Many famous YouTube personalities were invited to the launch. (Q27)" },
-      { id: "c_1025_05", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 黃金語塊", word: "tell A and B apart", syllable: "tell ... a · part", shortAns: "分辨、區分兩者真偽", meaning: "phr. 分辨、區分兩者 (= distinguish A from B)", hack: "<b>tell them apart</b> = 把兩者區分開來。（注意：take apart 是拆機器）", example: "Deepfakes are so realistic that it is hard to tell them apart. (Q28)" },
-      { id: "c_1025_06", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 黃金語塊", word: "lacks real proof", syllable: "lacks · real · proof", shortAns: "缺乏真實的證據", meaning: "phr. 缺乏真實的證據", hack: "<b>lack</b> 當及物動詞直接加受詞 <b>lack proof</b>；當名詞才寫 a lack of proof。", example: "The controversial claim completely lacks real proof. (Q26)" },
-      { id: "c_1025_07", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高", word: "interaction", syllable: "in · ter · ac · tion", shortAns: "人際互動、交流", meaning: "n. 互動、交流", hack: "<b>inter-</b>（互相、在...之間）+ <b>act</b>（行動）➔ 人與人之間的互動！", example: "Genuine human interaction is irreplaceable. (Q34)" },
-      { id: "c_1025_08", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高", word: "reject", syllable: "re · ject", shortAns: "拒絕、駁回、排斥", meaning: "v. 拒絕、駁回、排斥", hack: "<b>re-</b>（往回）+ <b>ject</b>（投擲、丟）➔ 把提案丟回去 ➔ 拒絕、駁回！", example: "The committee decided to reject the proposal. (Q36)" },
-      { id: "c_1025_09", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "🧩 字根樂高", word: "decline", syllable: "de · cline", shortAns: "下滑、衰退；婉拒", meaning: "v./n. 下滑、衰退；婉拒", hack: "<b>de-</b>（向下）+ <b>cline</b>（傾斜）➔ 往下傾斜 ➔ 分數下滑、衰退！", example: "Test scores have declined in those districts. (Q33)" },
-      { id: "c_1025_10", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 黃金語塊", word: "nationwide debate", syllable: "de · bate", shortAns: "全國性的辯論、爭論", meaning: "n./v. （全國性的）辯論、爭論", hack: "常搭 <b>spark / initiate a debate on...</b>（引發一場關於...的辯論）。", example: "The AI ban sparked a nationwide debate in Norway. (Q37)" },
-      { id: "c_1025_11", pack: "lichi_1025", packName: "李奇 10/25", cat: "grammar", catName: "⚡ 文法時態", word: "Up to now + have/has p.p.", syllable: "現在完成式時間軸", shortAns: "直到目前為止（必搭現在完成式）", meaning: "直到目前為止 ➔ 主句必用「現在完成式」", hack: "看到 <b>Up to now / So far</b>，代表從過去累積到現在，必選 <b>have/has + p.p.</b>，不可用進行式！", example: "Up to now, the team has rescued 300 survivors. (Q42)" },
-      { id: "c_1025_12", pack: "lichi_1025", packName: "李奇 10/25", cat: "grammar", catName: "⚡ 文法時態", word: "have gone to vs. have been to", syllable: "第一人稱 I 的時態悖論", shortAns: "去了沒回(gone to) vs. 去過已回(been to)", meaning: "說話者 I 絕不可說 I have gone to...", hack: "<b>have gone to</b> 是「去了還沒回來」，本人站在面前只能說 <b>I have been to...</b>（去過）！", example: "He has gone to the library. / I have been to Paris. (Q43)" },
-      { id: "c_1025_13", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 音節拼讀", word: "diseases", syllable: "dis · eas · es", shortAns: "疾病（dis + ease 身體不適）", meaning: "n. 疾病 (複數)", hack: "<b>dis-</b>（不安）+ <b>ease</b>（舒適）= 疾病。記住 ease，絕不寫成 diseqe！", example: "protect your body from infectious diseases. (Q54)" },
-      { id: "c_1025_14", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 音節拼讀", word: "exposure", syllable: "ex · po · sure", shortAns: "暴露、接觸（字首 ex- 不可漏）", meaning: "n. 暴露、接觸 (常配 to)", hack: "第一音節念 <b>/ɪk/ ➔ ex-</b>（向外）！千萬不可漏掉字首寫成 posur！", example: "Excessive exposure to sunlight can damage skin. (Q55)" },
-      { id: "c_1025_15", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 音節拼讀", word: "assignments", syllable: "as · sign · ments", shortAns: "作業、指派的任務", meaning: "n. 作業、指派的任務", hack: "<b>as + sign（簽名標記）+ ment + s</b>，分三音節輕鬆拼出！", example: "submit weekly writing assignments before Friday. (Q51)" },
-      { id: "c_1025_16", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 音節拼讀", word: "rewards", syllable: "re · wards", shortAns: "回報、獎賞、報酬", meaning: "n. 回報、獎賞、報酬", hack: "<b>re- + ward + s</b>（常搭 fruitful rewards / reap the rewards）。", example: "Hard work will bring fruitful rewards. (Q58)" },
+      // ==========================================================================
+      // 🆕 本週最新進度：李奇 11/01 (9000單 B篇 p.26–30, 共 28 張)
+      // ==========================================================================
+      { id: "c_1101_01", pack: "lichi_1101", packName: "李奇 11/01", cat: "phonics", catName: "🔤 單字與音節", word: "baggage", syllable: "bag · gage ['bæɡɪdʒ]", shortAns: "n. 行李（不可數名詞）", meaning: "n. 行李（不可數，常指隨身或托運行李）", hack: "<b>bag</b>（袋子）+ <b>-age</b>（集合名詞字尾，雙寫 g）➔ 各種袋子合起來就是「行李」！", example: "Security officers scanned the baggage for any prohibited items. (p.26)" },
+      { id: "c_1101_02", pack: "lichi_1101", packName: "李奇 11/01", cat: "chunks", catName: "🔗 必考片語", word: "bait / bait sb into V-ing", syllable: "bait [bet]", shortAns: "n. 誘餌、圈套 ／ v. 引誘、激怒某人做...", meaning: "n. 魚餌、誘餌、圈套；v. 引誘、故意激怒", hack: "必背搭配：<b>bait him into losing his temper</b>（設圈套引誘／激怒他發脾氣）！", example: "They tried to bait him into losing his temper during the debate. (p.26)" },
+      { id: "c_1101_03", pack: "lichi_1101", packName: "李奇 11/01", cat: "phonics", catName: "🔤 單字與音節", word: "bake & bakery", syllable: "bake [bek] ／ ba · ker · y ['bekərɪ]", shortAns: "v./n. 烘烤、烘焙食品 ＆ n. 麵包店", meaning: "bake v. 烘烤、n. 烘烤食品；bakery n. 麵包店", hack: "<b>bake</b>（烤）+ <b>-ery</b>（場所）= <b>bakery</b>（麵包店）。搭配：<b>freshly baked bread</b>（剛出爐的麵包）。", example: "The local bakery sells freshly baked bread and pastries every morning. (p.26)" },
+      { id: "c_1101_04", pack: "lichi_1101", packName: "李奇 11/01", cat: "roots", catName: "⚠️ 熟詞生義", word: "balance (一詞多義)", syllable: "bal · ance ['bæləns]", shortAns: "n./v. 平衡；銀行存款「餘額」、欠款差額", meaning: "v./n. 平衡；n. 【熟詞生義】銀行存款餘額、欠款差額", hack: "除了「平衡」，在銀行或帳單中指「<b>餘額／尾款</b>」：<b>check my bank balance</b>（查存款餘額）、<b>The balance is due</b>（尾款到期應繳）。", example: "I called the bank to check my bank balance yesterday. (p.26)" },
+      { id: "c_1101_05", pack: "lichi_1101", packName: "李奇 11/01", cat: "chunks", catName: "🔗 必考片語", word: "strike a balance / a sense of balance", syllable: "strike · a · bal · ance", shortAns: "取得平衡（動詞必搭 strike）＆ 平衡感", meaning: "phr. (在 A 與 B 之間) 取得平衡 ／ 平衡感", hack: "大考翻譯必背：在課業與社團間「取得平衡」動詞要用 <b>strike a balance between A and B</b>！", example: "It is a great challenge to strike a balance between schoolwork and extracurricular activities. (102指考, p.26)" },
+      { id: "c_1101_06", pack: "lichi_1101", packName: "李奇 11/01", cat: "phonics", catName: "🔤 單字與音節", word: "balcony", syllable: "bal · co · ny ['bælkənɪ]", shortAns: "n. 陽臺、露臺", meaning: "n. 陽臺；露臺", hack: "音節切三段：<b>bal · co · ny</b>（陽臺）。搭配：<b>lean over the balcony railing</b>（探過陽台欄杆）。", example: "She leaned over the balcony railing, watching the street below. (p.27)" },
+      { id: "c_1101_07", pack: "lichi_1101", packName: "李奇 11/01", cat: "phonics", catName: "🔤 單字與音節", word: "ballet & balloon", syllable: "bal · let ['bæle] ／ bal · loon [bə'lun]", shortAns: "n. 芭蕾舞（字尾 t 不發音）＆ n. 氣球", meaning: "ballet n. 芭蕾舞；balloon n. 氣球", hack: "<b>ballet</b> 源自法文，字尾 <b>-et 念 /e/（t 不發音）</b>；<b>balloon</b> 注意中間雙寫 <b>ll</b> 與 <b>oo</b>！", example: "The ballet dancer gave a bewilderingly elegant performance. (p.27)" },
+      { id: "c_1101_08", pack: "lichi_1101", packName: "李奇 11/01", cat: "phonics", catName: "🔤 單字與音節", word: "bamboo", syllable: "bam · boo [bæm'bu]", shortAns: "n. 竹、竹子（重音在第二音節 -boo）", meaning: "n. 竹；竹子", hack: "重音在後面 <b>bam-'boo</b>！例句必背搭配：<b>rely on bamboo as their primary food source</b>（以竹子為主食）。", example: "Pandas rely on bamboo as their primary food source. (p.27)" },
+      { id: "c_1101_09", pack: "lichi_1101", packName: "李奇 11/01", cat: "chunks", catName: "🔗 必考片語", word: "bang (against)", syllable: "bang [bæŋ]", shortAns: "v. 猛烈撞擊、發出砰聲 ／ n. 砰的一聲、巨響", meaning: "v. 發出砰的一聲、猛烈撞擊；n. 砰的一聲、槍響", hack: "撞上某物介系詞搭 <b>against</b>：<b>banged his knee against the table</b>（膝蓋撞到桌子）；<b>the sudden bang of gunfire</b>（突然槍響）。", example: "He accidentally banged his knee against the table and winced in pain. (p.27)" },
+      { id: "c_1101_10", pack: "lichi_1101", packName: "李奇 11/01", cat: "phonics", catName: "🔤 單字與音節", word: "banker", syllable: "bank · er ['bæŋkɚ]", shortAns: "n. 銀行家、銀行高層主管", meaning: "n. 銀行家", hack: "<b>bank</b>（銀行）+ <b>-er</b>（人）= <b>banker</b>（銀行家）。複習 105 學測同句高頻字：<b>compensate for</b>（彌補損失）。", example: "Bill and Sam decided to kidnap the son of a banker to compensate for their business loss. (105學測, p.27)" },
+      { id: "c_1101_11", pack: "lichi_1101", packName: "李奇 11/01", cat: "chunks", catName: "🔗 必考片語", word: "bar / behind bars", syllable: "be · hind · bars", shortAns: "n. 棒條、鐵柵、酒吧 ／ behind bars 坐牢", meaning: "bar n. 棒條(chocolate bar)、鐵柵欄、酒吧；behind bars 坐牢", hack: "<b>bars</b> 指監獄窗戶上的「長條鐵柵欄」，在鐵欄杆後面 <b>behind bars = 坐牢、在監獄服刑</b>！", example: "He's spent most of his life behind bars. (p.27)" },
+      { id: "c_1101_12", pack: "lichi_1101", packName: "李奇 11/01", cat: "phonics", catName: "🔤 單字與音節", word: "barbecue & barber", syllable: "bar · be · cue ['bɑrbɪkju] ／ bar · ber ['bɑrbɚ]", shortAns: "n./v. 燒烤、烤肉 ＆ n. 理髮師", meaning: "barbecue n./v. 燒烤、烤肉；barber n. 理髮師", hack: "<b>bar · be · cue</b>（注意字尾是 <b>-cue</b> 不是 -que）；<b>bar · ber</b> 是剪頭髮的「理髮師」。", example: "We'll barbecue tonight if the weather is nice. / I asked the barber to cut my hair. (p.27)" },
+      { id: "c_1101_13", pack: "lichi_1101", packName: "李奇 11/01", cat: "roots", catName: "⚠️ 熟詞生義", word: "bare (adj. & v.)", syllable: "bare [bɛr]", shortAns: "adj. 赤裸的、（貨架）空無一物的 ／ v. 露出(牙齒)", meaning: "adj. 光禿的、赤裸的、(櫥櫃/貨架)空無一物的；v. 使暴露、露出", hack: "112學測考 <b>find the shelves almost bare</b>（發現貨架幾乎空空如也）；<b>with bare feet</b>（赤腳）；動詞 <b>bared its teeth</b>（狗露出尖牙）。", example: "Nancy rushed to the supermarket—only to find the shelves almost bare. (112學測, p.28)" },
+      { id: "c_1101_14", pack: "lichi_1101", packName: "李奇 11/01", cat: "chunks", catName: "🔗 必考片語", word: "bare one's heart / soul", syllable: "bare · one's · soul", shortAns: "打開心扉、傾吐心聲", meaning: "phr. 打開心扉；毫無保留地傾吐心聲", hack: "把內心／靈魂「赤裸裸地敞開 (<b>bare</b>)」➔ <b>bare one's heart / soul</b>（敞開心扉、傾吐心聲）！", example: "The writer bared his soul in his novel. (p.28)" },
+      { id: "c_1101_15", pack: "lichi_1101", packName: "李奇 11/01", cat: "roots", catName: "⚠️ 熟詞生義", word: "barely", syllable: "bare · ly ['bɛrlɪ]", shortAns: "adv. 幾乎不、勉強才（具否定意味）", meaning: "adv. 幾乎不、勉強才 (= hardly / scarcely)", hack: "注意！<b>bare</b> 是赤裸的，但加 -ly 變成 <b>barely</b> 是「<b>幾乎不、差點就不能</b>」（否定副詞）！", example: "Amelia barely had any money left for entertainment. (106學測) / He could barely stand. (p.28)" },
+      { id: "c_1101_16", pack: "lichi_1101", packName: "李奇 11/01", cat: "roots", catName: "⚠️ 熟詞生義", word: "bark (一詞多義)", syllable: "bark [bɑrk]", shortAns: "v./n. (狗)吠叫；n. 樹皮 ／ v. 剝樹皮", meaning: "v./n. 吠叫；n. 【熟詞生義】樹皮；v. 剝去(樹)的皮", hack: "自然科普文章看到 <b>bark</b> 絕不是狗叫，而是「<b>樹皮</b>」：<b>The outer bark insulates the tree</b>（外層樹皮隔熱保水）！", example: "The outer bark insulates the tree from extreme temperatures and reduces water loss. (p.28)" },
+      { id: "c_1101_17", pack: "lichi_1101", packName: "李奇 11/01", cat: "phonics", catName: "🔤 單字與音節", word: "barn", syllable: "barn [bɑrn]", shortAns: "n. 穀倉、畜舍、馬廄", meaning: "n. 穀倉；畜舍；馬廄", hack: "注意區分：<b>bark</b>（吠叫／樹皮）、<b>bare</b>（赤裸的）、<b>barn</b>（結尾 n ➔ 農場裡的穀倉／馬廄）！", example: "He is feeding the horses in the barn. (p.28)" },
+      { id: "c_1101_18", pack: "lichi_1101", packName: "李奇 11/01", cat: "chunks", catName: "🔗 必考片語", word: "barrel / One rotten apple spoils the barrel", syllable: "bar · rel ['bærəl]", shortAns: "n. 桶（a barrel of oil）＆ 諺語：一顆老鼠屎壞了一鍋粥", meaning: "barrel n. 大桶(一桶石油 a barrel of oil)；【諺】一顆爛蘋果壞了一整桶", hack: "必背諺語：<b>One rotten apple spoils the barrel.</b>（一顆爛蘋果毀掉整桶 ➔ 一顆老鼠屎壞了一整鍋粥）！", example: "How much is a barrel of oil? / One rotten apple spoils the barrel. (p.28)" },
+      { id: "c_1101_19", pack: "lichi_1101", packName: "李奇 11/01", cat: "roots", catName: "⚠️ 熟詞生義", word: "base (基礎 vs. 卑鄙的)", syllable: "base [bes]", shortAns: "n. 基地、基礎、湯底 ／ adj. 卑鄙的、不道德的", meaning: "n. 基地、基礎、湯底；v. 以...為基礎；adj. 【高頻熟詞生義】卑鄙的", hack: "大考殺手題：<b>base</b> 當形容詞除了「基礎的」，還常考「<b>低下卑鄙的</b>」：<b>base intentions</b>（卑鄙的意圖）！", example: "The politician's base intentions became clear when he manipulated the facts. (p.29)" },
+      { id: "c_1101_20", pack: "lichi_1101", packName: "李奇 11/01", cat: "chunks", catName: "🔗 必考片語", word: "based on... / service-based", syllable: "based · on", shortAns: "基於...、根據... ＆ 以服務為基礎的", meaning: "phr. 基於...、以...為根據 (= on the basis of)", hack: "句首或句中修飾時直接用過去分詞 <b>based on + N</b>；複合形容詞寫 <b>service-based businesses</b>（服務型企業，113學測）。", example: "based on information coming from other members. (113學測, p.29)" },
+      { id: "c_1101_21", pack: "lichi_1101", packName: "李奇 11/01", cat: "phonics", catName: "🔤 單字與音節", word: "basement", syllable: "base · ment ['besmənt]", shortAns: "n. 地下室", meaning: "n. 地下室", hack: "<b>base</b>（底部地基）+ <b>-ment</b> = <b>basement</b>（建築物最底層的地下室）。", example: "Since the typhoon, the basement has been filled with water. (91學測, p.29)" },
+      { id: "c_1101_22", pack: "lichi_1101", packName: "李奇 11/01", cat: "chunks", catName: "🔗 必考片語", word: "basic (adj.) & basics (n. pl.)", syllable: "ba · sic ['besɪk] ／ ba · sics", shortAns: "adj. 基本的 ＆ n. pl. 基礎知識、基本原理", meaning: "basic adj. 基本的；basics n. pl. 基礎知識、基本原理", hack: "<b>basic</b> 加 <b>s</b> 變複數名詞 <b>the basics of...</b>（...的基礎知識／基本功）！", example: "Understanding the basics of grammar is essential for improving writing skills. (p.29)" },
+      { id: "c_1101_23", pack: "lichi_1101", packName: "李奇 11/01", cat: "chunks", catName: "🔗 必考片語", word: "basis / on the basis of...", syllable: "ba · sis ['besɪs]", shortAns: "n. 基礎、準則 ＆ on the basis of 基於...", meaning: "basis n. 基礎、準則；on the basis of... 基於... (= based on...)", hack: "<b>form the basis for...</b>（成為...的基礎，104學測）；<b>on the basis of + N</b> = <b>based on + N</b>（基於...）。", example: "They hired him on the basis of his exceptional problem-solving skills. (p.30)" },
+      { id: "c_1101_24", pack: "lichi_1101", packName: "李奇 11/01", cat: "chunks", catName: "🔗 必考片語", word: "on a regular / daily basis", syllable: "on · a · reg · u · lar · ba · sis", shortAns: "定期地（regular） ／ 每天（daily）", meaning: "phr. 定期地 (= regularly) ／ 每天、日常地 (= daily)", hack: "介系詞永遠用 <b>on</b>：<b>on a regular basis</b>（定期地）、<b>on a daily/weekly/monthly/yearly basis</b>！", example: "The team meets on a regular basis to discuss progress. (p.30)" },
+      { id: "c_1101_25", pack: "lichi_1101", packName: "李奇 11/01", cat: "phonics", catName: "🔤 單字與音節", word: "bathe", syllable: "bathe [beð] (動詞字尾有 e)", shortAns: "v. 沐浴在(陽光)中、浸泡、給...洗澡", meaning: "v. 把...浸入...；給...洗澡；沉浸/沐浴在(陽光)中", hack: "區分：<b>bath [bæθ]</b> 是名詞；加 e 變動詞 <b>bathe [beð]</b>！搭配：<b>bathe in the warm sunlight</b>（沐浴在溫暖陽光下）。", example: "She decided to bathe in the warm sunlight streaming through the window. (p.30)" },
+      { id: "c_1101_26", pack: "lichi_1101", packName: "李奇 11/01", cat: "phonics", catName: "🔤 單字與音節", word: "battle", syllable: "bat · tle ['bæt!]", shortAns: "n. 戰役、長期奮鬥 ／ v. 與...作戰、搏鬥", meaning: "n. 戰鬥、戰役；v. 與...鬥爭、作戰、奮鬥", hack: "109學測考 <b>a constant battle to V</b>（為了...而不斷進行的艱苦奮戰）；動詞直接加受詞 <b>battle fierce opponents</b>。", example: "This dietary need has led to a constant battle to keep the deer separate from the trains. (109學測, p.30)" },
+      { id: "c_1101_27", pack: "lichi_1101", packName: "李奇 11/01", cat: "roots", catName: "⚠️ 熟詞生義", word: "bay (一詞多義)", syllable: "bay [be]", shortAns: "n. 海灣；(建築內的)專用分隔區(如修理區)；月桂樹", meaning: "n. 海灣；【熟詞生義】(工廠/機庫內的)限定專用區域；月桂樹", hack: "除了「海灣 (<b>anchored in the bay</b>)」，還指廠房內的專用隔間：<b>in the repair bay</b>（在修理區）／ <b>loading bay</b>（卸貨區）！", example: "The ship anchored in the bay. / The mechanic worked in the repair bay. (p.30)" },
+      { id: "c_1101_28", pack: "lichi_1101", packName: "李奇 11/01", cat: "chunks", catName: "🔗 必考片語", word: "keep ... at bay / be at bay / bay for blood", syllable: "keep ... at · bay", shortAns: "阻止、遏制(問題或敵人逼近) ／ 被困住 ／ 要求嚴懲", meaning: "keep... at bay 阻止、遏制；be at bay (動物)被圍困；bay for blood 要求暴力相向", hack: "克漏字超高頻片語：<b>keep the disease / enemy at bay</b>（把疾病或敵人擋在安全距離外 ➔ 阻止、遏制）！", example: "Exercise and a healthy diet can help keep many diseases at bay. (p.31)" },
 
-      // 李奇 10/18 (12 Cards)
-      { id: "c_1018_01", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊", word: "associate with sb", syllable: "as · so · ci · ate", shortAns: "與某人交往、打交道（必搭 with）", meaning: "phr. 與某人交往；be associated with 與...有關", hack: "看到空格後有 <b>with</b> ➔ 秒選 <b>associate</b>！（attend to 才是照料）", example: "Few people like to associate with negative peers. (Q3)" },
-      { id: "c_1018_02", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊", word: "assume a serious look", syllable: "as · sume", shortAns: "擺出、呈現出（嚴肅的表情）", meaning: "phr. 擺出、呈現出（嚴肅的表情或態度）", hack: "<b>assume</b> 三大義：1. 假設 2. 承擔(責任) 3. <b>擺出(表情/樣子)</b>！", example: "Jeff assumed a serious look during the meeting. (Q6)" },
-      { id: "c_1018_03", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊", word: "attempt to escape", syllable: "at · tempt", shortAns: "企圖、嘗試逃跑", meaning: "phr. 企圖／嘗試做...", hack: "<b>attempt to V</b> = 企圖做...（注意區分警察逮捕 make an arrest）。", example: "The thief attempted to escape from the back door. (Q5)" },
-      { id: "c_1018_04", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊", word: "wait on sb", syllable: "wait · on", shortAns: "服侍、伺候（主人或客人）", meaning: "phr. 服侍、伺候（客人／主人）", hack: "<b>wait FOR</b> 是等待；<b>wait ON</b> 是當侍者服侍某人！", example: "They hired a servant to wait on the woman. (Q14)" },
-      { id: "c_1018_05", pack: "lichi_1018", packName: "李奇 10/18", cat: "roots", catName: "🧩 字根樂高", word: "overtake", syllable: "o · ver · take", shortAns: "超車、超越（在銷量或數量勝過）", meaning: "v. 超車、超越、勝過", hack: "<b>over</b>（越過）+ <b>take</b> ➔ 在後面追過去超車！（recruit 則是招募人才）", example: "EVs may eventually overtake traditional cars. (Q25)" },
-      { id: "c_1018_06", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊", word: "strong figures", syllable: "fig · ures", shortAns: "強而有力的「統計數據、數字」", meaning: "n. 強而有力的「統計數據、數字」", hack: "<b>figures</b> 在新聞與商業英文中專指「統計數據、官方數字」！", example: "convince him with strong figures and solid evidence. (Q30)" },
-      { id: "c_1018_07", pack: "lichi_1018", packName: "李奇 10/18", cat: "grammar", catName: "⚡ 文法時態", word: "take place / result from", syllable: "絕對無被動式動詞 (1)", shortAns: "舉行 ／ 起因於（永遠主動，無被動式）", meaning: "舉行(take place) ／ 起因於(result from) ➔ 永遠主動", hack: "看到 <b>be taken place</b> 或 <b>be resulted from</b> ➔ 0.5 秒直接刪掉！", example: "The sports meet will take place in December. (Q51)" },
-      { id: "c_1018_08", pack: "lichi_1018", packName: "李奇 10/18", cat: "grammar", catName: "⚡ 文法時態", word: "break out / collapse", syllable: "絕對無被動式動詞 (2)", shortAns: "火災爆發 ／ 倒塌（永遠主動，無被動式）", meaning: "爆發(break out) ／ 倒塌(collapse) ➔ 永遠主動", hack: "火災爆發 <b>broke out</b>、橋樑倒塌 <b>collapsed</b>，絕無 was broken out！", example: "It is reported that a fire broke out last night. (Q53)" },
-      { id: "c_1018_09", pack: "lichi_1018", packName: "李奇 10/18", cat: "grammar", catName: "⚡ 文法時態", word: "Let + O + be + p.p.", syllable: "使役動詞被動公式", shortAns: "讓某事被...（中間的 be 不可省略）", meaning: "讓某事被討論／被決定（be + p.p.）", hack: "受詞若「被討論」，必須寫 <b>Let the issue BE discussed</b>！", example: "Let the issue be discussed openly. (Q51)" },
-      { id: "c_1018_10", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 黃金語塊", word: "be stripped of + N", syllable: "stripped · of", shortAns: "被剝除、被剝奪（裝飾或頭銜）", meaning: "phr. 被剝除、被剝奪（裝飾／頭銜／財產）", hack: "<b>was stripped of its decorations</b>（被剝除裝飾）。", example: "The statue was stripped of its gold leaves. (Q58)" },
-      { id: "c_1018_11", pack: "lichi_1018", packName: "李奇 10/18", cat: "roots", catName: "🧩 字根樂高", word: "too overwhelmed to V", syllable: "o · ver · whelmed", shortAns: "太過不知所措、招架不住而無法...", meaning: "phr. 太過不知所措而無法...", hack: "<b>over</b>（過度）+ <b>whelm</b>（淹沒）➔ 被壓力淹沒不知所措！", example: "Some freeze, too overwhelmed to make decisions. (Q36)" },
-      { id: "c_1018_12", pack: "lichi_1018", packName: "李奇 10/18", cat: "roots", catName: "🧩 字根樂高", word: "emerge from downturn", syllable: "e · merge", shortAns: "從低谷中脫困、重新崛起", meaning: "phr. 從衰退低谷中重新浮現／崛起", hack: "<b>e-</b>（向外）+ <b>merge</b>（浮現）➔ 從困境中浮出水面！", example: "emerge from each downturn in stronger shape. (Q40)" },
+      // ==========================================================================
+      // 📅 上週進度：李奇 10/25 (16 Cards)
+      // ==========================================================================
+      { id: "c_1025_01", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "⚠️ 熟詞生義", word: "undermine", syllable: "un · der · mine", shortAns: "暗中削弱、損害（信任或根基）", meaning: "v. 暗中削弱、損害（信任／威信／基礎）", hack: "<b>under</b>（在下面）+ <b>mine</b>（挖地道/地雷）➔ 從底部暗中挖空削弱！", example: "Spreading rumors will undermine public trust. (Q17/Q38)" },
+      { id: "c_1025_02", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "⚠️ 熟詞生義", word: "supervision", syllable: "su · per · vi · sion", shortAns: "監督、管理、監管", meaning: "n. 監督、管理、監管", hack: "<b>super-</b>（在上方）+ <b>vis</b>（看）+ <b>-ion</b> ➔ 居高臨下往下看 ➔ 監督！", example: "Without proper parental supervision, teens may fall prey to scams. (Q18/Q39)" },
+      { id: "c_1025_03", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "⚠️ 熟詞生義", word: "scaremonger", syllable: "scare · mon · ger", shortAns: "製造恐慌者、危言聳聽的人", meaning: "n. 製造恐慌者、危言聳聽的人", hack: "<b>scare</b>（恐嚇）+ <b>monger</b>（散播商人）➔ 專門散播恐慌賣焦慮的人！", example: "Don't listen to that online scaremonger! (Q19)" },
+      { id: "c_1025_04", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 必考片語", word: "YouTube personalities", syllable: "per · son · al · i · ties", shortAns: "知名網紅、風雲人物、名人", meaning: "n. 知名網紅、風雲人物、公眾名人", hack: "<b>熟詞生義</b>：personality 單數是個性，複數 <b>personalities</b> 指「名人、網紅」，絕非傀儡！", example: "Many famous YouTube personalities were invited to the launch. (Q27)" },
+      { id: "c_1025_05", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 必考片語", word: "tell A and B apart", syllable: "tell ... a · part", shortAns: "分辨、區分兩者真偽", meaning: "phr. 分辨、區分兩者 (= distinguish A from B)", hack: "<b>tell them apart</b> = 把兩者區分開來。（注意：take apart 是拆機器）", example: "Deepfakes are so realistic that it is hard to tell them apart. (Q28)" },
+      { id: "c_1025_06", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 必考片語", word: "lacks real proof", syllable: "lacks · real · proof", shortAns: "缺乏真實的證據", meaning: "phr. 缺乏真實的證據", hack: "<b>lack</b> 當及物動詞直接加受詞 <b>lack proof</b>；當名詞才寫 a lack of proof。", example: "The controversial claim completely lacks real proof. (Q26)" },
+      { id: "c_1025_07", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "⚠️ 熟詞生義", word: "interaction", syllable: "in · ter · ac · tion", shortAns: "人際互動、交流", meaning: "n. 互動、交流", hack: "<b>inter-</b>（互相、在...之間）+ <b>act</b>（行動）➔ 人與人之間的互動！", example: "Genuine human interaction is irreplaceable. (Q34)" },
+      { id: "c_1025_08", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "⚠️ 熟詞生義", word: "reject", syllable: "re · ject", shortAns: "拒絕、駁回、排斥", meaning: "v. 拒絕、駁回、排斥", hack: "<b>re-</b>（往回）+ <b>ject</b>（投擲、丟）➔ 把提案丟回去 ➔ 拒絕、駁回！", example: "The committee decided to reject the proposal. (Q36)" },
+      { id: "c_1025_09", pack: "lichi_1025", packName: "李奇 10/25", cat: "roots", catName: "⚠️ 熟詞生義", word: "decline", syllable: "de · cline", shortAns: "下滑、衰退；婉拒", meaning: "v./n. 下滑、衰退；婉拒", hack: "<b>de-</b>（向下）+ <b>cline</b>（傾斜）➔ 往下傾斜 ➔ 分數下滑、衰退！", example: "Test scores have declined in those districts. (Q33)" },
+      { id: "c_1025_10", pack: "lichi_1025", packName: "李奇 10/25", cat: "chunks", catName: "🔗 必考片語", word: "nationwide debate", syllable: "de · bate", shortAns: "全國性的辯論、爭論", meaning: "n./v. （全國性的）辯論、爭論", hack: "常搭 <b>spark / initiate a debate on...</b>（引發一場關於...的辯論）。", example: "The AI ban sparked a nationwide debate in Norway. (Q37)" },
+      { id: "c_1025_11", pack: "lichi_1025", packName: "李奇 10/25", cat: "grammar", catName: "⚡ 文法秒殺", word: "Up to now + have/has p.p.", syllable: "現在完成式時間軸", shortAns: "直到目前為止（必搭現在完成式）", meaning: "直到目前為止 ➔ 主句必用「現在完成式」", hack: "看到 <b>Up to now / So far</b>，代表從過去累積到現在，必選 <b>have/has + p.p.</b>，不可用進行式！", example: "Up to now, the team has rescued 300 survivors. (Q42)" },
+      { id: "c_1025_12", pack: "lichi_1025", packName: "李奇 10/25", cat: "grammar", catName: "⚡ 文法秒殺", word: "have gone to vs. have been to", syllable: "第一人稱 I 的時態悖論", shortAns: "去了沒回(gone to) vs. 去過已回(been to)", meaning: "說話者 I 絕不可說 I have gone to...", hack: "<b>have gone to</b> 是「去了還沒回來」，本人站在面前只能說 <b>I have been to...</b>（去過）！", example: "He has gone to the library. / I have been to Paris. (Q43)" },
+      { id: "c_1025_13", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 單字與音節", word: "diseases", syllable: "dis · eas · es", shortAns: "疾病（dis + ease 身體不適）", meaning: "n. 疾病 (複數)", hack: "<b>dis-</b>（不安）+ <b>ease</b>（舒適）= 疾病。記住 ease，絕不寫成 diseqe！", example: "protect your body from infectious diseases. (Q54)" },
+      { id: "c_1025_14", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 單字與音節", word: "exposure", syllable: "ex · po · sure", shortAns: "暴露、接觸（字首 ex- 不可漏）", meaning: "n. 暴露、接觸 (常配 to)", hack: "第一音節念 <b>/ɪk/ ➔ ex-</b>（向外）！千萬不可漏掉字首寫成 posur！", example: "Excessive exposure to sunlight can damage skin. (Q55)" },
+      { id: "c_1025_15", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 單字與音節", word: "assignments", syllable: "as · sign · ments", shortAns: "作業、指派的任務", meaning: "n. 作業、指派的任務", hack: "<b>as + sign（簽名標記）+ ment + s</b>，分三音節輕鬆拼出！", example: "submit weekly writing assignments before Friday. (Q51)" },
+      { id: "c_1025_16", pack: "lichi_1025", packName: "李奇 10/25", cat: "phonics", catName: "🔤 單字與音節", word: "rewards", syllable: "re · wards", shortAns: "回報、獎賞、報酬", meaning: "n. 回報、獎賞、報酬", hack: "<b>re- + ward + s</b>（常搭 fruitful rewards / reap the rewards）。", example: "Hard work will bring fruitful rewards. (Q58)" },
 
-      // 台中一中 一段 (12 Cards)
-      { id: "c_mid1_01", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 音節拼讀", word: "complete ignorance of", syllable: "ig · no · rance", shortAns: "對...完全無知、不知情（名詞）", meaning: "n. 對...完全無知／不知情", hack: "形容詞 complete 後面必接名詞 <b>ignorance</b>（字尾 -ance）！", example: "due to his complete ignorance of local customs." },
-      { id: "c_mid1_02", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 音節拼讀", word: "accidentally", syllable: "ac · ci · den · tal · ly", shortAns: "不小心地、意外地（字尾 -tally）", meaning: "adv. 不小心地、意外地 (= by accident)", hack: "<b>accident + al + ly</b>，結尾必為 <b>-tally</b>！", example: "She accidentally deleted the file." },
-      { id: "c_mid1_03", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 音節拼讀", word: "breathe a sigh of relief", syllable: "breathe (動詞有 e)", shortAns: "鬆了一口氣（助動詞後接動詞 breathe）", meaning: "phr. 鬆了一口氣（動詞 breathe 有 e）", hack: "助動詞 could 後接原形動詞 <b>breathe</b>（有 e）；名詞才是 breath。", example: "He could finally breathe a sigh of relief." },
-      { id: "c_mid1_04", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊", word: "serve a practical purpose", syllable: "serve · a · pur · pose", shortAns: "達到實際的目的、發揮功用", meaning: "phr. 達到實際目的、發揮功用", hack: "「達到目的／發揮功用」英文固定搭配動詞 <b>serve</b>！", example: "These stones actually serve a practical purpose." },
-      { id: "c_mid1_05", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊", word: "remain glued to the screen", syllable: "re · main · glued · to", shortAns: "視線依然緊盯著、黏在螢幕上", meaning: "phr. （視線）依然緊盯著螢幕", hack: "連綴動詞 <b>remain / stay + p.p. (glued / focused)</b>！", example: "My eyes remain glued to the phone screen." },
-      { id: "c_mid1_06", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊", word: "easy to come by", syllable: "come · by", shortAns: "容易取得、容易獲得 (= obtain)", meaning: "phr. 容易取得、容易獲得", hack: "<b>come by</b> = 取得、獲得。", example: "Fresh fish was plentiful and easy to come by." },
-      { id: "c_mid1_07", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊", word: "spice up + N", syllable: "spice · up", shortAns: "為...增添趣味、使更生動", meaning: "phr. 為...增添趣味 (= liven up)", hack: "<b>spice</b> 是香料，為平淡日常加點料！", example: "The app helps spice up a daily walking routine." },
-      { id: "c_mid1_08", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 音節拼讀", word: "addictive cycle", syllable: "ad · dic · tive", shortAns: "令人上癮的循環（修飾事物用 -tive）", meaning: "adj. 令人上癮的（修飾事物）", hack: "看到 trapping users 負面語境配 <b>addictive</b>；人上癮才用 addicted to。", example: "trapping users in an addictive cycle." },
-      { id: "c_mid1_09", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 音節拼讀", word: "go outdoors", syllable: "out · doors (副詞有 s)", shortAns: "去戶外（修飾動詞 go 必加 s）", meaning: "adv. 去戶外（副詞字尾有 s）", hack: "修飾動詞 go 要把形容詞 outdoor 加 s 變副詞 <b>outdoors</b>！", example: "encourage players to go outdoors." },
-      { id: "c_mid1_10", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊", word: "convenience store", syllable: "con · ven · ience", shortAns: "便利商店（用名詞 convenience 修飾）", meaning: "n. 便利商店（複合名詞）", hack: "絕對不可寫 convenient store，必寫 <b>convenience store</b>！", example: "There are roughly 10,500 convenience stores." },
-      { id: "c_mid1_11", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊", word: "a variety of + 複數名詞", syllable: "a · va · ri · e · ty · of", shortAns: "各式各樣的... (= various + N)", meaning: "phr. 各式各樣的...", hack: "variety 是名詞，必寫 <b>a variety of services</b>！", example: "They provide a variety of services." },
-      { id: "c_mid1_12", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 黃金語塊", word: "within walking distance of", syllable: "walk · ing · dis · tance", shortAns: "在步行可達（某地）的距離內", meaning: "phr. 在步行可達...的距離內", hack: "整串背：<b>live within walking distance of these stores</b>。", example: "It is convenient to live within walking distance of these stores." }
+      // ==========================================================================
+      // 📅 前週進度：李奇 10/18 (12 Cards)
+      // ==========================================================================
+      { id: "c_1018_01", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 必考片語", word: "associate with sb", syllable: "as · so · ci · ate", shortAns: "與某人交往、打交道（必搭 with）", meaning: "phr. 與某人交往；be associated with 與...有關", hack: "看到空格後有 <b>with</b> ➔ 秒選 <b>associate</b>！（attend to 才是照料）", example: "Few people like to associate with negative peers. (Q3)" },
+      { id: "c_1018_02", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 必考片語", word: "assume a serious look", syllable: "as · sume", shortAns: "擺出、呈現出（嚴肅的表情）", meaning: "phr. 擺出、呈現出（嚴肅的表情或態度）", hack: "<b>assume</b> 三大義：1. 假設 2. 承擔(責任) 3. <b>擺出(表情/樣子)</b>！", example: "Jeff assumed a serious look during the meeting. (Q6)" },
+      { id: "c_1018_03", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 必考片語", word: "attempt to escape", syllable: "at · tempt", shortAns: "企圖、嘗試逃跑", meaning: "phr. 企圖／嘗試做...", hack: "<b>attempt to V</b> = 企圖做...（注意區分警察逮捕 make an arrest）。", example: "The thief attempted to escape from the back door. (Q5)" },
+      { id: "c_1018_04", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 必考片語", word: "wait on sb", syllable: "wait · on", shortAns: "服侍、伺候（主人或客人）", meaning: "phr. 服侍、伺候（客人／主人）", hack: "<b>wait FOR</b> 是等待；<b>wait ON</b> 是當侍者服侍某人！", example: "They hired a servant to wait on the woman. (Q14)" },
+      { id: "c_1018_05", pack: "lichi_1018", packName: "李奇 10/18", cat: "roots", catName: "⚠️ 熟詞生義", word: "overtake", syllable: "o · ver · take", shortAns: "超車、超越（在銷量或數量勝過）", meaning: "v. 超車、超越、勝過", hack: "<b>over</b>（越過）+ <b>take</b> ➔ 在後面追過去超車！（recruit 則是招募人才）", example: "EVs may eventually overtake traditional cars. (Q25)" },
+      { id: "c_1018_06", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 必考片語", word: "strong figures", syllable: "fig · ures", shortAns: "強而有力的「統計數據、數字」", meaning: "n. 強而有力的「統計數據、數字」", hack: "<b>figures</b> 在新聞與商業英文中專指「統計數據、官方數字」！", example: "convince him with strong figures and solid evidence. (Q30)" },
+      { id: "c_1018_07", pack: "lichi_1018", packName: "李奇 10/18", cat: "grammar", catName: "⚡ 文法秒殺", word: "take place / result from", syllable: "絕對無被動式動詞 (1)", shortAns: "舉行 ／ 起因於（永遠主動，無被動式）", meaning: "舉行(take place) ／ 起因於(result from) ➔ 永遠主動", hack: "看到 <b>be taken place</b> 或 <b>be resulted from</b> ➔ 0.5 秒直接刪掉！", example: "The sports meet will take place in December. (Q51)" },
+      { id: "c_1018_08", pack: "lichi_1018", packName: "李奇 10/18", cat: "grammar", catName: "⚡ 文法秒殺", word: "break out / collapse", syllable: "絕對無被動式動詞 (2)", shortAns: "火災爆發 ／ 倒塌（永遠主動，無被動式）", meaning: "爆發(break out) ／ 倒塌(collapse) ➔ 永遠主動", hack: "火災爆發 <b>broke out</b>、橋樑倒塌 <b>collapsed</b>，絕無 was broken out！", example: "It is reported that a fire broke out last night. (Q53)" },
+      { id: "c_1018_09", pack: "lichi_1018", packName: "李奇 10/18", cat: "grammar", catName: "⚡ 文法秒殺", word: "Let + O + be + p.p.", syllable: "使役動詞被動公式", shortAns: "讓某事被...（中間的 be 不可省略）", meaning: "讓某事被討論／被決定（be + p.p.）", hack: "受詞若「被討論」，必須寫 <b>Let the issue BE discussed</b>！", example: "Let the issue be discussed openly. (Q51)" },
+      { id: "c_1018_10", pack: "lichi_1018", packName: "李奇 10/18", cat: "chunks", catName: "🔗 必考片語", word: "be stripped of + N", syllable: "stripped · of", shortAns: "被剝除、被剝奪（裝飾或頭銜）", meaning: "phr. 被剝除、被剝奪（裝飾／頭銜／財產）", hack: "<b>was stripped of its decorations</b>（被剝除裝飾）。", example: "The statue was stripped of its gold leaves. (Q58)" },
+      { id: "c_1018_11", pack: "lichi_1018", packName: "李奇 10/18", cat: "roots", catName: "⚠️ 熟詞生義", word: "too overwhelmed to V", syllable: "o · ver · whelmed", shortAns: "太過不知所措、招架不住而無法...", meaning: "phr. 太過不知所措而無法...", hack: "<b>over</b>（過度）+ <b>whelm</b>（淹沒）➔ 被壓力淹沒不知所措！", example: "Some freeze, too overwhelmed to make decisions. (Q36)" },
+      { id: "c_1018_12", pack: "lichi_1018", packName: "李奇 10/18", cat: "roots", catName: "⚠️ 熟詞生義", word: "emerge from downturn", syllable: "e · merge", shortAns: "從低谷中脫困、重新崛起", meaning: "phr. 從衰退低谷中重新浮現／崛起", hack: "<b>e-</b>（向外）+ <b>merge</b>（浮現）➔ 從困境中浮出水面！", example: "emerge from each downturn in stronger shape. (Q40)" },
+
+      // ==========================================================================
+      // 🏫 學校段考：台中一中 一段 (12 Cards)
+      // ==========================================================================
+      { id: "c_mid1_01", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 單字與音節", word: "complete ignorance of", syllable: "ig · no · rance", shortAns: "對...完全無知、不知情（名詞）", meaning: "n. 對...完全無知／不知情", hack: "形容詞 complete 後面必接名詞 <b>ignorance</b>（字尾 -ance）！", example: "due to his complete ignorance of local customs." },
+      { id: "c_mid1_02", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 單字與音節", word: "accidentally", syllable: "ac · ci · den · tal · ly", shortAns: "不小心地、意外地（字尾 -tally）", meaning: "adv. 不小心地、意外地 (= by accident)", hack: "<b>accident + al + ly</b>，結尾必為 <b>-tally</b>！", example: "She accidentally deleted the file." },
+      { id: "c_mid1_03", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 單字與音節", word: "breathe a sigh of relief", syllable: "breathe (動詞有 e)", shortAns: "鬆了一口氣（助動詞後接動詞 breathe）", meaning: "phr. 鬆了一口氣（動詞 breathe 有 e）", hack: "助動詞 could 後接原形動詞 <b>breathe</b>（有 e）；名詞才是 breath。", example: "He could finally breathe a sigh of relief." },
+      { id: "c_mid1_04", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 必考片語", word: "serve a practical purpose", syllable: "serve · a · pur · pose", shortAns: "達到實際的目的、發揮功用", meaning: "phr. 達到實際目的、發揮功用", hack: "「達到目的／發揮功用」英文固定搭配動詞 <b>serve</b>！", example: "These stones actually serve a practical purpose." },
+      { id: "c_mid1_05", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 必考片語", word: "remain glued to the screen", syllable: "re · main · glued · to", shortAns: "視線依然緊盯著、黏在螢幕上", meaning: "phr. （視線）依然緊盯著螢幕", hack: "連綴動詞 <b>remain / stay + p.p. (glued / focused)</b>！", example: "My eyes remain glued to the phone screen." },
+      { id: "c_mid1_06", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 必考片語", word: "easy to come by", syllable: "come · by", shortAns: "容易取得、容易獲得 (= obtain)", meaning: "phr. 容易取得、容易獲得", hack: "<b>come by</b> = 取得、獲得。", example: "Fresh fish was plentiful and easy to come by." },
+      { id: "c_mid1_07", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 必考片語", word: "spice up + N", syllable: "spice · up", shortAns: "為...增添趣味、使更生動", meaning: "phr. 為...增添趣味 (= liven up)", hack: "<b>spice</b> 是香料，為平淡日常加點料！", example: "The app helps spice up a daily walking routine." },
+      { id: "c_mid1_08", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 單字與音節", word: "addictive cycle", syllable: "ad · dic · tive", shortAns: "令人上癮的循環（修飾事物用 -tive）", meaning: "adj. 令人上癮的（修飾事物）", hack: "看到 trapping users 負面語境配 <b>addictive</b>；人上癮才用 addicted to。", example: "trapping users in an addictive cycle." },
+      { id: "c_mid1_09", pack: "midterm1", packName: "一中一段", cat: "phonics", catName: "🔤 單字與音節", word: "go outdoors", syllable: "out · doors (副詞有 s)", shortAns: "去戶外（修飾動詞 go 必加 s）", meaning: "adv. 去戶外（副詞字尾有 s）", hack: "修飾動詞 go 要把形容詞 outdoor 加 s 變副詞 <b>outdoors</b>！", example: "encourage players to go outdoors." },
+      { id: "c_mid1_10", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 必考片語", word: "convenience store", syllable: "con · ven · ience", shortAns: "便利商店（用名詞 convenience 修飾）", meaning: "n. 便利商店（複合名詞）", hack: "絕對不可寫 convenient store，必寫 <b>convenience store</b>！", example: "There are roughly 10,500 convenience stores." },
+      { id: "c_mid1_11", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 必考片語", word: "a variety of + 複數名詞", syllable: "a · va · ri · e · ty · of", shortAns: "各式各樣的... (= various + N)", meaning: "phr. 各式各樣的...", hack: "variety 是名詞，必寫 <b>a variety of services</b>！", example: "They provide a variety of services." },
+      { id: "c_mid1_12", pack: "midterm1", packName: "一中一段", cat: "chunks", catName: "🔗 必考片語", word: "within walking distance of", syllable: "walk · ing · dis · tance", shortAns: "在步行可達（某地）的距離內", meaning: "phr. 在步行可達...的距離內", hack: "整串背：<b>live within walking distance of these stores</b>。", example: "It is convenient to live within walking distance of these stores." }
     ];
 
     // ============================================================================
-    // 2. STATE & ANTI-BLIND-CLICK TRACKING
+    // 2. STATE & WEEKLY PACK ISOLATION ENGINE
     // ============================================================================
     const STORAGE_KEY = "gordon_en_sniper_state_v2";
     const CLOUD_TOPIC = "gordon_en_sniper_d72b5fa7";
@@ -578,6 +797,9 @@
       cards: {}
     };
 
+    // DEFAULT TO THIS WEEK'S PACK ('lichi_1101') SO IT NEVER MIXES WITH OLD WEEKS BY DEFAULT!
+    let currentPack = "lichi_1101";
+    let currentCat = "all";
     let currentMode = "todo"; // 'todo' | 'sos' | 'mastered' | 'report'
     let filteredDeck = [];
     let currentIndex = 0;
@@ -603,7 +825,7 @@
     function saveState(syncCloud = true) {
       appState.lastUpdated = new Date().toISOString();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-      updateModeCounts();
+      updatePackAndModeCounts();
       if (syncCloud) triggerCloudSync();
     }
 
@@ -628,17 +850,26 @@
     }
 
     function buildSyncPayload() {
-      const summary = { mastered: [], review: [], sos: [], errCards: {} };
+      const summary = { mastered: [], review: [], sos: [], errCards: {}, byPack: {} };
+      ["lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
+        summary.byPack[pk] = { total: 0, mastered: 0, sos: 0 };
+      });
       CARDS_DB.forEach(c => {
         const st = appState.cards[c.id] || { status: "new", errCount: 0 };
+        if (summary.byPack[c.pack]) {
+          summary.byPack[c.pack].total++;
+          if (st.status === "mastered") summary.byPack[c.pack].mastered++;
+          if (st.status === "sos") summary.byPack[c.pack].sos++;
+        }
         if (st.status === "mastered") summary.mastered.push(c.word);
         if (st.status === "review") summary.review.push(c.word);
-        if (st.status === "sos") summary.sos.push(c.word);
+        if (st.status === "sos") summary.sos.push(`${c.word} [${c.packName}]`);
         if (st.errCount > 0) summary.errCards[c.word] = st.errCount;
       });
       return {
         type: "gordon_state_sync",
         timestamp: new Date().toISOString(),
+        currentPack,
         stats: appState.stats,
         summary,
         cards: appState.cards
@@ -651,16 +882,89 @@
     }
 
     // ============================================================================
-    // 3. SINGLE-CARD DECK ENGINE & MICRO-TEST GATE
+    // 3. PACK SELECTION & CATEGORY FILTERING
     // ============================================================================
-    function updateModeCounts() {
-      const pack = document.getElementById("pack-select").value;
-      const cat = document.getElementById("cat-select").value;
-      let todo = 0, sos = 0, mastered = 0;
+    function selectPack(packId) {
+      currentPack = packId;
+      currentCat = "all";
+      currentIndex = 0;
+
+      // Update active visual state on pack cards
+      ["lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
+        const btn = document.getElementById(`pack-btn-${pk}`);
+        if (btn) btn.classList.toggle("active", pk === packId);
+      });
+
+      // Reset category pill highlight
+      ["all", "phonics", "chunks", "roots", "grammar"].forEach(cat => {
+        const el = document.getElementById(`cat-${cat}`);
+        if (el) el.classList.toggle("active", cat === "all");
+      });
+
+      rebuildDeck();
+      const pName = (PACK_META[packId] && PACK_META[packId].name) || packId;
+      showToast(`📅 已切換至：${pName}`);
+    }
+
+    function selectCat(catId) {
+      currentCat = catId;
+      currentIndex = 0;
+      ["all", "phonics", "chunks", "roots", "grammar"].forEach(cat => {
+        const el = document.getElementById(`cat-${cat}`);
+        if (el) el.classList.toggle("active", cat === catId);
+      });
+      rebuildDeck();
+    }
+
+    function updatePackAndModeCounts() {
+      // 1. Update each pack card's progress badge (e.g. "12 / 28 已封印")
+      const packTotals = {};
+      const packMastered = {};
+      ["lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
+        packTotals[pk] = 0;
+        packMastered[pk] = 0;
+      });
 
       CARDS_DB.forEach(c => {
-        if (pack !== "all" && c.pack !== pack) return;
-        if (cat !== "all" && c.cat !== cat) return;
+        const st = (appState.cards[c.id] && appState.cards[c.id].status) || "new";
+        packTotals[c.pack] = (packTotals[c.pack] || 0) + 1;
+        packTotals["all"]++;
+        if (st === "mastered") {
+          packMastered[c.pack] = (packMastered[c.pack] || 0) + 1;
+          packMastered["all"]++;
+        }
+      });
+
+      document.getElementById("prog-lichi_1101").innerText = `${packMastered["lichi_1101"]} / ${packTotals["lichi_1101"]} 已封印`;
+      ["lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
+        const el = document.getElementById(`prog-${pk}`);
+        if (el) el.innerText = `${packMastered[pk]}/${packTotals[pk]}`;
+      });
+
+      // 2. Update category pill counts for the currently selected pack
+      const catCounts = { all: 0, phonics: 0, chunks: 0, roots: 0, grammar: 0 };
+      CARDS_DB.forEach(c => {
+        if (currentPack !== "all" && c.pack !== currentPack) return;
+        catCounts.all++;
+        if (catCounts[c.cat] !== undefined) catCounts[c.cat]++;
+      });
+      document.getElementById("cat-all").innerText = `🎯 本進度全部 (${catCounts.all})`;
+      document.getElementById("cat-phonics").innerText = `🔤 單字與音節 (${catCounts.phonics})`;
+      document.getElementById("cat-chunks").innerText = `🔗 必考片語 (${catCounts.chunks})`;
+      document.getElementById("cat-roots").innerText = `⚠️ 熟詞生義/字根 (${catCounts.roots})`;
+      const gramBtn = document.getElementById("cat-grammar");
+      if (catCounts.grammar === 0) {
+        gramBtn.style.display = "none";
+      } else {
+        gramBtn.style.display = "inline-block";
+        gramBtn.innerText = `⚡ 文法秒殺 (${catCounts.grammar})`;
+      }
+
+      // 3. Update 4 mode tab counts for the currently selected pack + category
+      let todo = 0, sos = 0, mastered = 0;
+      CARDS_DB.forEach(c => {
+        if (currentPack !== "all" && c.pack !== currentPack) return;
+        if (currentCat !== "all" && c.cat !== currentCat) return;
         const st = (appState.cards[c.id] && appState.cards[c.id].status) || "new";
         if (st === "mastered") mastered++;
         else {
@@ -675,13 +979,11 @@
     }
 
     function rebuildDeck() {
-      updateModeCounts();
-      const pack = document.getElementById("pack-select").value;
-      const cat = document.getElementById("cat-select").value;
+      updatePackAndModeCounts();
 
       filteredDeck = CARDS_DB.filter(c => {
-        if (pack !== "all" && c.pack !== pack) return false;
-        if (cat !== "all" && c.cat !== cat) return false;
+        if (currentPack !== "all" && c.pack !== currentPack) return false;
+        if (currentCat !== "all" && c.cat !== currentCat) return false;
         const st = (appState.cards[c.id] && appState.cards[c.id].status) || "new";
         if (currentMode === "todo") return st !== "mastered";
         if (currentMode === "sos") return st === "sos";
@@ -693,10 +995,16 @@
       renderSingleCard();
     }
 
+    // ============================================================================
+    // 4. IN-PACK DISTRACTOR ENGINE (Keep options within the same week's pack!)
+    // ============================================================================
     function getThreeOptionsForCard(targetCard) {
-      // Pick 2 distractors from same category or pack
-      const pool = CARDS_DB.filter(c => c.id !== targetCard.id);
-      const shuffledPool = pool.sort(() => Math.random() - 0.5);
+      // Prioritize distractors from the SAME weekly pack so weeks don't mix!
+      let samePackPool = CARDS_DB.filter(c => c.pack === targetCard.pack && c.id !== targetCard.id);
+      if (samePackPool.length < 2) {
+        samePackPool = CARDS_DB.filter(c => c.id !== targetCard.id);
+      }
+      const shuffledPool = samePackPool.sort(() => Math.random() - 0.5);
       const distractors = shuffledPool.slice(0, 2).map(x => ({ text: x.shortAns, isCorrect: false }));
       const opts = [{ text: targetCard.shortAns, isCorrect: true }, ...distractors];
       return opts.sort(() => Math.random() - 0.5);
@@ -705,10 +1013,11 @@
     function renderSingleCard() {
       const mount = document.getElementById("single-card-mount");
       const navBar = document.getElementById("nav-bar");
+      const packShort = (PACK_META[currentPack] && PACK_META[currentPack].shortName) || "";
       const labelMap = {
-        todo: "🔥 待消滅清單（答對解鎖封印）",
-        sos: "🛏️ 睡前急救室（只看死穴字）",
-        mastered: "😎 已封印庫（複習檢視）"
+        todo: `🎯 ${packShort} · 🔥 待消滅（答對解鎖封印）`,
+        sos: `🎯 ${packShort} · 🛏️ 睡前急救室`,
+        mastered: `🎯 ${packShort} · 😎 已封印複習`
       };
       document.getElementById("deck-label").innerText = labelMap[currentMode] || "";
 
@@ -716,15 +1025,15 @@
         document.getElementById("deck-counter").innerText = "0 / 0 張";
         document.getElementById("deck-progress").style.width = "100%";
         navBar.style.display = "none";
-        let emptyTitle = "🎉 太棒了！這個範圍的單字已經全部封印完成！";
-        if (currentMode === "sos") emptyTitle = "✨ 目前「🛏️ 睡前急救室」是空的，沒有卡住的單字！";
-        if (currentMode === "mastered") emptyTitle = "目前還沒有封印的單字，快去「🔥 待消滅」闖關吧！";
+        let emptyTitle = `🎉 太棒了！【${packShort}】這個範圍的單字已經全部封印完成！`;
+        if (currentMode === "sos") emptyTitle = `✨ 目前【${packShort}】的「🛏️ 睡前急救室」是空的，沒有卡住的單字！`;
+        if (currentMode === "mastered") emptyTitle = `目前【${packShort}】還沒有封印的單字，快點上方「🔥 待消滅」開始闖關吧！`;
 
         mount.innerHTML = `
-          <div class="card-stage" style="justify-content: center; align-items: center; text-align: center; min-height: 280px;">
+          <div class="card-stage" style="justify-content: center; align-items: center; text-align: center; min-height: 270px;">
             <div style="font-size: 2.2rem; margin-bottom: 10px;">🌿</div>
             <h3 style="margin-bottom: 8px;">${emptyTitle}</h3>
-            <p style="font-size: 0.85rem; color: var(--text-sub);">可從上方切換其他考試進度或分類繼續練習。</p>
+            <p style="font-size: 0.84rem; color: var(--text-sub);">可點選上方其他分類或切換其他週進度繼續練習。</p>
           </div>
         `;
         return;
@@ -749,7 +1058,7 @@
         <div class="card-stage">
           <div>
             <div class="card-meta-row">
-              <span class="meta-tag">${card.packName} · ${card.catName}</span>
+              <span class="meta-tag">📌 ${card.packName} · ${card.catName}</span>
               <span class="status-tag">${stBadge} ${stObj.errCount > 0 ? `(曾錯 ${stObj.errCount} 次)` : ""}</span>
             </div>
 
@@ -770,7 +1079,7 @@
                 </button>
               `).join("")}
             </div>
-            <button class="unsure-btn" onclick="verifyGate(false, true)">🤔 我還不熟，直接翻面看字根解析</button>
+            <button class="unsure-btn" onclick="verifyGate(false, true)">🤔 我還不熟，直接翻面看拆解與例句</button>
           </div>
 
           <!-- STEP 2: REVEALED EXPLANATION & CONSEQUENCES -->
@@ -778,7 +1087,7 @@
             <div id="gate-result-banner" class="result-banner"></div>
             <div class="meaning-title">${card.meaning}</div>
             <div class="hack-card">🧠 <b>秒懂拆解：</b>${card.hack}</div>
-            <div class="example-line">📝 <b>考卷真題：</b>${card.example}</div>
+            <div class="example-line">📝 <b>講義例句：</b>${card.example}</div>
             <div id="conseq-actions" class="action-group"></div>
           </div>
         </div>
@@ -790,7 +1099,6 @@
       const card = filteredDeck[currentIndex];
       const stObj = appState.cards[card.id];
 
-      // Anti-blind-click speed check (< 650ms and wrong)
       if (!isUnsure && elapsedMs < 650 && !isCorrect) {
         appState.stats.fastClickWarnings = (appState.stats.fastClickWarnings || 0) + 1;
         showToast("⏳ 點太快囉！先看清楚音節與字根再選～");
@@ -817,20 +1125,19 @@
           <button class="conseq-btn btn-seal" onclick="applyDecision('${card.id}', 'mastered')">
             <div>
               <span class="c-main">😎 秒懂！封印這張卡</span>
-              <span class="c-sub">➔ 結果：從待背清單消失（待背數 -1），跳下一張</span>
+              <span class="c-sub">➔ 結果：從本週待背清單消失（待背數 -1），跳下一張</span>
             </div>
             <span class="c-arrow">➔</span>
           </button>
           <button class="conseq-btn btn-keep" onclick="applyDecision('${card.id}', 'review')">
             <div>
-              <span class="c-main">🤔 剛剛有點猶豫，明天再考我一次</span>
-              <span class="c-sub">➔ 結果：留在日常清單，跳下一張</span>
+              <span class="c-main">🤔 剛剛有點猶豫，留著再考我一次</span>
+              <span class="c-sub">➔ 結果：留在本週待消滅清單，跳下一張</span>
             </div>
             <span class="c-arrow">➔</span>
           </button>
         `;
       } else {
-        // Wrong or Unsure -> Lock "Seal" button, auto-record error & send to SOS
         stObj.errCount = (stObj.errCount || 0) + 1;
         stObj.status = "sos";
         stObj.updatedAt = new Date().toISOString();
@@ -845,7 +1152,7 @@
           <button class="conseq-btn btn-sos" onclick="applyDecision('${card.id}', 'sos')">
             <div>
               <span class="c-main">🛏️ 看懂拆解了！放進睡前急救室換下一張</span>
-              <span class="c-sub">➔ 結果：收進上方「睡前急救(🆘)」，AI 下週幫你換口訣特訓</span>
+              <span class="c-sub">➔ 結果：收進本週「睡前急救(🆘)」，睡前 5 分鐘專攻它</span>
             </div>
             <span class="c-arrow">➔</span>
           </button>
@@ -860,10 +1167,9 @@
       saveState(true);
 
       if (newStatus === "mastered") {
-        showToast(`😎 已封印「${card.word}」！待消滅卡片 -1`);
-        rebuildDeck(); // Card disappears from todo deck automatically
+        showToast(`😎 已封印「${card.word}」！本週待消滅 -1`);
+        rebuildDeck();
       } else {
-        // Move to next card
         if (currentIndex < filteredDeck.length - 1) {
           currentIndex++;
         } else {
@@ -887,7 +1193,7 @@
 
       const isReport = (mode === "report");
       document.getElementById("deck-view").style.display = isReport ? "none" : "block";
-      document.getElementById("filter-bar").style.display = isReport ? "none" : "grid";
+      document.getElementById("filter-bar").style.display = isReport ? "none" : "flex";
       document.getElementById("report-view").style.display = isReport ? "block" : "none";
 
       if (isReport) {
@@ -898,42 +1204,66 @@
       }
     }
 
-    function onFilterChange() {
-      currentIndex = 0;
-      rebuildDeck();
-    }
-
     function speakText(text) {
-      const clean = text.replace(/vs\.|\.\.\.|\/|\+/g, " ");
+      const clean = text
+        .replace(/\(.*?\)/g, "")
+        .replace(/vs\.|\.\.\.|\/|\+|＆|&|sb|sth/g, " ")
+        .trim();
       if ("speechSynthesis" in window) {
         window.speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(clean);
         u.lang = "en-US";
-        u.rate = 0.9;
+        u.rate = 0.88;
         window.speechSynthesis.speak(u);
       }
     }
 
     // ============================================================================
-    // 4. PARENT / AI VERIFICATION REPORT
+    // 5. PARENT / AI VERIFICATION REPORT (With Per-Week Breakdown)
     // ============================================================================
     function renderReportView() {
       const mastered = [], review = [], sos = [];
+      const byPack = {
+        lichi_1101: { label: "🔥 本週：李奇 11/01 (9000單 B篇)", total: 0, mastered: 0, sos: 0 },
+        lichi_1025: { label: "📅 上週：李奇 10/25 小考", total: 0, mastered: 0, sos: 0 },
+        lichi_1018: { label: "📅 前週：李奇 10/18 小考", total: 0, mastered: 0, sos: 0 },
+        midterm1:   { label: "🏫 段考：台中一中一段", total: 0, mastered: 0, sos: 0 }
+      };
+
       CARDS_DB.forEach(c => {
         const st = (appState.cards[c.id] && appState.cards[c.id].status) || "new";
-        if (st === "mastered") mastered.push(c.word);
-        if (st === "review") review.push(c.word);
-        if (st === "sos") sos.push(`${c.word} (${c.packName})`);
+        if (byPack[c.pack]) {
+          byPack[c.pack].total++;
+          if (st === "mastered") byPack[c.pack].mastered++;
+          if (st === "sos") byPack[c.pack].sos++;
+        }
+        if (currentPack === "all" || c.pack === currentPack) {
+          if (st === "mastered") mastered.push(c.word);
+          if (st === "review") review.push(c.word);
+          if (st === "sos") sos.push(`${c.word} (${c.packName})`);
+        }
       });
+
+      document.getElementById("pack-breakdown-list").innerHTML = Object.keys(byPack).map(pk => {
+        const info = byPack[pk];
+        const pct = info.total > 0 ? Math.round((info.mastered / info.total) * 100) : 0;
+        return `
+          <div class="pack-breakdown-row">
+            <span><b>${info.label}</b></span>
+            <span>😎 <b>${info.mastered}/${info.total}</b> (${pct}%) · 🆘 ${info.sos}</span>
+          </div>
+        `;
+      }).join("");
 
       const attempts = appState.stats.totalAttempts || 0;
       const correct = appState.stats.firstTryCorrect || 0;
       const acc = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
+      const scopeTotal = currentPack === "all" ? CARDS_DB.length : CARDS_DB.filter(c => c.pack === currentPack).length;
 
       document.getElementById("report-metrics").innerHTML = `
         <div class="stat-item">
-          <div class="stat-item-val" style="color: var(--green);">${mastered.length} / ${CARDS_DB.length}</div>
-          <div class="stat-item-lbl">😎 通過測試已封印</div>
+          <div class="stat-item-val" style="color: var(--green);">${mastered.length} / ${scopeTotal}</div>
+          <div class="stat-item-lbl">😎 目前進度已封印</div>
         </div>
         <div class="stat-item">
           <div class="stat-item-val">${acc}% (${correct}/${attempts})</div>
@@ -941,7 +1271,7 @@
         </div>
         <div class="stat-item">
           <div class="stat-item-val" style="color: var(--red);">${sos.length} 張</div>
-          <div class="stat-item-lbl">🛏️ 睡前急救死穴卡</div>
+          <div class="stat-item-lbl">🛏️ 目前進度急救卡</div>
         </div>
         <div class="stat-item">
           <div class="stat-item-val" style="color: var(--amber);">${appState.stats.fastClickWarnings || 0} 次</div>
@@ -950,8 +1280,8 @@
       `;
 
       document.getElementById("sos-word-list").innerHTML = `
-        <div style="margin-bottom: 6px;"><b>🆘 目前在「睡前急救室」的重點單字：</b><br>${sos.length ? sos.join("、") : "✨ 目前無死穴單字"}</div>
-        <div style="color: var(--text-sub); font-size: 0.78rem;"><b>😎 已驗證封印單字：</b>${mastered.length ? mastered.join(", ") : "尚無"}</div>
+        <div style="margin-bottom: 6px;"><b>🆘 目前範圍「睡前急救室」重點單字：</b><br>${sos.length ? sos.join("、") : "✨ 目前無死穴單字"}</div>
+        <div style="color: var(--text-sub); font-size: 0.78rem;"><b>😎 目前範圍已驗證封印：</b>${mastered.length ? mastered.join(", ") : "尚無"}</div>
       `;
     }
 
@@ -960,23 +1290,24 @@
       const attempts = appState.stats.totalAttempts || 0;
       const correct = appState.stats.firstTryCorrect || 0;
       const acc = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
+      const b1101 = p.summary.byPack.lichi_1101;
 
       const text = [
-        `【🌿 Gordon 英文閃卡真偽檢測戰報】`,
+        `【🌿 Gordon 英文閃卡分週進度戰報】`,
         `時間：${new Date().toLocaleString("zh-TW")}`,
+        `🔥 本週 (11/01 9000單B篇) 進度：已封印 ${b1101.mastered} / ${b1101.total} 張 (急救 ${b1101.sos} 張)`,
         `🎯 微測試首次命中率：${acc}% (${correct}/${attempts} 次)`,
-        `😎 已驗證封印 (${p.summary.mastered.length}字)：${p.summary.mastered.join(", ") || "無"}`,
-        `🤔 明天再考 (${p.summary.review.length}字)：${p.summary.review.join(", ") || "無"}`,
-        `🆘 睡前急救死穴 (${p.summary.sos.length}字)：${p.summary.sos.join(", ") || "無"}`
+        `😎 累計已封印 (${p.summary.mastered.length}字)：${p.summary.mastered.join(", ") || "無"}`,
+        `🆘 睡前急救死穴 (${p.summary.sos.length}字)：${p.summary.sos.join("、") || "無"}`
       ].join("\n");
 
       navigator.clipboard.writeText(text).then(() => {
-        showToast("📋 已複製學習戰報文字！");
+        showToast("📋 已複製分週學習戰報文字！");
       });
     }
 
     function downloadCSV() {
-      const rows = [["卡片ID", "考試進度", "弱點分類", "英文單字", "音節", "中文意義", "目前狀態", "答錯次數", "平均思考毫秒", "最後更新時間"]];
+      const rows = [["卡片ID", "考試進度", "弱點分類", "英文單字與片語", "音節與發音", "中文意義", "目前狀態", "答錯次數", "平均思考毫秒", "最後更新時間"]];
       CARDS_DB.forEach(c => {
         const st = appState.cards[c.id] || { status: "new", errCount: 0, avgMs: 0, updatedAt: "" };
         rows.push([c.id, c.packName, c.catName, `"${c.word}"`, `"${c.syllable}"`, `"${c.meaning}"`, st.status, st.errCount || 0, st.avgMs || 0, st.updatedAt || ""]);
@@ -995,7 +1326,7 @@
       t.innerText = msg;
       t.style.display = "block";
       if (toastTimer) clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => { t.style.display = "none"; }, 2800);
+      toastTimer = setTimeout(() => { t.style.display = "none"; }, 2600);
     }
 
     window.onload = () => {
