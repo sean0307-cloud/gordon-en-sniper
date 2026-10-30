@@ -23,7 +23,7 @@
       --red: #C84B31;
       --red-light: #FDF0ED;
       --border: #E2E0D8;
-      --shadow: 0 8px 24px rgba(44, 53, 57, 0.07);
+      --shadow: 0 8px 24px rgba(44, 53, 57, 0.06);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -33,8 +33,8 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.55;
-      padding: 12px 14px 40px;
-      max-width: 540px;
+      padding: 12px 14px 36px;
+      max-width: 520px;
       margin: 0 auto;
       min-height: 100vh;
       display: flex;
@@ -49,7 +49,7 @@
       margin-bottom: 10px;
     }
     .app-title {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 800;
       color: var(--text);
       display: flex;
@@ -57,7 +57,7 @@
       gap: 6px;
     }
     .sync-pill {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       padding: 4px 10px;
       border-radius: 99px;
       background: var(--green-light);
@@ -67,103 +67,69 @@
     }
 
     /* =========================================================================
-       STEP 1: VISUAL WEEKLY PROGRESS SELECTOR (ISOLATED BY WEEK)
+       CLEAN, COMFORTABLE SINGLE-BAR DROPDOWN SELECTOR
        ========================================================================= */
-    .pack-selector-box {
-      background: #FFFFFF;
+    .dropdown-card {
+      background: var(--card);
       border: 1.5px solid #CBD5E1;
       border-radius: 14px;
-      padding: 10px 12px;
+      padding: 9px 12px;
       margin-bottom: 10px;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
     }
-    .pack-header-row {
+    .dropdown-top-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 5px;
     }
-    .pack-header-title {
-      font-size: 0.8rem;
+    .dropdown-label {
+      font-size: 0.75rem;
       font-weight: 800;
-      color: var(--primary-dark);
+      color: var(--text-sub);
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
     }
-    .pack-isolation-badge {
-      font-size: 0.7rem;
-      background: #DBEAFE;
-      color: #1E40AF;
-      padding: 2px 7px;
+    .isolated-tag {
+      font-size: 0.68rem;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 1px 7px;
       border-radius: 99px;
       font-weight: 700;
     }
-    .pack-scroll {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-    }
-    .pack-card-btn {
-      border: 1.5px solid var(--border);
-      background: #FAF9F6;
-      border-radius: 10px;
-      padding: 7px 9px;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.15s;
+    .select-wrapper {
       position: relative;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .pack-card-btn.full-span {
-      grid-column: span 2;
-      flex-direction: row;
       align-items: center;
     }
-    .pack-card-btn.active {
-      background: var(--primary-light);
-      border-color: var(--primary);
-      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.14);
-    }
-    .pack-card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 4px;
-      margin-bottom: 2px;
-    }
-    .pack-name {
-      font-size: 0.84rem;
+    .pack-select {
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      background: #F8FAFC;
+      border: 1.5px solid #93C5FD;
+      border-radius: 10px;
+      padding: 9px 34px 9px 12px;
+      font-size: 0.92rem;
       font-weight: 800;
-      color: var(--text);
-    }
-    .pack-card-btn.active .pack-name {
       color: var(--primary-dark);
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
     }
-    .pack-badge-new {
-      background: #DC2626;
-      color: #FFFFFF;
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 1px 6px;
-      border-radius: 99px;
-      white-space: nowrap;
+    .pack-select:focus {
+      border-color: var(--primary);
+      background: #FFFFFF;
     }
-    .pack-sub {
-      font-size: 0.72rem;
-      color: var(--text-sub);
-      font-weight: 600;
-    }
-    .pack-prog-pill {
-      font-size: 0.7rem;
-      font-weight: 800;
-      color: var(--green);
-      background: var(--green-light);
-      padding: 1px 6px;
-      border-radius: 6px;
-      white-space: nowrap;
+    .select-arrow {
+      position: absolute;
+      right: 12px;
+      pointer-events: none;
+      font-size: 0.85rem;
+      color: var(--primary-dark);
+      font-weight: 900;
     }
 
     /* Mode Switcher Bar (4 Clean Tabs) */
@@ -174,7 +140,7 @@
       background: #EAE8E0;
       padding: 4px;
       border-radius: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
     .mode-btn {
       border: none;
@@ -217,7 +183,7 @@
       color: var(--text-sub);
       padding: 5px 11px;
       border-radius: 99px;
-      font-size: 0.78rem;
+      font-size: 0.77rem;
       font-weight: 700;
       white-space: nowrap;
       cursor: pointer;
@@ -228,17 +194,28 @@
       border-color: var(--text);
     }
 
-    /* Progress Bar */
+    /* Progress Bar + Quick Restart Link */
     .progress-wrap {
       margin-bottom: 10px;
     }
     .progress-info {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 0.78rem;
       color: var(--text-sub);
       font-weight: 700;
       margin-bottom: 4px;
+    }
+    .mini-restart-btn {
+      border: none;
+      background: transparent;
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-left: 6px;
     }
     .progress-track {
       height: 7px;
@@ -264,7 +241,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 395px;
+      min-height: 400px;
     }
 
     .card-meta-row {
@@ -295,7 +272,7 @@
       margin-bottom: 14px;
     }
     .word-main {
-      font-size: 1.78rem;
+      font-size: 1.8rem;
       font-weight: 800;
       color: var(--text);
       letter-spacing: 0.3px;
@@ -459,6 +436,65 @@
       color: #962D17;
     }
 
+    /* =========================================================================
+       COMPLETION / RESTART REVIEW CARD UI
+       ========================================================================= */
+    .complete-stage {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 360px;
+      padding: 24px 18px;
+    }
+    .complete-icon {
+      font-size: 2.6rem;
+      margin-bottom: 8px;
+    }
+    .complete-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .complete-desc {
+      font-size: 0.84rem;
+      color: var(--text-sub);
+      margin-bottom: 18px;
+      max-width: 380px;
+    }
+    .restart-btn-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .restart-primary-btn {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: none;
+      background: var(--primary);
+      color: #FFFFFF;
+      font-size: 0.94rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.22);
+      transition: transform 0.1s;
+    }
+    .restart-primary-btn:active { transform: scale(0.98); }
+    .restart-secondary-btn {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: #FAF9F6;
+      color: var(--text);
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .restart-secondary-btn:active { transform: scale(0.98); }
+
     /* Bottom Card Navigation (Prev / Next) */
     .nav-bar {
       display: flex;
@@ -559,61 +595,30 @@
   </div>
 
   <!-- =========================================================================
-       STEP 1: VISUAL WEEKLY PROGRESS SELECTOR (DEFAULT = THIS WEEK 11/01)
+       CLEAN SINGLE-BAR DROPDOWN PROGRESS SELECTOR (Grouped & Scalable)
        ========================================================================= -->
-  <div class="pack-selector-box">
-    <div class="pack-header-row">
-      <div class="pack-header-title">📅 選擇測驗進度（點選切換）</div>
-      <span class="pack-isolation-badge">獨立題庫 · 不混入別週單字</span>
+  <div class="dropdown-card">
+    <div class="dropdown-top-row">
+      <span class="dropdown-label">📅 選擇考試進度（點下拉選單切換）</span>
+      <span class="isolated-tag">各週獨立題庫 · 不混題</span>
     </div>
-    <div class="pack-scroll">
-      <!-- THIS WEEK: 11/01 (Full-width prominent card, default active!) -->
-      <button class="pack-card-btn full-span active" id="pack-btn-lichi_1101" onclick="selectPack('lichi_1101')">
-        <div>
-          <div class="pack-card-top">
-            <span class="pack-name">🔥 本週進度：李奇 11/01 小考</span>
-            <span class="pack-badge-new">NEW 本週必背</span>
-          </div>
-          <div class="pack-sub">9000單 B篇 (p.26–30) 單字＋片語 · 共 28 張</div>
-        </div>
-        <span class="pack-prog-pill" id="prog-lichi_1101">0 / 28 已封印</span>
-      </button>
-
-      <!-- LAST WEEK: 10/25 -->
-      <button class="pack-card-btn" id="pack-btn-lichi_1025" onclick="selectPack('lichi_1025')">
-        <div class="pack-card-top">
-          <span class="pack-name">📅 李奇 10/25</span>
-          <span class="pack-prog-pill" id="prog-lichi_1025">0/16</span>
-        </div>
-        <div class="pack-sub">上週小考弱點 (16張)</div>
-      </button>
-
-      <!-- PREV WEEK: 10/18 -->
-      <button class="pack-card-btn" id="pack-btn-lichi_1018" onclick="selectPack('lichi_1018')">
-        <div class="pack-card-top">
-          <span class="pack-name">📅 李奇 10/18</span>
-          <span class="pack-prog-pill" id="prog-lichi_1018">0/12</span>
-        </div>
-        <div class="pack-sub">前週小考弱點 (12張)</div>
-      </button>
-
-      <!-- SCHOOL MIDTERM 1 -->
-      <button class="pack-card-btn" id="pack-btn-midterm1" onclick="selectPack('midterm1')">
-        <div class="pack-card-top">
-          <span class="pack-name">🏫 一中一段</span>
-          <span class="pack-prog-pill" id="prog-midterm1">0/12</span>
-        </div>
-        <div class="pack-sub">學校段考核心 (12張)</div>
-      </button>
-
-      <!-- ALL WEEKS REVIEW -->
-      <button class="pack-card-btn" id="pack-btn-all" onclick="selectPack('all')">
-        <div class="pack-card-top">
-          <span class="pack-name">📚 跨週總複習</span>
-          <span class="pack-prog-pill" id="prog-all">0/68</span>
-        </div>
-        <div class="pack-sub">全部進度合輯 (68張)</div>
-      </button>
+    <div class="select-wrapper">
+      <select id="pack-select" class="pack-select" onchange="onPackSelectChange(this.value)">
+        <optgroup label="📌 本週最新進度（預設）">
+          <option value="lichi_1101" id="opt-lichi_1101" selected>🔥 李奇 11/01 小考｜9000單 B篇 (0/28 已封印)</option>
+        </optgroup>
+        <optgroup label="📅 歷屆李奇小考進度（由新到舊）">
+          <option value="lichi_1025" id="opt-lichi_1025">📅 李奇 10/25 小考｜新聞長字與完成式 (0/16 已封印)</option>
+          <option value="lichi_1018" id="opt-lichi_1018">📅 李奇 10/18 小考｜無被動與片語搭配 (0/12 已封印)</option>
+        </optgroup>
+        <optgroup label="🏫 學校段考專區">
+          <option value="midterm1" id="opt-midterm1">🏫 台中一中 一段｜核心語塊與詞性 (0/12 已封印)</option>
+        </optgroup>
+        <optgroup label="📚 考前跨週大複習">
+          <option value="all" id="opt-all">📚 跨週全部進度總複習 (0/68 已封印)</option>
+        </optgroup>
+      </select>
+      <span class="select-arrow">▾</span>
     </div>
   </div>
 
@@ -639,10 +644,10 @@
 
   <!-- One-Tap Category Pills within the Selected Week -->
   <div class="cat-bar" id="filter-bar">
-    <button class="cat-pill active" id="cat-all" onclick="selectCat('all')">🎯 本週全部</button>
+    <button class="cat-pill active" id="cat-all" onclick="selectCat('all')">🎯 本進度全部</button>
     <button class="cat-pill" id="cat-phonics" onclick="selectCat('phonics')">🔤 單字與音節</button>
-    <button class="cat-pill" id="cat-chunks" onclick="selectCat('chunks')">🔗 必考片語＆搭配詞</button>
-    <button class="cat-pill" id="cat-roots" onclick="selectCat('roots')">⚠️ 熟詞生義＆字根</button>
+    <button class="cat-pill" id="cat-chunks" onclick="selectCat('chunks')">🔗 必考片語</button>
+    <button class="cat-pill" id="cat-roots" onclick="selectCat('roots')">⚠️ 熟詞生義/字根</button>
     <button class="cat-pill" id="cat-grammar" onclick="selectCat('grammar')">⚡ 文法秒殺</button>
   </div>
 
@@ -651,7 +656,10 @@
     <div class="progress-wrap">
       <div class="progress-info">
         <span id="deck-label">目前範圍：李奇 11/01 · 🔥 待消滅</span>
-        <span id="deck-counter">第 1 / 1 張</span>
+        <span>
+          <span id="deck-counter">第 1 / 1 張</span>
+          <button class="mini-restart-btn" id="top-restart-btn" onclick="confirmRestartPack()" style="display: none;">🔄 重刷本進度</button>
+        </span>
       </div>
       <div class="progress-track">
         <div class="progress-fill" id="deck-progress" style="width: 0%;"></div>
@@ -691,11 +699,11 @@
     // 1. FLASHCARD DATABASE (Separated cleanly by Weekly Exam Pack)
     // ============================================================================
     const PACK_META = {
-      lichi_1101: { name: "李奇 11/01 (本週 9000單 B篇)", shortName: "李奇 11/01" },
-      lichi_1025: { name: "李奇 10/25 小考", shortName: "李奇 10/25" },
-      lichi_1018: { name: "李奇 10/18 小考", shortName: "李奇 10/18" },
-      midterm1:   { name: "一中一段核心", shortName: "一中一段" },
-      all:        { name: "跨週總複習 (全部進度)", shortName: "跨週全部" }
+      lichi_1101: { name: "🔥 李奇 11/01 小考｜9000單 B篇", shortName: "李奇 11/01" },
+      lichi_1025: { name: "📅 李奇 10/25 小考｜新聞長字與完成式", shortName: "李奇 10/25" },
+      lichi_1018: { name: "📅 李奇 10/18 小考｜無被動與片語搭配", shortName: "李奇 10/18" },
+      midterm1:   { name: "🏫 台中一中 一段｜核心語塊與詞性", shortName: "一中一段" },
+      all:        { name: "📚 跨週全部進度總複習", shortName: "跨週全部" }
     };
 
     const CARDS_DB = [
@@ -797,7 +805,7 @@
       cards: {}
     };
 
-    // DEFAULT TO THIS WEEK'S PACK ('lichi_1101') SO IT NEVER MIXES WITH OLD WEEKS BY DEFAULT!
+    // DEFAULT TO THIS WEEK'S PACK ('lichi_1101')
     let currentPack = "lichi_1101";
     let currentCat = "all";
     let currentMode = "todo"; // 'todo' | 'sos' | 'mastered' | 'report'
@@ -882,18 +890,12 @@
     }
 
     // ============================================================================
-    // 3. PACK SELECTION & CATEGORY FILTERING
+    // 3. DROPDOWN PACK SELECTION & RESTART REVIEW LOGIC
     // ============================================================================
-    function selectPack(packId) {
+    function onPackSelectChange(packId) {
       currentPack = packId;
       currentCat = "all";
       currentIndex = 0;
-
-      // Update active visual state on pack cards
-      ["lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
-        const btn = document.getElementById(`pack-btn-${pk}`);
-        if (btn) btn.classList.toggle("active", pk === packId);
-      });
 
       // Reset category pill highlight
       ["all", "phonics", "chunks", "roots", "grammar"].forEach(cat => {
@@ -902,7 +904,7 @@
       });
 
       rebuildDeck();
-      const pName = (PACK_META[packId] && PACK_META[packId].name) || packId;
+      const pName = (PACK_META[packId] && PACK_META[packId].shortName) || packId;
       showToast(`📅 已切換至：${pName}`);
     }
 
@@ -916,8 +918,41 @@
       rebuildDeck();
     }
 
+    // Restart review for the current pack (and current category filter if selected)
+    function restartCurrentScope(onlyCurrentCat = false) {
+      let count = 0;
+      CARDS_DB.forEach(c => {
+        if (currentPack !== "all" && c.pack !== currentPack) return;
+        if (onlyCurrentCat && currentCat !== "all" && c.cat !== currentCat) return;
+        if (!appState.cards[c.id]) {
+          appState.cards[c.id] = { status: "new", errCount: 0, passCount: 0, avgMs: 0, updatedAt: "" };
+        } else {
+          appState.cards[c.id].status = "new";
+          appState.cards[c.id].updatedAt = new Date().toISOString();
+        }
+        count++;
+      });
+
+      currentMode = "todo";
+      ["todo", "sos", "mastered", "report"].forEach(m => {
+        document.getElementById(`m-${m}`).classList.toggle("active", m === "todo");
+      });
+      currentIndex = 0;
+      saveState(true);
+      rebuildDeck();
+      const packShort = (PACK_META[currentPack] && PACK_META[currentPack].shortName) || "";
+      showToast(`🔄 已重啟【${packShort}】共 ${count} 張閃卡，開始新一輪複習！`);
+    }
+
+    function confirmRestartPack() {
+      const packShort = (PACK_META[currentPack] && PACK_META[currentPack].shortName) || "";
+      if (confirm(`確定要將【${packShort}】已封印的單字重新放回「🔥 待消滅」再複習一輪嗎？`)) {
+        restartCurrentScope(false);
+      }
+    }
+
     function updatePackAndModeCounts() {
-      // 1. Update each pack card's progress badge (e.g. "12 / 28 已封印")
+      // 1. Update live counts inside the Dropdown <option> labels
       const packTotals = {};
       const packMastered = {};
       ["lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
@@ -935,10 +970,14 @@
         }
       });
 
-      document.getElementById("prog-lichi_1101").innerText = `${packMastered["lichi_1101"]} / ${packTotals["lichi_1101"]} 已封印`;
-      ["lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
-        const el = document.getElementById(`prog-${pk}`);
-        if (el) el.innerText = `${packMastered[pk]}/${packTotals[pk]}`;
+      Object.keys(PACK_META).forEach(pk => {
+        const optEl = document.getElementById(`opt-${pk}`);
+        if (optEl) {
+          const m = packMastered[pk] || 0;
+          const t = packTotals[pk] || 0;
+          const doneTag = (m === t && t > 0) ? "✅ 已全數破關" : `${m}/${t} 已封印`;
+          optEl.text = `${PACK_META[pk].name} (${doneTag})`;
+        }
       });
 
       // 2. Update category pill counts for the currently selected pack
@@ -976,6 +1015,12 @@
       document.getElementById("num-todo").innerText = todo;
       document.getElementById("num-sos").innerText = sos;
       document.getElementById("num-mastered").innerText = mastered;
+
+      // Show mini restart button on top bar whenever at least 1 card in this pack is mastered
+      const topRestartBtn = document.getElementById("top-restart-btn");
+      if (topRestartBtn) {
+        topRestartBtn.style.display = mastered > 0 ? "inline" : "none";
+      }
     }
 
     function rebuildDeck() {
@@ -996,10 +1041,9 @@
     }
 
     // ============================================================================
-    // 4. IN-PACK DISTRACTOR ENGINE (Keep options within the same week's pack!)
+    // 4. IN-PACK DISTRACTOR ENGINE & COMPLETION / RESTART SCREEN
     // ============================================================================
     function getThreeOptionsForCard(targetCard) {
-      // Prioritize distractors from the SAME weekly pack so weeks don't mix!
       let samePackPool = CARDS_DB.filter(c => c.pack === targetCard.pack && c.id !== targetCard.id);
       if (samePackPool.length < 2) {
         samePackPool = CARDS_DB.filter(c => c.id !== targetCard.id);
@@ -1015,27 +1059,77 @@
       const navBar = document.getElementById("nav-bar");
       const packShort = (PACK_META[currentPack] && PACK_META[currentPack].shortName) || "";
       const labelMap = {
-        todo: `🎯 ${packShort} · 🔥 待消滅（答對解鎖封印）`,
+        todo: `🎯 ${packShort} · 🔥 待消滅`,
         sos: `🎯 ${packShort} · 🛏️ 睡前急救室`,
         mastered: `🎯 ${packShort} · 😎 已封印複習`
       };
       document.getElementById("deck-label").innerText = labelMap[currentMode] || "";
 
+      // Count total cards in this pack/cat scope
+      const scopeCards = CARDS_DB.filter(c => {
+        if (currentPack !== "all" && c.pack !== currentPack) return false;
+        if (currentCat !== "all" && c.cat !== currentCat) return false;
+        return true;
+      });
+
+      // WHEN DECK IS EMPTY -> SHOW COMPLETION & RESTART REVIEW SCREEN!
       if (filteredDeck.length === 0) {
         document.getElementById("deck-counter").innerText = "0 / 0 張";
         document.getElementById("deck-progress").style.width = "100%";
         navBar.style.display = "none";
-        let emptyTitle = `🎉 太棒了！【${packShort}】這個範圍的單字已經全部封印完成！`;
-        if (currentMode === "sos") emptyTitle = `✨ 目前【${packShort}】的「🛏️ 睡前急救室」是空的，沒有卡住的單字！`;
-        if (currentMode === "mastered") emptyTitle = `目前【${packShort}】還沒有封印的單字，快點上方「🔥 待消滅」開始闖關吧！`;
 
-        mount.innerHTML = `
-          <div class="card-stage" style="justify-content: center; align-items: center; text-align: center; min-height: 270px;">
-            <div style="font-size: 2.2rem; margin-bottom: 10px;">🌿</div>
-            <h3 style="margin-bottom: 8px;">${emptyTitle}</h3>
-            <p style="font-size: 0.84rem; color: var(--text-sub);">可點選上方其他分類或切換其他週進度繼續練習。</p>
-          </div>
-        `;
+        if (currentMode === "todo") {
+          mount.innerHTML = `
+            <div class="card-stage complete-stage">
+              <div class="complete-icon">🎉</div>
+              <div class="complete-title">太棒了！【${packShort}】此範圍已全數封印完成！</div>
+              <div class="complete-desc">
+                共 ${scopeCards.length} 張單字與片語皆已通過微測試考驗。<br>想要再重啟一輪複習加深印象，或切換其他進度嗎？
+              </div>
+              <div class="restart-btn-group">
+                <button class="restart-primary-btn" onclick="restartCurrentScope(true)">
+                  🔄 重啟本範圍複習（${scopeCards.length} 張重新洗牌再測一輪！）
+                </button>
+                <button class="restart-secondary-btn" onclick="switchMode('mastered')">
+                  👀 不解除封印，直接去「😎 已封印」逐張抽考複習
+                </button>
+              </div>
+            </div>
+          `;
+        } else if (currentMode === "sos") {
+          mount.innerHTML = `
+            <div class="card-stage complete-stage">
+              <div class="complete-icon">✨</div>
+              <div class="complete-title">目前【${packShort}】的「🛏️ 睡前急救室」是空的！</div>
+              <div class="complete-desc">
+                沒有卡住的死穴單字！你可以回到「🔥 待消滅」繼續闖關，或重啟整份進度再刷一輪。
+              </div>
+              <div class="restart-btn-group">
+                <button class="restart-primary-btn" onclick="switchMode('todo')">
+                  🔥 回到「待消滅清單」繼續闖關
+                </button>
+                <button class="restart-secondary-btn" onclick="restartCurrentScope(false)">
+                  🔄 重啟【${packShort}】整份進度重新複習
+                </button>
+              </div>
+            </div>
+          `;
+        } else {
+          mount.innerHTML = `
+            <div class="card-stage complete-stage">
+              <div class="complete-icon">🌿</div>
+              <div class="complete-title">目前【${packShort}】還沒有已封印的單字</div>
+              <div class="complete-desc">
+                快點選下方按鈕前往「🔥 待消滅」開始闖關吧！
+              </div>
+              <div class="restart-btn-group">
+                <button class="restart-primary-btn" onclick="switchMode('todo')">
+                  🔥 立即開始【${packShort}】闖關測驗
+                </button>
+              </div>
+            </div>
+          `;
+        }
         return;
       }
 
@@ -1219,7 +1313,7 @@
     }
 
     // ============================================================================
-    // 5. PARENT / AI VERIFICATION REPORT (With Per-Week Breakdown)
+    // 5. PARENT / AI VERIFICATION REPORT (With Per-Week Breakdown & Restart Button)
     // ============================================================================
     function renderReportView() {
       const mastered = [], review = [], sos = [];
