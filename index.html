@@ -605,7 +605,8 @@
     <div class="select-wrapper">
       <select id="pack-select" class="pack-select" onchange="onPackSelectChange(this.value)">
         <optgroup label="📌 本週最新進度（預設）">
-          <option value="lichi_1101" id="opt-lichi_1101" selected>🔥 李奇 11/01 小考｜9000單 B篇 (0/28 已封印)</option>
+          <option value="lichi_1101x" id="opt-lichi_1101x" selected>🎯 李奇 11/01 考後｜錯題＋圈字 (0/23 已封印)</option>
+          <option value="lichi_1101" id="opt-lichi_1101">🔥 李奇 11/01 考前｜9000單 B篇 (0/28 已封印)</option>
         </optgroup>
         <optgroup label="📅 歷屆李奇小考進度（由新到舊）">
           <option value="lichi_1025" id="opt-lichi_1025">📅 李奇 10/25 小考｜新聞長字與完成式 (0/16 已封印)</option>
@@ -699,7 +700,8 @@
     // 1. FLASHCARD DATABASE (Separated cleanly by Weekly Exam Pack)
     // ============================================================================
     const PACK_META = {
-      lichi_1101: { name: "🔥 李奇 11/01 小考｜9000單 B篇", shortName: "李奇 11/01" },
+      lichi_1101x: { name: "🎯 李奇 11/01 考後｜錯題＋圈字", shortName: "11/01 考後錯題" },
+      lichi_1101: { name: "🔥 李奇 11/01 考前｜9000單 B篇", shortName: "李奇 11/01" },
       lichi_1025: { name: "📅 李奇 10/25 小考｜新聞長字與完成式", shortName: "李奇 10/25" },
       lichi_1018: { name: "📅 李奇 10/18 小考｜無被動與片語搭配", shortName: "李奇 10/18" },
       midterm1:   { name: "🏫 台中一中 一段｜核心語塊與詞性", shortName: "一中一段" },
@@ -707,6 +709,33 @@
     };
 
     const CARDS_DB = [
+      // ==========================================================================
+      // 🎯 李奇 11/01 考後：Gordon 圈字＋錯題考點 (共 23 張)
+      // ==========================================================================
+      { id: "c_1101x_01", pack: "lichi_1101x", packName: "11/01 考後", cat: "roots", catName: "⚠️ 熟詞生義", word: "measure (n.)", syllable: "meas · ure ['mɛʒɚ]", shortAns: "n. 措施、手段 ／ v. 測量", meaning: "n. 措施、手段；v. 測量", hack: "文意選填 Q27：<b>Another important measure is to...</b>（另一項重要措施是...）。常考 <b>take measures to V</b>（採取措施去做...）。", example: "Another important measure is to improve communication between schools and the police. (Q27 圈字)" },
+      { id: "c_1101x_02", pack: "lichi_1101x", packName: "11/01 考後", cat: "phonics", catName: "🔤 單字與音節", word: "possession", syllable: "pos · ses · sion [pə'zɛʃən]", shortAns: "n. 持有、擁有；財產", meaning: "n. 持有、擁有；（複數）財產", hack: "<b>possess</b>（v. 擁有）➔ <b>possession</b>（n.）。注意 <b>ss · ss</b> 兩組雙 s！片語 <b>in possession of</b>（持有...）。", example: "New regulations may make possession of electronic cigarettes illegal. (Q34 錯題＋圈字)" },
+      { id: "c_1101x_03", pack: "lichi_1101x", packName: "11/01 考後", cat: "roots", catName: "⚠️ 熟詞生義", word: "substances", syllable: "sub · stan · ces ['sʌbstənsɪz]", shortAns: "n. 物質；（管制）藥物", meaning: "n. 物質；（新聞中常指）管制藥物、毒品", hack: "<b>sub-</b>（在下面）+ <b>stance</b>（站立）➔ 底層的東西 = 物質。新聞常見 <b>controlled substances</b>（管制藥品）。", example: "Some substances related to etomidate may also be placed under stricter drug controls. (Q35 錯題＋圈字)" },
+      { id: "c_1101x_04", pack: "lichi_1101x", packName: "11/01 考後", cat: "roots", catName: "🧩 字根拆解", word: "autonomy", syllable: "au · ton · o · my [ɔ'tɑnəmɪ]", shortAns: "n. 自主權、自治", meaning: "n. 自主權、自治權", hack: "<b>auto</b>（自己）+ <b>nomy</b>（法則）➔ 自己訂規則 = 自主權！形容詞 <b>autonomous</b>（自主的，如 autonomous cars 自駕車）。", example: "...while respecting students' rights and school autonomy. (Q33 錯題＋圈字)" },
+      { id: "c_1101x_05", pack: "lichi_1101x", packName: "11/01 考後", cat: "phonics", catName: "🔤 單字與音節", word: "personnel", syllable: "per · son · nel [ˌpɝsə'nɛl]", shortAns: "n. （全體）人員、員工", meaning: "n. （集合名詞）全體人員、員工", hack: "重音在最後 <b>-NEL</b>，雙寫 <b>nn</b>！不要和 <b>personal</b>（adj. 個人的，重音在前）搞混。", example: "a new security force made up of retired military and police personnel. (Q28 錯題)" },
+      { id: "c_1101x_06", pack: "lichi_1101x", packName: "11/01 考後", cat: "chunks", catName: "🔗 必考片語", word: "identify (students at risk)", syllable: "i · den · ti · fy [aɪ'dɛntəˌfaɪ]", shortAns: "v. 辨識、找出", meaning: "v. 辨識、找出、確認身分", hack: "助動詞 could 後接<b>原形動詞</b> + 受詞 ➔ <b>identify students who...</b>（找出...的學生）。另有 <b>identify with</b>（認同）。", example: "Schools could also identify students who may be at greater risk of using drugs. (Q32 錯題)" },
+      { id: "c_1101x_07", pack: "lichi_1101x", packName: "11/01 考後", cat: "roots", catName: "🧩 字根拆解", word: "infiltration", syllable: "in · fil · tra · tion", shortAns: "n. 滲透、潛移默化地進入", meaning: "n. 滲透、潛入", hack: "<b>in-</b>（進入）+ <b>filtr</b>（過濾）➔ 像水慢慢滲入！句型 <b>the infiltration of A into B</b>。campaign 是有組織的活動。", example: "The infiltration of foreign ideas into the local culture has gradually changed young people. (Q18 錯題)" },
+      { id: "c_1101x_08", pack: "lichi_1101x", packName: "11/01 考後", cat: "chunks", catName: "🔗 必考片語", word: "manage to V", syllable: "man · age ['mænɪdʒ]", shortAns: "設法成功做到（一字多義）", meaning: "phr. 設法成功做到...（manage 不只是管理）", hack: "一字多義：<b>manage to V</b> = 設法做到！<b>conquer</b>（征服）後面不能接 to V。", example: "Without any formal training, the boy managed to compose a symphony. (Q23 錯題)" },
+      { id: "c_1101x_09", pack: "lichi_1101x", packName: "11/01 考後", cat: "chunks", catName: "🔗 必考片語", word: "bare one's soul (to sb)", syllable: "bare · one's · soul", shortAns: "向某人敞開心扉、傾吐心聲", meaning: "phr. 向某人敞開心扉、傾吐心聲", hack: "把靈魂赤裸裸 (<b>bare</b>) 攤開！<b>bang</b> 是猛撞，不能接 soul。片語要整串說出來！", example: "Since Sarah and I don't know each other well, I certainly won't bare my soul to her. (Q2 錯題)" },
+      { id: "c_1101x_10", pack: "lichi_1101x", packName: "11/01 考後", cat: "roots", catName: "⚠️ 熟詞生義", word: "on the basis of vs. the basics of", syllable: "ba · sis ／ ba · sics", shortAns: "根據…（basis）vs. …的基礎知識（basics）", meaning: "on the basis of 根據、基於；the basics of ...的基本功", hack: "前面有 <b>on the ___ of</b> ➔ 必填 <b>basis</b>（單數準則）；<b>basics</b> 是複數「基本功」。", example: "The teacher graded the projects on the basis of creativity, accuracy, and presentation skills. (Q6 錯題)" },
+      { id: "c_1101x_11", pack: "lichi_1101x", packName: "11/01 考後", cat: "chunks", catName: "🔗 必考片語", word: "be baying for blood", syllable: "bay · ing · for · blood", shortAns: "群情激憤、要求嚴懲", meaning: "phr. （群眾）憤怒要求嚴懲", hack: "<b>bay</b> 原義是狗狼狂吠 ➔ 像狼群狂吠要見血 = 群情激憤要求嚴懲！", example: "The angry villagers were baying for blood after the official was caught accepting bribes. (Q7 錯題)" },
+      { id: "c_1101x_12", pack: "lichi_1101x", packName: "11/01 考後", cat: "chunks", catName: "🔗 必考片語", word: "law enforcement (agents)", syllable: "en · force · ment", shortAns: "執法（單位）、執法人員", meaning: "n. 執法；law enforcement agents 執法人員", hack: "<b>en-</b>（使）+ <b>force</b>（力量）➔ <b>enforce</b> 強制執行 ➔ <b>law enforcement</b> 執法機關。", example: "When police or other law enforcement agents are investigating someone... (閱讀 圈字)" },
+      { id: "c_1101x_13", pack: "lichi_1101x", packName: "11/01 考後", cat: "phonics", catName: "🔤 單字與音節", word: "evidence", syllable: "ev · i · dence ['ɛvədəns]", shortAns: "n. 證據（不可數）", meaning: "n. 證據（不可數名詞）", hack: "不可數！要說 <b>a piece of evidence</b>（一項證據）。搭配 <b>produce evidence</b>（提出證據）。", example: "they need to produce evidence. Each piece of evidence is of crucial importance. (閱讀 圈字)" },
+      { id: "c_1101x_14", pack: "lichi_1101x", packName: "11/01 考後", cat: "phonics", catName: "🔤 單字與音節", word: "poisonous", syllable: "poi · son · ous ['pɔɪzənəs]", shortAns: "adj. 有毒的", meaning: "adj. 有毒的", hack: "<b>poison</b>（毒）+ <b>-ous</b>（充滿...的）。<b>the fruit of the poisonous tree</b> = 毒樹果實（非法取得的證據）。", example: "something called the fruit of the poisonous tree doctrine. (閱讀 圈字)" },
+      { id: "c_1101x_15", pack: "lichi_1101x", packName: "11/01 考後", cat: "roots", catName: "🧩 字根拆解", word: "doctrine", syllable: "doc · trine ['dɑktrɪn]", shortAns: "n. 原則、學說、教條", meaning: "n. （法律或宗教的）原則、學說", hack: "<b>doc</b>（教導，同 doctor）➔ 被教導的原則 = 學說、原則。", example: "This doctrine states that any evidence acquired illegally is not acceptable in court. (閱讀 圈字)" },
+      { id: "c_1101x_16", pack: "lichi_1101x", packName: "11/01 考後", cat: "roots", catName: "⚠️ 熟詞生義", word: "indicator", syllable: "in · di · ca · tor", shortAns: "n. （汽車）方向燈；指標", meaning: "n. 指標；【熟詞生義】汽車方向燈", hack: "<b>indicate</b>（指出）+ <b>-or</b> ➔ 指出方向的東西 = 方向燈！<b>put on his indicator</b> = 打方向燈。", example: "Mr. Smith forgot to put on his indicator as he was making a turn. (閱讀 圈字)" },
+      { id: "c_1101x_17", pack: "lichi_1101x", packName: "11/01 考後", cat: "roots", catName: "🧩 字根拆解", word: "admissible", syllable: "ad · mis · si · ble", shortAns: "adj. （證據）可被採納的", meaning: "adj. （法庭上證據）可採納的、可接受的", hack: "<b>admit</b>（允許進入）+ <b>-ible</b>（可...的）➔ 可被允許的。<b>not admissible as evidence</b> = 不能當作證據。", example: "the judge rules that the drugs are not admissible as evidence. (閱讀 圈字)" },
+      { id: "c_1101x_18", pack: "lichi_1101x", packName: "11/01 考後", cat: "chunks", catName: "🔗 必考片語", word: "get (criminal) charges dropped", syllable: "charg · es · dropped", shortAns: "讓（刑事）指控被撤銷", meaning: "phr. 讓指控被撤銷；drop charges 撤銷告訴", hack: "<b>charge</b> 在法律新聞 = 指控、罪名；<b>drop the charges</b> = 撤銷指控。", example: "evidence—even a bag of drugs—can get all criminal charges dropped. (Q36 錯題)" },
+      { id: "c_1101x_19", pack: "lichi_1101x", packName: "11/01 考後", cat: "grammar", catName: "⚡ 文法秒殺", word: "Two years from now + will be V-ing", syllable: "未來進行式", shortAns: "未來某時間點正在做（未來進行式）", meaning: "未來某時間點正在進行 ➔ will be V-ing", hack: "<b>Two years from now</b> = 未來某時間點 ➔ <b>will be preparing</b>（正在準備）。<b>will have p.p.</b> 要搭 <b>by + 未來時間</b>。", example: "Two years from now, I will be preparing for the college entrance exam. (Q46 錯題)" },
+      { id: "c_1101x_20", pack: "lichi_1101x", packName: "11/01 考後", cat: "grammar", catName: "⚡ 文法秒殺", word: "專有名詞 + , which", syllable: "非限定關代", shortAns: "獨一無二的先行詞 ➔ 用逗號 + which", meaning: "專有名詞／獨一無二的先行詞 ➔ 非限定用法 , which", hack: "先行詞是電影名稱 <b>The Greatest Showman</b>（獨一無二）➔ 只能用 <b>, which</b> 補充說明。<b>that 前面不能加逗號</b>！", example: "the director of the movie The Greatest Showman, which had amazed audiences worldwide. (Q58 錯題)" },
+      { id: "c_1101x_21", pack: "lichi_1101x", packName: "11/01 考後", cat: "grammar", catName: "⚡ 文法秒殺", word: "the impression that + 完整句", syllable: "同位語子句", shortAns: "that 引導同位語，說明名詞的內容", meaning: "impression / fact / idea / news + that + 完整句（同位語）", hack: "<b>give sb the impression that S + V</b>：that 子句說明「印象的內容」。in which 語意不通。", example: "beavers give us the impression that they are always on the move. (Q61 錯題)" },
+      { id: "c_1101x_22", pack: "lichi_1101x", packName: "11/01 考後", cat: "grammar", catName: "⚡ 文法秒殺", word: "avoid exposing oneself to", syllable: "avoid + V-ing", shortAns: "避免使自己暴露於…（avoid + V-ing）", meaning: "avoid + V-ing；expose oneself to sth = be exposed to sth", hack: "<b>avoid</b> 後接 <b>V-ing</b>；<b>expose</b> 是及物動詞，要有受詞 ➔ <b>exposing themselves to</b>。", example: "allows many species to avoid exposing themselves to harsh environmental changes. (Q64 錯題)" },
+      { id: "c_1101x_23", pack: "lichi_1101x", packName: "11/01 考後", cat: "phonics", catName: "🔤 單字與音節", word: "progress", syllable: "prog · ress ['prɑɡrɛs]", shortAns: "n. 進步、進展（不可數）", meaning: "n. 進步、進展（不可數）；v. 進步（重音在後）", hack: "名詞重音在前 <b>'PROG-ress</b>，動詞重音在後。和 <b>history, values</b> 並列，都是抽象名詞。", example: "banknotes can reveal a great deal about a country's history, progress, and values. (Q54 空白)" },
+
       // ==========================================================================
       // 🆕 本週最新進度：李奇 11/01 (9000單 B篇 p.26–30, 共 28 張)
       // ==========================================================================
@@ -806,7 +835,7 @@
     };
 
     // DEFAULT TO THIS WEEK'S PACK ('lichi_1101')
-    let currentPack = "lichi_1101";
+    let currentPack = "lichi_1101x";
     let currentCat = "all";
     let currentMode = "todo"; // 'todo' | 'sos' | 'mastered' | 'report'
     let filteredDeck = [];
@@ -859,7 +888,7 @@
 
     function buildSyncPayload() {
       const summary = { mastered: [], review: [], sos: [], errCards: {}, byPack: {} };
-      ["lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
+      ["lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
         summary.byPack[pk] = { total: 0, mastered: 0, sos: 0 };
       });
       CARDS_DB.forEach(c => {
@@ -955,7 +984,7 @@
       // 1. Update live counts inside the Dropdown <option> labels
       const packTotals = {};
       const packMastered = {};
-      ["lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
+      ["lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
         packTotals[pk] = 0;
         packMastered[pk] = 0;
       });
@@ -1318,7 +1347,8 @@
     function renderReportView() {
       const mastered = [], review = [], sos = [];
       const byPack = {
-        lichi_1101: { label: "🔥 本週：李奇 11/01 (9000單 B篇)", total: 0, mastered: 0, sos: 0 },
+        lichi_1101x: { label: "🎯 11/01 考後：錯題＋圈字", total: 0, mastered: 0, sos: 0 },
+        lichi_1101: { label: "🔥 11/01 考前：9000單 B篇", total: 0, mastered: 0, sos: 0 },
         lichi_1025: { label: "📅 上週：李奇 10/25 小考", total: 0, mastered: 0, sos: 0 },
         lichi_1018: { label: "📅 前週：李奇 10/18 小考", total: 0, mastered: 0, sos: 0 },
         midterm1:   { label: "🏫 段考：台中一中一段", total: 0, mastered: 0, sos: 0 }
@@ -1385,11 +1415,13 @@
       const correct = appState.stats.firstTryCorrect || 0;
       const acc = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
       const b1101 = p.summary.byPack.lichi_1101;
+      const b1101x = p.summary.byPack.lichi_1101x;
 
       const text = [
         `【🌿 Gordon 英文閃卡分週進度戰報】`,
         `時間：${new Date().toLocaleString("zh-TW")}`,
         `🔥 本週 (11/01 9000單B篇) 進度：已封印 ${b1101.mastered} / ${b1101.total} 張 (急救 ${b1101.sos} 張)`,
+        `🎯 11/01 考後錯題＋圈字：已封印 ${b1101x.mastered} / ${b1101x.total} 張 (急救 ${b1101x.sos} 張)`,
         `🎯 微測試首次命中率：${acc}% (${correct}/${attempts} 次)`,
         `😎 累計已封印 (${p.summary.mastered.length}字)：${p.summary.mastered.join(", ") || "無"}`,
         `🆘 睡前急救死穴 (${p.summary.sos.length}字)：${p.summary.sos.join("、") || "無"}`
