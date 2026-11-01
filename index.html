@@ -604,9 +604,11 @@
     </div>
     <div class="select-wrapper">
       <select id="pack-select" class="pack-select" onchange="onPackSelectChange(this.value)">
-        <optgroup label="📌 本週最新進度（預設）">
-          <option value="lichi_1101x" id="opt-lichi_1101x" selected>🎯 李奇 11/01 考後｜錯題＋圈字 (0/23 已封印)</option>
-          <option value="lichi_1101" id="opt-lichi_1101">🔥 李奇 11/01 考前｜9000單 B篇 (0/28 已封印)</option>
+        <optgroup label="📌 本週最新考試進度（預設）">
+          <option value="lichi_1108" id="opt-lichi_1108" selected>🔥 李奇 11/08 小考｜9000單B+片語L7+火藥陰謀+龍騰L5 (0/46 已封印)</option>
+        </optgroup>
+        <optgroup label="🎯 考後錯題攻堅專區">
+          <option value="lichi_1101x" id="opt-lichi_1101x">🎯 李奇 11/01 考後｜錯題＋圈字 (0/23 已封印)</option>
         </optgroup>
         <optgroup label="📅 歷屆李奇小考進度（由新到舊）">
           <option value="lichi_1025" id="opt-lichi_1025">📅 李奇 10/25 小考｜新聞長字與完成式 (0/16 已封印)</option>
@@ -700,6 +702,7 @@
     // 1. FLASHCARD DATABASE (Separated cleanly by Weekly Exam Pack)
     // ============================================================================
     const PACK_META = {
+      lichi_1108:  { name: "🔥 李奇 11/08 小考｜9000單B+片語L7+火藥陰謀+龍騰L5", shortName: "李奇 11/08" },
       lichi_1101x: { name: "🎯 李奇 11/01 考後｜錯題＋圈字", shortName: "11/01 考後錯題" },
       lichi_1101: { name: "🔥 李奇 11/01 考前｜9000單 B篇", shortName: "李奇 11/01" },
       lichi_1025: { name: "📅 李奇 10/25 小考｜新聞長字與完成式", shortName: "李奇 10/25" },
@@ -709,6 +712,55 @@
     };
 
     const CARDS_DB = [
+      // ==========================================================================
+      // 🔥 本週最新進度：李奇 11/08 小考 (9000單B篇p.31-35+片語L7+火藥陰謀+龍騰L5, 共 46 張)
+      // ==========================================================================
+      { id: "c_1108_01", pack: "lichi_1108", packName: "李奇 11/08", cat: "roots", catName: "⚠️ 熟詞生義", word: "beam (一詞多義)", syllable: "beam [bim]", shortAns: "n. 光束；屋頂主樑；喜色 ／ v. 眉開眼笑", meaning: "n. 光束、光線；(建築)主樑；笑容喜色；v. 眉開眼笑、喜形於色", hack: "106學測考光線 <b>beam of light</b>；108學測考屋頂主樑 <b>main beam of the roof</b>；1101小考Q1考動詞 <b>beam with joy</b>（因喜悅而眉開眼笑）！", example: "A beam of light fell on the floor. (106學測) / She beamed at her friend with excitement. (p.31)" },
+      { id: "c_1108_02", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "beard the lion in its den", syllable: "beard · the · li · on", shortAns: "太歲頭上動土、直闖賊窟挑戰強權", meaning: "phr. 太歲頭上動土；正面挑戰有權勢或居高位者", hack: "<b>beard</b> 當動詞是「抓鬍鬚」➔ 跑到獅子的巢穴 (den) 拔獅子鬍子 ➔ 太歲頭上動土、直搗黃龍！", example: "The lawyer had to beard the lion in its den, taking on powerful corporations. (p.32)" },
+      { id: "c_1108_03", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "beat around the bush", syllable: "beat · a · round · the · bush", shortAns: "說話拐彎抹角、繞圈子不切正題", meaning: "phr. 拐彎抹角、旁敲側擊、不直說重點", hack: "獵人不直接打灌木叢 (bush) 抓兔子，而是在周圍敲打 ➔ 說話「拐彎抹角」！反義詞：get straight to the point。", example: "Stop beating around the bush and tell me what really happened. (p.32)" },
+      { id: "c_1108_04", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "beat a hasty retreat", syllable: "beat · a · has · ty · re · treat", shortAns: "倉皇撤退、狼狽逃竄", meaning: "phr. 倉皇撤退、匆忙離開（以避免尷尬或危險）", hack: "<b>beat a retreat</b> 原指軍隊打鼓信號撤兵；加上 <b>hasty</b>（匆忙的）➔ 倉皇撤退、拔腿就跑！", example: "Seeing they were outnumbered, the soldiers beat a hasty retreat. (p.32)" },
+      { id: "c_1108_05", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "beg to differ", syllable: "beg · to · dif · fer", shortAns: "恕不敢苟同、持有不同看法（禮貌說法）", meaning: "phr. 恕不敢苟同、我有不同意見", hack: "<b>beg to differ</b> 是英文辯論中最優雅有禮的異議：「請容我持有不同意見」！", example: "I beg to differ with you on this topic; I believe the opposite. (p.33)" },
+      { id: "c_1108_06", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "Beggars can't be choosers", syllable: "beg · gars · choos · ers", shortAns: "要飯的哪能挑肥揀瘦（沒有選擇餘地）", meaning: "【諺語】乞丐不能挑揀；在別無選擇時只能接受眼前事物", hack: "<b>beggar</b>（乞丐），大考常考諺語：別無選擇時只能將就！", example: "The hotel room wasn't great, but beggars can't be choosers during peak season. (p.33)" },
+      { id: "c_1108_07", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "behave oneself", syllable: "be · have · one · self", shortAns: "守規矩、舉止得體、檢點言行", meaning: "phr. 舉止合宜、守規矩（主詞受詞為同一人必加反身代名詞）", hack: "不能只講 behave，要講 <b>behave yourself / ourselves</b>（注意禮貌、守規矩）！", example: "It's important to behave ourselves in social situations to avoid making others uncomfortable. (p.34)" },
+      { id: "c_1108_08", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "come into being", syllable: "come · in · to · be · ing", shortAns: "誕生、形成、開始存在", meaning: "phr. 形成、誕生、開始存在 (= come into existence)", hack: "<b>being</b> 在此是「存在 (n.)」；進入存在狀態 ➔ 誕生、問世！", example: "The precise moment when the universe came into being remains unknown. (p.34)" },
+      { id: "c_1108_09", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "bend to sth", syllable: "bend · to", shortAns: "屈服於、順從（壓力或期望）", meaning: "phr. 屈服於...、迎合... (= yield to / bow to)", hack: "<b>bend</b> 是彎腰；朝向某人彎下身子 ➔ <b>bend to pressure / others' expectations</b>（向壓力屈服）！", example: "It's important not to bend to others' expectations if they don't align with our values. (p.35)" },
+      { id: "c_1108_10", pack: "lichi_1108", packName: "李奇 11/08", cat: "roots", catName: "⚠️ 熟詞生義", word: "beneath / be beneath sb", syllable: "be · neath [bɪ'niθ]", shortAns: "prep. 在...之下 ／ be beneath sb 不屑做、有失身分", meaning: "prep. 在...下方；【熟詞生義】對某人來說有失身分、不屑一顧", hack: "高級用法：<b>He thought washing dishes was beneath him.</b>（他認為洗碗有失他的身分／不屑做）。", example: "As a leader, he felt that such trivial gossip was beneath him and refused to engage. (p.35)" },
+      { id: "c_1108_11", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "benefit from / be of benefit to", syllable: "ben · e · fit ['bɛnəfɪt]", shortAns: "從...受益（動詞）＆ 對...有益（形容詞義）", meaning: "benefit from 從...中獲得好處；be of benefit to 對...有利益", hack: "<b>benefit from + N</b>（受惠於...）；名詞結構 <b>be of + 抽象名詞 = adj.</b> ➔ be of benefit to = be beneficial to！", example: "Students can benefit from reading diverse materials to expand their knowledge. (p.35)" },
+      { id: "c_1108_12", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "point out (指名/指出)", syllable: "point · out", shortAns: "指出、指明；提醒某人注意", meaning: "phr. 指出、指明 (= indicate / show)；代名詞放中間 point it out", hack: "可分雙字動詞：代名詞必放中間 <b>point it out</b>；指給某人看介系詞搭 to <b>point sth out to sb</b>！", example: "The teacher pointed out the grammatical mistakes in my composition. (L7 p.92)" },
+      { id: "c_1108_13", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "be over vs. be through with", syllable: "be · o · ver", shortAns: "結束、完畢（主詞為事情）；人結束用 be through with", meaning: "be over 結束(主詞為事物/會議)；be through with 完成/與...斷絕(主詞為人)", hack: "<b>會議/電影結束</b>：The meeting is over；<b>某人做完報告/斷絕關係</b>：I am through with this report！", example: "After the concert was over, we went to a café. / When will you be through with your report? (L7 p.93)" },
+      { id: "c_1108_14", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "be up (專指時間到了)", syllable: "be · up", shortAns: "（時間）到了、終了（專指時間結束）", meaning: "phr. 時間到了、終了（主詞專門用 time）", hack: "考試老師收卷必說：<b>Time is up! Hand in your papers.</b>（時間到了！交卷）。", example: "The referee blew the whistle when time was up. (L7 p.94)" },
+      { id: "c_1108_15", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "on time vs. in time", syllable: "on · time ／ in · time", shortAns: "準時（按時刻表）vs. 及時（趕上最後期限/終究）", meaning: "on time 準時(一分不差)；in time 及時(在時限前趕上)；in time 亦可表「終究」", hack: "<b>on time</b> = punctual（火車準時進站）；<b>in time (for sth / to V)</b> = 趕上（及時趕上末班車）！", example: "The train arrived on time. / We got to the station just in time to catch the last train. (L7 p.95)" },
+      { id: "c_1108_16", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "get better / worse", syllable: "get · bet · ter", shortAns: "病情或情況好轉 ／ 惡化", meaning: "phr. 情況好轉、康復 (= improve) ／ 惡化 (= deteriorate)", hack: "<b>get</b> 在此為連綴動詞表「逐漸變成」；搭配：<b>is getting better day by day</b>（一天天好轉）。", example: "John has been ill for weeks, but now he is gradually getting better. (L7 p.96)" },
+      { id: "c_1108_17", pack: "lichi_1108", packName: "李奇 11/08", cat: "grammar", catName: "⚡ 文法秒殺", word: "had better + VR (否定: had better not)", syllable: "had · bet · ter", shortAns: "最好去做...（後接原形動詞；否定 not 放後面）", meaning: "助動詞片語：最好去做...（口氣強烈）；否定寫 had better not + VR", hack: "必考陷阱：1. 後面一律接<b>原形動詞</b>；2. 否定直接加 not：<b>You had better not go alone</b>（絕不能加 don't）！", example: "You had better consult a doctor before taking the medicine, hadn't you? (L7 p.97)" },
+      { id: "c_1108_18", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "get sick / tired / nervous", syllable: "get · sick", shortAns: "生病、感到疲倦、緊張（get + adj. 表轉變）", meaning: "phr. 變成生病／疲倦／緊張的狀態", hack: "<b>get</b> 後接形容詞表示「狀態的轉變」：get sick（生病）、get exhausted（筋疲力盡）、get nervous（緊張）。", example: "Every day at about four o'clock I get very hungry. (L7 p.98)" },
+      { id: "c_1108_19", pack: "lichi_1108", packName: "李奇 11/08", cat: "grammar", catName: "⚡ 文法秒殺", word: "would rather V1 than V2", syllable: "would · rath · er", shortAns: "寧願做 V1 也不願做 V2（兩邊皆接原形動詞）", meaning: "phr. 寧願做 A 也不願做 B（V1、V2 均為原形動詞）；否定 would rather not + VR", hack: "對比公式：<b>would rather + VR ... than + VR</b>；若換成 prefer：<b>prefer V-ing to V-ing</b> 或 <b>prefer to V1 rather than V2</b>！", example: "I would rather go for a walk than see a movie tonight. (L7 p.98)" },
+      { id: "c_1108_20", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "by the way vs. in the way", syllable: "by · the · way", shortAns: "順便一提（轉移話題）vs. 擋路、妨礙", meaning: "by the way 順便一提(= incidentally)；in the way 擋路、妨礙；on the way 在途中", hack: "<b>by the way</b> 插入口語開頭轉話題；<b>Don't stand in the way!</b>（別擋路妨礙我）！", example: "By the way, have you seen the new movie playing at Radio City? (L7 p.99)" },
+      { id: "c_1108_21", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "figure out", syllable: "fig · ure · out", shortAns: "想出、算出、理解、弄明白", meaning: "phr. 想出、算出、理解、明白 (= calculate / understand / solve)", hack: "<b>figure out the cost</b>（算出費用）；<b>I just can't figure him out</b>（我實在搞不懂他，代名詞放中間）！", example: "This letter is so poorly written that I can't figure out what the writer is trying to say. (L7 p.100)" },
+      { id: "c_1108_22", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "put off (延期) vs. call off (取消)", syllable: "put · off", shortAns: "延期、推遲 (= postpone) ；注意 call off 是取消", meaning: "put off 延期、延緩 (= postpone)；名言：今日事今日畢 Never put off until tomorrow...", hack: "克漏字高頻互換：<b>put off = postpone</b>；千萬不要和 <b>call off = cancel</b>（取消）混淆！", example: "Never put off until tomorrow what you can do today. (今日事今日畢, L7 p.100)" },
+      { id: "c_1108_23", pack: "lichi_1108", packName: "李奇 11/08", cat: "phonics", catName: "🔤 單字與音節", word: "treason & plot", syllable: "trea · son ['trizn] ／ plot [plɑt]", shortAns: "n. 叛國罪、背叛 ＆ n. 密謀、陰謀", meaning: "treason n. 叛國罪、通敵罪；plot n. 密謀、陰謀、情節", hack: "英國歷史名句：<b>Gunpowder, treason and plot!</b>（火藥、叛國與陰謀）。<b>plot against sb</b>（密謀對付某人）。", example: "Back in 1605, Catholics were caught practicing their faith and charged with treason. (Honors p.29)" },
+      { id: "c_1108_24", pack: "lichi_1108", packName: "李奇 11/08", cat: "roots", catName: "⚠️ 熟詞生義", word: "persecution vs. prosecution", syllable: "per · se · cu · tion", shortAns: "迫害、虐待（宗教/種族）vs. 檢察官起訴", meaning: "persecution n. 迫害、殘害；prosecution n. (法律上的)起訴、檢控", hack: "<b>persecute</b>（per-徹底 + secute跟隨 ➔ 緊咬不放 ➔ 迫害）；<b>prosecute</b>（pro-向前 ➔ 往前推進司法 ➔ 起訴）！", example: "Catholics faced severe religious persecution in England at the time. (Honors p.29)" },
+      { id: "c_1108_25", pack: "lichi_1108", packName: "李奇 11/08", cat: "phonics", catName: "🔤 單字與音節", word: "execute & execution", syllable: "ex · e · cute ['ɛksɪˌkjut]", shortAns: "v. 處決；執行（計畫） ＆ n. 處決、執行", meaning: "execute v. 處決、處死；執行、實施；execution n. 處決、執行", hack: "雙重考點：1. <b>be executed for treason</b>（因叛國被處死）；2. <b>execute a plan</b>（執行計畫）。", example: "Guy Fawkes was imprisoned in the Tower of London and later executed. (Honors p.30)" },
+      { id: "c_1108_26", pack: "lichi_1108", packName: "李奇 11/08", cat: "roots", catName: "⚠️ 熟詞生義", word: "lenient vs. strict", syllable: "le · ni · ent ['liniənt]", shortAns: "adj. 寬容的、寬大的（判決或處罰）", meaning: "adj. 寬大的、寬容的、仁慈的；反義詞：strict (嚴厲的)", hack: "法庭與政壇高頻字：<b>a lenient sentence</b>（輕判、寬大處分）。", example: "People hoped the new king might be more lenient toward religious minorities. (Honors p.29)" },
+      { id: "c_1108_27", pack: "lichi_1108", packName: "李奇 11/08", cat: "roots", catName: "🧩 字根拆解", word: "conspirator & conspire", syllable: "con · spir · a · tor", shortAns: "n. 陰謀策劃者、共謀者 ／ v. 密謀", meaning: "conspirator n. 共謀者、同謀；conspire v. 密謀、圖謀", hack: "<b>con-</b>（共同）+ <b>spire</b>（呼吸）➔ 聚在一起同呼吸低聲密謀 ➔ <b>conspirators</b>（密謀者群）！", example: "A group of conspirators decided to blow up the Houses of Parliament. (Honors p.29)" },
+      { id: "c_1108_28", pack: "lichi_1108", packName: "李奇 11/08", cat: "roots", catName: "🧩 字根拆解", word: "audacious & audacity", syllable: "au · da · cious [ɔ'deʃəs]", shortAns: "adj. 大膽的、敢作敢為的、放肆的", meaning: "audacious adj. 大膽的、冒失放肆的；audacity n. 勇氣、厚顏無恥", hack: "<b>aud-</b>（敢）➔ 敢在國會地下室放 36 桶炸藥就是 <b>an audacious plot</b>（大膽放肆的陰謀）！", example: "Planning to assassinate the king during the opening of Parliament was an audacious plot. (Honors p.29)" },
+      { id: "c_1108_29", pack: "lichi_1108", packName: "李奇 11/08", cat: "roots", catName: "⚠️ 熟詞生義", word: "foil (a plot / crime)", syllable: "foil [fɔɪl]", shortAns: "v. 挫敗、阻止（陰謀、犯罪或計畫）", meaning: "v. 挫敗、制止(犯罪、陰謀)；n. 錫箔紙(aluminum foil)", hack: "熟詞生義：除了錫箔紙，當動詞專門搭配 <b>foil a plot / foil a robbery</b>（挫敗陰謀／阻止搶案）！", example: "The police managed to foil the terrorist plot just hours before the attack. (Honors p.30)" },
+      { id: "c_1108_30", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "repeal (a law / act)", syllable: "re · peal [rɪ'pil]", shortAns: "v. 廢除、撤銷（法令、條約）", meaning: "v. 廢除、撤銷(法律) (= abolish / revoke)", hack: "法律英文核心字：<b>repeal an act / law</b>（廢除法案）。", example: "The law was repealed in 1859, but Bonfire Night is still celebrated today. (Honors p.30)" },
+      { id: "c_1108_31", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "be on a short fuse / have a short fuse", syllable: "short · fuse", shortAns: "性子急、容易被激怒、脾氣火爆", meaning: "phr. 脾氣火爆、動不動就發火（像引信很短容易引爆）", hack: "<b>fuse</b> 是炸彈引信；引信很短 (short fuse) 點火瞬間就爆 ➔ 形容人「脾氣火爆、動輒發飆」！", example: "Be careful around the boss today; he's on a very short fuse. (Honors p.29)" },
+      { id: "c_1108_32", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "ball court prepositions (球場介係詞)", syllable: "court · field · rink", shortAns: "on a court(籃/網球場) ｜ in a gym(體育館) ｜ at a sports center", meaning: "運動場所三大介係詞：on 表表面；in 表內部封閉空間；at 視為活動聚點", hack: "<b>on</b> a court / on a field / on a track；<b>in</b> a gym / in a pool；<b>at</b> a sports center / at a rink！", example: "I usually play with my classmates on the school basketball court after class. (Writing U1 p.11)" },
+      { id: "c_1108_33", pack: "lichi_1108", packName: "李奇 11/08", cat: "grammar", catName: "⚡ 文法秒殺", word: "consist of 三合一組成公式", syllable: "con · sist · of", shortAns: "consist of (恆主動) = be composed of = be made up of", meaning: "由...組成：consist of (絕無被動式) ＝ be composed of ＝ be made up of", hack: "必考鐵律：看到 <b>be consisted of</b> 瞬間打叉！只能寫 <b>consists of</b> 或 <b>is composed of</b>！", example: "The committee consists of four men and three women. = is composed of... (Writing U1 p.12)" },
+      { id: "c_1108_34", pack: "lichi_1108", packName: "李奇 11/08", cat: "grammar", catName: "⚡ 文法秒殺", word: "感官動詞改被動必補 to", syllable: "be · seen · to · VR", shortAns: "主動看見省略 to ➔ 被動式必須把 to 補回來！", meaning: "感官動詞(see/hear/watch/notice)改被動時，原形動詞前一定要補上 to！", hack: "主動：I saw him enter the house. ➔ 改被動必寫：<b>He was seen TO enter the house.</b>（to 絕不可漏）！", example: "An airplane was seen to fly overhead. / He was seen to enter the bank. (Grammar Ch2 p.49)" },
+      { id: "c_1108_35", pack: "lichi_1108", packName: "李奇 11/08", cat: "grammar", catName: "⚡ 文法秒殺", word: "不及物動詞＋介系詞之被動", syllable: "be · dealt · with", shortAns: "被動時介系詞絕不可丟掉（如 be dealt with）", meaning: "動詞片語改被動時，後方介系詞必須緊黏在 p.p. 後面", hack: "主動：We must deal with the problem. ➔ 被動：<b>The problem must be dealt WITH immediately.</b>（with 不可漏）！", example: "The problem must be dealt with by the authorities without delay. (Grammar Ch2 p.46)" },
+      { id: "c_1108_36", pack: "lichi_1108", packName: "李奇 11/08", cat: "roots", catName: "⚠️ 熟詞生義", word: "plastic / plastic surgery", syllable: "plas · tic ['plæstɪk]", shortAns: "adj. 塑膠製的；易塑形的 ＆ n. 整形手術", meaning: "plastic adj. 塑膠的；可塑的；plastic surgery 整形手術；plastic n. 塑膠", hack: "<b>plastic</b> 原義為「可塑形的」➔ <b>plastic surgery</b> 指整形手術（重塑外貌）！", example: "Many cosmetic clinics offer plastic surgery to alter facial features. (L5 p.107)" },
+      { id: "c_1108_37", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "at one's convenience", syllable: "con · ven · ience", shortAns: "在某人方便的時候（常用於商務/禮貌書信）", meaning: "phr. 在您方便的時候 (= when it is convenient for you)", hack: "書信必背：<b>Please reply at your earliest convenience.</b>（請儘速在您方便時回覆）。", example: "Feel free to call me back at your convenience. (L5 p.107)" },
+      { id: "c_1108_38", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "eager / be eager for (sth / to V)", syllable: "ea · ger ['iɡɚ]", shortAns: "adj. 熱切的、渴望的（be eager to V / for N）", meaning: "adj. 熱切渴望的；副詞 eagerly 渴望地；名詞 eagerness 渴望", hack: "課本片語：<b>be eager for sth</b>（渴望某物）；<b>be eager to V</b>（渴望去做...）。", example: "Rick is eagerly waiting for his boss to approve his vacation request. (L5 p.107)" },
+      { id: "c_1108_39", pack: "lichi_1108", packName: "李奇 11/08", cat: "phonics", catName: "🔤 單字與音節", word: "surroundings (恆用複數)", syllable: "sur · round · ings", shortAns: "n. pl. 周圍環境、周圍事物（字尾必加 s）", meaning: "n. (恆用複數) 周圍環境、周遭事物", hack: "<b>surround</b> 是動詞「環繞」；加上 -ings 變成<b>恆用複數名詞</b> <b>surroundings</b> 指生活環境！", example: "Animals blend into their natural surroundings to avoid being spotted by predators. (L5 p.108)" },
+      { id: "c_1108_40", pack: "lichi_1108", packName: "李奇 11/08", cat: "roots", catName: "⚠️ 熟詞生義", word: "consume / consumer / consumption", syllable: "con · sume [kən'sum]", shortAns: "v. 吃喝；消耗、耗費 ＆ n. 消費者 ＆ n. 消耗量", meaning: "consume v. 消耗(能源/時間)；吃喝；consumer n. 消費者；consumption n. 消耗量", hack: "<b>consume time / energy</b>（消耗時間精力）；開車前不要 <b>consume alcohol</b>（飲酒）！", example: "Finishing his weekly assignments consumes most of his weekend time. (L5 p.110)" },
+      { id: "c_1108_41", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "come along (龍騰 L5 片語 1)", syllable: "come · a · long", shortAns: "到達、出現；隨同、跟著一起來", meaning: "phr. 出現、到來 (= arrive / appear)；隨同前往", hack: "課本真題：機會或幫手「出現」用 <b>come along</b>；<b>Wait until a better opportunity comes along.</b>", example: "Luckily, when we moved, some friends came along and helped us clean up. (L5 p.113)" },
+      { id: "c_1108_42", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "pack...up (龍騰 L5 片語 2)", syllable: "pack · up", shortAns: "收拾、打包（行李或隨身物品）", meaning: "phr. 收拾、打包(行李)；代名詞放中間 pack it up", hack: "離職或搬家打包：<b>pack up all his things</b>；可分雙字動詞，代名詞必放中間 <b>pack them up</b>！", example: "After he got fired, he sadly packed up all his belongings and left. (L5 p.114)" },
+      { id: "c_1108_43", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "on one's own (龍騰 L5 片語 3)", syllable: "on · one's · own", shortAns: "獨自一人、靠自己 (= by oneself / alone)", meaning: "phr. 獨自、靠自己、無人協助 (= independently / by oneself)", hack: "同義抽換必考：<b>on his own = by himself</b>；介系詞用 <b>on</b>！", example: "Tim finished all the work on his own because his colleagues were stuck in traffic. (L5 p.114)" },
+      { id: "c_1108_44", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "for a while (龍騰 L5 片語 4)", syllable: "for · a · while", shortAns: "一陣子、一段時間（修飾時間長度）", meaning: "phr. 一陣子、一段時間；for quite a while 相當長的一段時間", hack: "<b>for a while</b> 是時間副詞片語；若換成連詞是 <b>while S + V</b>。", example: "After a hard day's work, she could finally sit down and rest for a while. (L5 p.114)" },
+      { id: "c_1108_45", pack: "lichi_1108", packName: "李奇 11/08", cat: "chunks", catName: "🔗 必考片語", word: "end up (+ V-ing / prep / adj) (龍騰 L5 片語 5)", syllable: "end · up", shortAns: "最後結果是...、落得...下場", meaning: "phr. 最後落得...下場、最終結果是（常接 V-ing 或介系詞片語）", hack: "大考超高頻：<b>end up paying a fine</b>（最後落得付罰款）；<b>end up in prison</b>（最後鋃鐺入獄）！", example: "The mayor ended up in prison for accepting bribes. (L5 p.114)" },
+      { id: "c_1108_46", pack: "lichi_1108", packName: "李奇 11/08", cat: "grammar", catName: "⚡ 文法秒殺", word: "使役動詞主動 vs. 被動 (make/have/let)", syllable: "make · have · let", shortAns: "主動叫某人做接 VR ｜ 被動事物被做接 p.p.", meaning: "S + make/have/let + O + VR (主動) ｜ S + have/get + O + p.p. (被動受詞被處理)", hack: "課本句型：The police officer <b>made him show</b> his license.（叫他拿駕照 ➔ 接原形 VR）！", example: "Our teacher had us memorize twenty new words every day. (L5 p.115)" },
       // ==========================================================================
       // 🎯 李奇 11/01 考後：Gordon 圈字＋錯題考點 (共 23 張)
       // ==========================================================================
@@ -835,7 +887,7 @@
     };
 
     // DEFAULT TO THIS WEEK'S PACK ('lichi_1101')
-    let currentPack = "lichi_1101x";
+    let currentPack = "lichi_1108";
     let currentCat = "all";
     let currentMode = "todo"; // 'todo' | 'sos' | 'mastered' | 'report'
     let filteredDeck = [];
@@ -888,7 +940,7 @@
 
     function buildSyncPayload() {
       const summary = { mastered: [], review: [], sos: [], errCards: {}, byPack: {} };
-      ["lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
+      ["lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
         summary.byPack[pk] = { total: 0, mastered: 0, sos: 0 };
       });
       CARDS_DB.forEach(c => {
@@ -984,7 +1036,7 @@
       // 1. Update live counts inside the Dropdown <option> labels
       const packTotals = {};
       const packMastered = {};
-      ["lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
+      ["lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
         packTotals[pk] = 0;
         packMastered[pk] = 0;
       });
@@ -1414,12 +1466,14 @@
       const attempts = appState.stats.totalAttempts || 0;
       const correct = appState.stats.firstTryCorrect || 0;
       const acc = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
+      const b1108 = p.summary.byPack.lichi_1108 || { mastered: 0, total: 0, sos: 0 };
       const b1101 = p.summary.byPack.lichi_1101;
       const b1101x = p.summary.byPack.lichi_1101x;
 
       const text = [
         `【🌿 Gordon 英文閃卡分週進度戰報】`,
         `時間：${new Date().toLocaleString("zh-TW")}`,
+        `🔥 本週 (11/08 考試進度)：已封印 ${b1108.mastered} / ${b1108.total} 張 (急救 ${b1108.sos} 張)`,
         `🔥 本週 (11/01 9000單B篇) 進度：已封印 ${b1101.mastered} / ${b1101.total} 張 (急救 ${b1101.sos} 張)`,
         `🎯 11/01 考後錯題＋圈字：已封印 ${b1101x.mastered} / ${b1101x.total} 張 (急救 ${b1101x.sos} 張)`,
         `🎯 微測試首次命中率：${acc}% (${correct}/${attempts} 次)`,
