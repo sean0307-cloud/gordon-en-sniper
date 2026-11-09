@@ -604,11 +604,12 @@
     </div>
     <div class="select-wrapper">
       <select id="pack-select" class="pack-select" onchange="onPackSelectChange(this.value)">
-        <optgroup label="📌 本週最新考試進度（預設）">
-          <option value="lichi_1108" id="opt-lichi_1108" selected>🔥 李奇 11/08 小考｜全範圍 (0/92 已封印)</option>
-        </optgroup>
-        <optgroup label="🎯 考後錯題攻堅專區">
+        <optgroup label="🎯 考後錯題攻堅專區（本週推薦）">
+          <option value="lichi_1108x" id="opt-lichi_1108x" selected>🎯 李奇 11/08 考後｜錯題＋圈字 (0/14 已封印)</option>
           <option value="lichi_1101x" id="opt-lichi_1101x">🎯 李奇 11/01 考後｜錯題＋圈字 (0/23 已封印)</option>
+        </optgroup>
+        <optgroup label="🔥 本週考試全範圍進度">
+          <option value="lichi_1108" id="opt-lichi_1108">🔥 李奇 11/08 小考｜全範圍 (0/92 已封印)</option>
         </optgroup>
         <optgroup label="📅 歷屆李奇小考進度（由新到舊）">
           <option value="lichi_1101" id="opt-lichi_1101">📅 李奇 11/01 考前｜9000單A+片語L6 (0/28 已封印)</option>
@@ -619,7 +620,7 @@
           <option value="midterm1" id="opt-midterm1">🏫 台中一中 一段｜核心語塊與詞性 (0/12 已封印)</option>
         </optgroup>
         <optgroup label="📚 考前跨週大複習">
-          <option value="all" id="opt-all">📚 跨週全部進度總複習 (0/183 已封印)</option>
+          <option value="all" id="opt-all">📚 跨週全部進度總複習 (0/197 已封印)</option>
         </optgroup>
       </select>
       <span class="select-arrow">▾</span>
@@ -703,7 +704,8 @@
     // 1. FLASHCARD DATABASE (Separated cleanly by Weekly Exam Pack)
     // ============================================================================
     const PACK_META = {
-  lichi_1108:  { name: "🔥 李奇 11/08 小考｜全範圍 (單字56＋片語36)", shortName: "李奇 11/08" },
+  lichi_1108x: { name: "🎯 李奇 11/08 考後｜錯題＋圈字 (14張)", shortName: "11/08 考後" },
+  lichi_1108:  { name: "🔥 李奇 11/08 小考｜全範圍 (92張)", shortName: "李奇 11/08" },
   lichi_1101x: { name: "🎯 李奇 11/01 考後｜錯題＋圈字 (23張)", shortName: "11/01 考後" },
   lichi_1101:  { name: "📅 李奇 11/01 考前進度 (28張)", shortName: "11/01 考前" },
   lichi_1025:  { name: "📅 李奇 10/25 小考 (16張)", shortName: "10/25" },
@@ -713,7 +715,192 @@
 
     const CARDS_DB = [
   // ==========================================================================
-  // 🔥 本週最新考試進度：李奇 11/08 小考 (單字 56 + 片語 36 = 共 92 張)
+  // 🎯 11/08 考後錯題攻堅專屬題庫 (共 14 張)
+  // ==========================================================================
+  {
+    id: "c_1108x_01",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "roots",
+    catName: "⚠️ 熟詞生義",
+    word: "beard the lion in its den",
+    syllable: "beard · the · li · on",
+    shortAns: "太歲頭上動土、直面強敵/挑戰權威",
+    meaning: "phr. 太歲頭上動土；在有權勢者的地盤直面挑戰對方",
+    hack: "<b>1108 小考 Q1 錯題</b>：beard 當動詞是「公然對抗、抓...鬍子」，絕不能填 beat！",
+    example: "The journalist bearded the lion in its den by publishing a critical article about the corrupt company. (1108小考)"
+  },
+  {
+    id: "c_1108x_02",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "beg to differ",
+    syllable: "beg · to · dif · fer",
+    shortAns: "恕不敢苟同、請容我持不同意見(禮貌說法)",
+    meaning: "phr. (正式或禮貌地) 表示不同看法、不敢苟同",
+    hack: "<b>1108 小考 Q6 錯題</b>：常考禮貌用語，絕不能填 beat 或 bet，一定要用 beg！",
+    example: "I beg to differ with your opinion that online learning is less effective. (1108小考)"
+  },
+  {
+    id: "c_1108x_03",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "anonymous",
+    syllable: "a · non · y · mous [ə'nɑnəməs]",
+    shortAns: "adj. 匿名的、不具名的",
+    meaning: "adj. 不具名的、匿名的；名詞為 anonymity [ˌænə'nɪmətɪ]",
+    hack: "<b>1108 小考 Q21 錯題</b>：收到高額禮物不知如何處置，因為是「匿名」寄來的！不可選 ceremonial。",
+    example: "May has received an anonymous gift equivalent to ten thousand dollars and is uncertain how to handle it. (1108小考)"
+  },
+  {
+    id: "c_1108x_04",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "deceased",
+    syllable: "de · ceased [dɪ'sist]",
+    shortAns: "adj. 已故的、過世的",
+    meaning: "adj. 已逝世的、已故的；名詞 the deceased (亡者)",
+    hack: "<b>1108 文意選填 Q26 錯題</b>：修飾 family members 必須用形容詞 deceased！不可用名詞 reunion。",
+    example: "Día de Muertos is dedicated to honoring and remembering deceased family members and friends. (1108小考)"
+  },
+  {
+    id: "c_1108x_05",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "reunion",
+    syllable: "re · un · ion [ri'junjən]",
+    shortAns: "n. 重聚、團聚、同學會/家庭聚會",
+    meaning: "n. 重聚、團員；a brief reunion (短暫的團聚)",
+    hack: "<b>1108 文意選填 Q27 錯題</b>：for a brief 後面接單數名詞 ➔ a brief reunion！",
+    example: "Souls return to the world of the living for a brief reunion with their families. (1108小考)"
+  },
+  {
+    id: "c_1108x_06",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "associate A with B",
+    syllable: "as · so · ci · ate",
+    shortAns: "把 A 與 B 聯想/聯繫在一起",
+    meaning: "phr. 將...聯想在一起；整句缺少主要謂語動詞時秒殺",
+    hack: "<b>1108 文意選填 Q29 錯題</b>：主詞 beliefs，後有 with，整句缺動詞 ➔ 選 associate！",
+    example: "Traditional indigenous beliefs associate these butterflies with the souls of the dead. (1108小考)"
+  },
+  {
+    id: "c_1108x_07",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "aside from",
+    syllable: "a · side · from",
+    shortAns: "prep. 除了...之外(還...)；後接名詞/V-ing",
+    meaning: "prep. 除...之外 (= in addition to, besides, except for)",
+    hack: "<b>1108 文意選填 Q31 錯題</b>：句首引導動名詞 building ➔ aside from building altars！",
+    example: "Nowadays, aside from building private altars, many towns also hold colorful parades. (1108小考)"
+  },
+  {
+    id: "c_1108x_08",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "grammar",
+    catName: "⚡ 文法秒殺",
+    word: "as what is known today",
+    syllable: "as · what · is · known",
+    shortAns: "如同現今人們所熟知的那樣",
+    meaning: "慣用句型：as what is known / as it is known (如同今日所知)",
+    hack: "<b>1108 文意選填 Q32 錯題</b>：what 兼作介系詞 as 的受詞與子句主詞！絕不能選 far from。",
+    example: "The holiday, as what is known today, is a rich synthesis of diverse traditions. (1108小考)"
+  },
+  {
+    id: "c_1108x_09",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "better off",
+    syllable: "bet · ter · off",
+    shortAns: "境況更好、感到更欣慰/更舒適",
+    meaning: "phr. 情況好轉、過得更好 (would be better off knowing...)",
+    hack: "<b>1108 文意選填 Q33 錯題</b>：逝者地下有知會感到欣慰 ➔ would be better off knowing...",
+    example: "Those who have passed away would be better off knowing they are still remembered. (1108小考)"
+  },
+  {
+    id: "c_1108x_10",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "golf course",
+    syllable: "golf · course [kɔrs]",
+    shortAns: "n. 高爾夫球場 (專用名詞 course)",
+    meaning: "n. 高爾夫球場；跑馬場 racecourse",
+    hack: "<b>1108 寫作 Q43 錯題</b>：高爾夫球場專用 course！跑道是 track，籃球場是 court！",
+    example: "The newly built golf course offers breathtaking views of the surrounding mountains. (1108小考)"
+  },
+  {
+    id: "c_1108x_11",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "study methods",
+    syllable: "meth · ods ['mɛθədz]",
+    shortAns: "n. 研讀方法、學習方法 (有效學習方式)",
+    meaning: "n. 學習方式與方法；搭配詞 effective study methods",
+    hack: "<b>1108 雜誌 Q51 錯題</b>：討論學習成效是靠天賦還是靠「有效方法」➔ study methods！",
+    example: "Regular practice and effective study methods matter more than natural talent. (1108小考)"
+  },
+  {
+    id: "c_1108x_12",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "poisonous",
+    syllable: "poi · son · ous ['pɔɪznəs]",
+    shortAns: "adj. 有毒的、致命的 (中間是 o 不是 u)",
+    meaning: "adj. 有毒的；名詞 poison (毒藥)",
+    hack: "<b>1108 版本 L5 Q59 拼字錯題</b>：poison + ous ➔ poisonous！絕不可拼成 poisunous！",
+    example: "If poisonous mushrooms are eaten, they can result in severe organ damage. (1108小考)"
+  },
+  {
+    id: "c_1108x_13",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "substance",
+    syllable: "sub · stance ['sʌbstəns]",
+    shortAns: "n. 物質；實質內容、本質",
+    meaning: "n. 化學物質；toxic substances (有毒物質)",
+    hack: "<b>1108 版本 L5 Q62 錯題</b>：課本重要片語「toxic substances 有毒物質」，手寫不可失分！",
+    example: "By having a deeper understanding of toxic substances, we can reduce our exposure. (1108小考)"
+  },
+  {
+    id: "c_1108x_14",
+    pack: "lichi_1108x",
+    packName: "11/08 考後",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "production",
+    syllable: "pro · duc · tion [prə'dʌkʃən]",
+    shortAns: "n. 生產、製造；production costs (生產成本)",
+    meaning: "n. 生產、製造；動詞 produce；產品 product",
+    hack: "<b>1108 版本 L5 Q66 混淆錯題</b>：工廠自動化降低「生產成本」production costs！絕不可填 population (人口)！",
+    example: "Robots have replaced workers on assembly lines, greatly reducing production costs. (1108小考)"
+  },
+  // ==========================================================================
+  // 🔥 11/08 小考全範圍題庫 (共 92 張)
   // ==========================================================================
   {
     id: "v_1108_01",
@@ -3113,7 +3300,7 @@
     };
 
     // DEFAULT TO THIS WEEK'S PACK ('lichi_1101')
-    let currentPack = "lichi_1108";
+    let currentPack = "lichi_1108x";
     let currentCat = "all";
     let currentMode = "todo"; // 'todo' | 'sos' | 'mastered' | 'report'
     let filteredDeck = [];
@@ -3166,7 +3353,7 @@
 
     function buildSyncPayload() {
       const summary = { mastered: [], review: [], sos: [], errCards: {}, byPack: {} };
-      ["lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
+      ["lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
         summary.byPack[pk] = { total: 0, mastered: 0, sos: 0 };
       });
       CARDS_DB.forEach(c => {
@@ -3262,7 +3449,7 @@
       // 1. Update live counts inside the Dropdown <option> labels
       const packTotals = {};
       const packMastered = {};
-      ["lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
+      ["lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
         packTotals[pk] = 0;
         packMastered[pk] = 0;
       });
@@ -3692,6 +3879,7 @@
       const attempts = appState.stats.totalAttempts || 0;
       const correct = appState.stats.firstTryCorrect || 0;
       const acc = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
+      const b1108x = p.summary.byPack.lichi_1108x || { mastered: 0, total: 0, sos: 0 };
       const b1108 = p.summary.byPack.lichi_1108 || { mastered: 0, total: 0, sos: 0 };
       const b1101 = p.summary.byPack.lichi_1101;
       const b1101x = p.summary.byPack.lichi_1101x;
@@ -3699,7 +3887,9 @@
       const text = [
         `【🌿 Gordon 英文閃卡分週進度戰報】`,
         `時間：${new Date().toLocaleString("zh-TW")}`,
+        `🎯 11/08 考後錯題攻堅：已封印 ${b1108x.mastered} / ${b1108x.total} 張 (急救 ${b1108x.sos} 張)`,
         `🔥 本週 (11/08 考試進度)：已封印 ${b1108.mastered} / ${b1108.total} 張 (急救 ${b1108.sos} 張)`,
+        `🎯 11/08 考後錯題攻堅：已封印 ${b1108x.mastered} / ${b1108x.total} 張 (急救 ${b1108x.sos} 張)`,
         `🔥 本週 (11/08 考試進度)：已封印 ${b1108.mastered} / ${b1108.total} 張 (急救 ${b1108.sos} 張)`,
         `🔥 本週 (11/01 9000單B篇) 進度：已封印 ${b1101.mastered} / ${b1101.total} 張 (急救 ${b1101.sos} 張)`,
         `🎯 11/01 考後錯題＋圈字：已封印 ${b1101x.mastered} / ${b1101x.total} 張 (急救 ${b1101x.sos} 張)`,
