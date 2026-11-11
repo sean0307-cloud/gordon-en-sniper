@@ -604,14 +604,15 @@
     </div>
     <div class="select-wrapper">
       <select id="pack-select" class="pack-select" onchange="onPackSelectChange(this.value)">
-        <optgroup label="🎯 考後錯題攻堅專區（本週推薦）">
-          <option value="lichi_1108x" id="opt-lichi_1108x" selected>🎯 李奇 11/08 考後｜錯題＋圈字 (0/14 已封印)</option>
+        <optgroup label="📌 本週最新考試進度（預設）">
+          <option value="lichi_1115" id="opt-lichi_1115" selected>🔥 李奇 11/15 小考｜9000單B+片語L8+寫作U1 (0/81 已封印)</option>
+        </optgroup>
+        <optgroup label="🎯 考後錯題攻堅專區">
+          <option value="lichi_1108x" id="opt-lichi_1108x">🎯 李奇 11/08 考後｜錯題＋圈字 (0/14 已封印)</option>
           <option value="lichi_1101x" id="opt-lichi_1101x">🎯 李奇 11/01 考後｜錯題＋圈字 (0/23 已封印)</option>
         </optgroup>
-        <optgroup label="🔥 本週考試全範圍進度">
-          <option value="lichi_1108" id="opt-lichi_1108">🔥 李奇 11/08 小考｜全範圍 (0/92 已封印)</option>
-        </optgroup>
         <optgroup label="📅 歷屆李奇小考進度（由新到舊）">
+          <option value="lichi_1108" id="opt-lichi_1108">📅 李奇 11/08 小考全範圍 (0/92 已封印)</option>
           <option value="lichi_1101" id="opt-lichi_1101">📅 李奇 11/01 考前｜9000單A+片語L6 (0/28 已封印)</option>
           <option value="lichi_1025" id="opt-lichi_1025">📅 李奇 10/25 小考｜新聞長字與完成式 (0/16 已封印)</option>
           <option value="lichi_1018" id="opt-lichi_1018">📅 李奇 10/18 小考｜無被動與片語搭配 (0/12 已封印)</option>
@@ -620,7 +621,7 @@
           <option value="midterm1" id="opt-midterm1">🏫 台中一中 一段｜核心語塊與詞性 (0/12 已封印)</option>
         </optgroup>
         <optgroup label="📚 考前跨週大複習">
-          <option value="all" id="opt-all">📚 跨週全部進度總複習 (0/197 已封印)</option>
+          <option value="all" id="opt-all">📚 跨週全部進度總複習 (0/278 已封印)</option>
         </optgroup>
       </select>
       <span class="select-arrow">▾</span>
@@ -704,8 +705,9 @@
     // 1. FLASHCARD DATABASE (Separated cleanly by Weekly Exam Pack)
     // ============================================================================
     const PACK_META = {
+  lichi_1115:  { name: "🔥 李奇 11/15 小考｜9000單B(p.36-40)+片語L8+寫作U1 (81張)", shortName: "李奇 11/15" },
   lichi_1108x: { name: "🎯 李奇 11/08 考後｜錯題＋圈字 (14張)", shortName: "11/08 考後" },
-  lichi_1108:  { name: "🔥 李奇 11/08 小考｜全範圍 (92張)", shortName: "李奇 11/08" },
+  lichi_1108:  { name: "📅 李奇 11/08 小考全範圍 (92張)", shortName: "李奇 11/08" },
   lichi_1101x: { name: "🎯 李奇 11/01 考後｜錯題＋圈字 (23張)", shortName: "11/01 考後" },
   lichi_1101:  { name: "📅 李奇 11/01 考前進度 (28張)", shortName: "11/01 考前" },
   lichi_1025:  { name: "📅 李奇 10/25 小考 (16張)", shortName: "10/25" },
@@ -715,7 +717,1063 @@
 
     const CARDS_DB = [
   // ==========================================================================
-  // 🎯 11/08 考後錯題攻堅專屬題庫 (共 14 張)
+  // 🔥 本週最新考試進度：李奇 11/15 小考 (單字 44 + 片語 37 = 共 81 張)
+  // ==========================================================================
+  {
+    id: "v_1115_01",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "berry",
+    syllable: "ber · ry [ˈbɛrɪ]",
+    shortAns: "n. 莓果、漿果",
+    meaning: "n. 莓果、漿果（如 strawberry, blueberry, raspberry）",
+    hack: "複數去y加ies：<b>berries</b>；採莓果冒險：berry-picking adventure。",
+    example: "We spent the sunny afternoon at the farm on a fun berry-picking adventure with friends. (p.36)"
+  },
+  {
+    id: "v_1115_02",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "besides",
+    syllable: "be · sides [bɪˈsaɪdz]",
+    shortAns: "adv. 此外、而且；prep. 除...之外還有",
+    meaning: "adv. 此外、並且；prep. 除...之外還有...（包含在內）",
+    hack: "<b>必考對比</b>：<b>besides</b>（除...之外還有，包含）vs. <b>except</b>（除...之外扣除）！beside（沒s）是在旁邊！",
+    example: "Besides the obvious benefits, there are also long-term advantages to practicing mindfulness regularly. (p.36)"
+  },
+  {
+    id: "v_1115_03",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "bet",
+    syllable: "bet [bɛt]",
+    shortAns: "v. 打賭；確信；n. 賭注",
+    meaning: "v. 打賭；敢說、確信 (I bet that...)；n. 賭注",
+    hack: "三態同形：<b>bet - bet - bet</b>；口語常考：<b>I bet that...</b>（我敢說/我確信...）；下注：place a bet on。",
+    example: "I bet that the new restaurant in town will become very popular because the reviews are excellent. (p.36 / 1108真題)"
+  },
+  {
+    id: "v_1115_04",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "roots",
+    catName: "⚠️ 熟詞生義",
+    word: "better",
+    syllable: "bet · ter [ˈbɛtɚ]",
+    shortAns: "v. 改善、提高；勝過；n. 較優者",
+    meaning: "v. 改善、提升(技能/境況)；勝過；n. 佔優勢者；adj./adv. 更好的",
+    hack: "<b>111學測考動詞</b>：to better see the hazards（更清楚看見危險）；努力提升自己：better her language skills。",
+    example: "She worked hard to better her language skills before applying for the international exchange program. (p.37 / 111學測)"
+  },
+  {
+    id: "v_1115_05",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "beyond",
+    syllable: "be · yond [bɪˈjɑnd]",
+    shortAns: "prep./adv. 越過；遠於；超出(理解/形容)",
+    meaning: "prep./adv. 在更遠處；超出...的範圍/能力/理解",
+    hack: "<b>112學測</b>：far beyond tropical beach fun；<b>107學測</b>：venture beyond their usual routines；無法形容：beyond description。",
+    example: "The devastation caused by the hurricane was beyond description, with entire neighborhoods reduced to rubble. (p.37)"
+  },
+  {
+    id: "v_1115_06",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "bill",
+    syllable: "bill [bɪl]",
+    shortAns: "n. 帳單；鈔票；法案；鳥嘴",
+    meaning: "n. 帳單(electricity bill)；紙幣、鈔票；議會法案；(扁平的)鳥喙",
+    hack: "高頻搭配：<b>electricity bill</b>（電費單）；<b>dollar bill</b>（美鈔）；pass a bill（通過法案）。",
+    example: "She received the bill for the electricity usage, which was much higher than expected. (p.37)"
+  },
+  {
+    id: "v_1115_07",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "billion",
+    syllable: "bil · lion [ˈbɪljən]",
+    shortAns: "n. 十億",
+    meaning: "n. 十億（1,000,000,000）；數以十億計 billions of",
+    hack: "<b>111學測</b>：totaled USD 2.1 billion；注意：前面有具體數字時 billion 不加 s；billions of 則要加 s！",
+    example: "Global sales of hard hats totaled USD 2.1 billion in 2016 and are expected to grow. (p.38 / 111學測)"
+  },
+  {
+    id: "v_1115_08",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "bin",
+    syllable: "bin [bɪn]",
+    shortAns: "n. 垃圾箱；儲物箱、容器",
+    meaning: "n. (有蓋的大)箱子、容器；垃圾桶(rubbish bin, recycling bin)",
+    hack: "高頻片語：<b>recycling bin</b>（資源回收桶）；bread bin（麵包儲存箱）；rubbish bin（垃圾桶）。",
+    example: "A recycling bin is placed in front of the supermarket to collect plastic containers. (p.38)"
+  },
+  {
+    id: "v_1115_09",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "roots",
+    catName: "⚠️ 熟詞生義",
+    word: "bind",
+    syllable: "bind [baɪnd]",
+    shortAns: "v. 捆綁；約束、束縛；裝訂",
+    meaning: "v. 捆、綁；(契約/責任)約束；結合；(書本)裝訂",
+    hack: "三態：<b>bind - bound - bound</b>！<b>113學測</b>：hooks-and-loops that bind to each other（魔鬼氈相互黏合）；受限於：be bound by law。",
+    example: "The terms of the commercial agreement bind us to certain legal responsibilities. (p.38 / 113學測)"
+  },
+  {
+    id: "v_1115_10",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "birth",
+    syllable: "birth [bɝθ]",
+    shortAns: "n. 出生、誕生；血統、出身",
+    meaning: "n. 出生、分娩；起源；家世出身",
+    hack: "<b>112學測</b>：safe shelters to give birth（安全產子避難所）；出身貴族：of noble birth；節育：birth control。",
+    example: "Pregnant females often use quiet tea-growing areas as safe shelters to give birth. (p.38 / 112學測)"
+  },
+  {
+    id: "v_1115_11",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "biscuit",
+    syllable: "bis · cuit [ˈbɪskɪt]",
+    shortAns: "n. 餅乾；比司吉小麵包",
+    meaning: "n. 餅乾(英式)；比司吉軟麵包(美式)",
+    hack: "注意拼字：中間有 <b>-cui-</b> 唸 [kɪt]！英國下午茶經典搭配：tea and biscuits。",
+    example: "The biscuit is a quintessential part of British tea culture, usually served with hot tea. (p.39)"
+  },
+  {
+    id: "v_1115_12",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "bit",
+    syllable: "bit [bɪt]",
+    shortAns: "n. 少量；小塊；部分；位元",
+    meaning: "n. 一點點、少量；碎片；電腦位元 (bit)",
+    hack: "片語：<b>a bit tired</b>（有點累）；<b>a little bit of</b>（少量的...）；bit by bit（漸漸地、一步步地）。",
+    example: "I'm feeling a bit tired today, so I might head to bed earlier than usual. (p.39)"
+  },
+  {
+    id: "v_1115_13",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "roots",
+    catName: "⚠️ 熟詞生義",
+    word: "bitter",
+    syllable: "bit · ter [ˈbɪtɚ]",
+    shortAns: "adj. 苦味的；使人痛苦的；嚴寒刺骨的；充滿仇恨的",
+    meaning: "adj. 苦味的；痛苦難受的；(天氣)嚴寒刺骨的；懷恨的",
+    hack: "<b>109學測</b>：pleasant bitter flavor；慘痛失敗：bitter defeat；極度失望：bitter disappointment；死敵：<b>bitter enemy</b>！",
+    example: "The hikers struggled against the bitter wind that cut right through their heavy jackets. (p.39 / 109學測)"
+  },
+  {
+    id: "v_1115_14",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "blackboard",
+    syllable: "black · board [ˈblækˌbɔrd]",
+    shortAns: "n. 黑板",
+    meaning: "n. 黑板；白板為 whiteboard",
+    hack: "複合名詞：black (黑) + board (木板)；現代教室由 digital screens 取代 traditional blackboards。",
+    example: "Modern classrooms often replace the traditional blackboard with interactive digital whiteboards. (p.39)"
+  },
+  {
+    id: "v_1115_15",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "roots",
+    catName: "⚠️ 熟詞生義",
+    word: "blame",
+    syllable: "blame [blem]",
+    shortAns: "v. 責備、歸咎於；n. 責任、責怪",
+    meaning: "v. 責怪、怪罪；歸咎於 (blame A on B)；n. 過錯、責任 (take the blame)",
+    hack: "<b>三大考點</b>：1. <b>take the blame for...</b>（承擔責任）；2. <b>put the blame on sb</b>（怪罪某人）；3. <b>sb is to blame</b>（某人該負責，用主動表被動）！",
+    example: "The minister took the blame for the explosion. / The defendant insisted he was not to blame for the crime. (p.40)"
+  },
+  {
+    id: "v_1115_16",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "blank",
+    syllable: "blank [blæŋk]",
+    shortAns: "adj. 空白的、無字的；n. 空白處",
+    meaning: "adj. 空白的、沒填寫的；茫然的；n. 空格、空白處",
+    hack: "大考必備：<b>fill in the blanks</b>（填空）；交白卷：hand in a blank sheet of paper；腦袋一片空白：my mind went blank。",
+    example: "At the end of the two-hour exam, he handed in a blank sheet of paper. (p.40)"
+  },
+  {
+    id: "v_1115_17",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "roots",
+    catName: "⚠️ 熟詞生義",
+    word: "blanket",
+    syllable: "blan · ket [ˈblæŋkɪt]",
+    shortAns: "n. 毯子；厚覆蓋層；v. 覆蓋",
+    meaning: "n. 毛毯；厚覆蓋層 (a blanket of snow)；v. 覆蓋、籠罩",
+    hack: "<b>107學測</b>：disappeared under a blanket of snow（消失在厚厚雪層下）；<b>111學測</b>：red blankets and shields。",
+    example: "After the first snow of the year, the entire grassland disappeared under a blanket of snow. (p.40 / 107、111學測)"
+  },
+  {
+    id: "v_1115_18",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "bleed",
+    syllable: "bleed [blid]",
+    shortAns: "v. 流血；給...放血",
+    meaning: "v. 出血、流血；名詞為 blood [blʌd]；形容詞 bloody [ˈblʌdɪ]",
+    hack: "三態：<b>bleed - bled - bled</b>！失血致死：<b>bleed to death</b>；大量出血：bleeding profusely。",
+    example: "The injured soldier was immediately evacuated before he could bleed to death. (p.40)"
+  },
+  {
+    id: "v_1115_19",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "bless",
+    syllable: "bless [blɛs]",
+    shortAns: "v. 為...祝福；保佑、庇護",
+    meaning: "v. 祈求上帝保佑；賜福；be blessed with... (有幸擁有...)",
+    hack: "名詞 <b>blessing</b>（福氣、保佑）；大考核心片語：<b>be blessed with good health/talent</b>（有幸享有健康/天賦）。",
+    example: "She was blessed with exceptional artistic talent, which helped her succeed in the design industry. (p.40)"
+  },
+  {
+    id: "v_1115_20",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "alternate",
+    syllable: "al · ter · nate [ˈɔltɚˌnet]",
+    shortAns: "v. 輪流、交替；adj. 間隔的",
+    meaning: "v. 輪流、交替 (= take turns)；adj. 隔一個的、交替的",
+    hack: "同義片語：<b>take turns = alternate</b>；輪流工作：alternate working and resting；隔天：on alternate days。",
+    example: "The two astronauts alternated monitoring the instruments during their spacewalk. (L8 p.109 筆記)"
+  },
+  {
+    id: "v_1115_21",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "complete",
+    syllable: "com · plete [kəmˈplit]",
+    shortAns: "adj. 完全的、徹底的；v. 完成",
+    meaning: "adj. 完整的、全部的；v. 完成、結束",
+    hack: "轉身片語定義：make a complete turn（做一個完全的轉身）；副詞 completely（完全地）。",
+    example: "The driver made a complete stop before turning right at the busy intersection. (L8 p.109)"
+  },
+  {
+    id: "v_1115_22",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "opposite",
+    syllable: "op · po · site [ˈɑpəzɪt]",
+    shortAns: "adj. 相反的、對立的；n. 對立面",
+    meaning: "adj. 相反的、對面的；n. 相反的人事物",
+    hack: "搭配：<b>in the opposite direction</b>（朝相反方向）；剛好相反：quite the opposite。",
+    example: "The two sisters have opposite personalities: one is outgoing while the other is extremely shy. (L8 p.109)"
+  },
+  {
+    id: "v_1115_23",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "direction",
+    syllable: "di · rec · tion [dəˈrɛkʃən]",
+    shortAns: "n. 方向、方位；指示",
+    meaning: "n. 方向；指導、說明 (常用複數 directions)",
+    hack: "問路/指南：ask for directions；朝各個方向：in all directions；在某人指導下：under the direction of。",
+    example: "He turned the car around and drove in the opposite direction to avoid the traffic jam. (L8 p.109)"
+  },
+  {
+    id: "v_1115_24",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "attentive",
+    syllable: "at · ten · tive [əˈtɛntɪv]",
+    shortAns: "adj. 專心的、注意的；體貼的",
+    meaning: "adj. 專心致志的、聚精會神的；關懷備至的",
+    hack: "片語衍生：pay attention to ➔ <b>be attentive to sth</b>（對...格外專心注意）；副詞 attentively。",
+    example: "The attentive students listened carefully to the teacher's explanation without any distraction. (L8 p.110)"
+  },
+  {
+    id: "v_1115_25",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "importance",
+    syllable: "im · por · tance [ɪmˈpɔrtəns]",
+    shortAns: "n. 重要性、重大",
+    meaning: "n. 重要、重要性；形容詞 important",
+    hack: "大考片語：<b>place/attach importance to...</b>（重視...）；of great importance (= very important)。",
+    example: "Our school attaches great importance to cultivating students' independent thinking abilities. (L8 p.110)"
+  },
+  {
+    id: "v_1115_26",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "proceed",
+    syllable: "pro · ceed [prəˈsid]",
+    shortAns: "v. 繼續進行；接著做",
+    meaning: "v. 繼續進行 (= continue, go on)；前進",
+    hack: "字根：<b>pro- (向前) + ceed (走)</b> ➔ 繼續往前進行！片語：proceed with the project（繼續推動專案）。",
+    example: "After a short coffee break, the committee proceeded with the second agenda item. (L8 p.111)"
+  },
+  {
+    id: "v_1115_27",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "repeatedly",
+    syllable: "re · peat · ed · ly [rɪˈpitɪdlɪ]",
+    shortAns: "adv. 一再地、反覆地",
+    meaning: "adv. 重複地、屢次地 (= over and over, again and again)",
+    hack: "動詞 repeat + ed + ly；片語 <b>over and over</b> 的標準同義副詞就是 <b>repeatedly</b>！",
+    example: "The doctor repeatedly warned him that smoking would severely damage his lungs. (L8 p.112)"
+  },
+  {
+    id: "v_1115_28",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "discard",
+    syllable: "dis · card [dɪsˈkɑrd]",
+    shortAns: "v. 丟棄、扔掉；拋棄",
+    meaning: "v. 扔掉、拋棄(無用或廢棄物) (= throw away)",
+    hack: "片語 <b>throw away</b> 的正式動詞！字根 dis- (去除) + card (卡片) ➔ 丟牌棄牌 ➔ 拋棄廢物。",
+    example: "Please discard all single-use plastics into the designated recycling containers. (L8 p.113)"
+  },
+  {
+    id: "v_1115_29",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "cease",
+    syllable: "cease [sis]",
+    shortAns: "v. 停止、終止、熄滅",
+    meaning: "v. 停止、中斷 (= stop, halt)；cease burning (熄滅)",
+    hack: "片語：<b>cease to exist</b>（不復存在）；停火協議：ceasefire；熄滅：cease burning (= go out)。",
+    example: "The heavy rain ceased just before the outdoor graduation ceremony began. (L8 p.115)"
+  },
+  {
+    id: "v_1115_30",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "connection",
+    syllable: "con · nec · tion [kəˈnɛkʃən]",
+    shortAns: "n. 關聯、關係；連接",
+    meaning: "n. 關聯性；連結；動詞 connect",
+    hack: "片語 <b>have to do with</b> 的定義：<b>have some connection with</b>（與...有某種關聯性）。",
+    example: "Scientists discovered a direct connection between sleep deprivation and weakened immunity. (L8 p.116)"
+  },
+  {
+    id: "v_1115_31",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "roots",
+    catName: "⚠️ 熟詞生義",
+    word: "equipment",
+    syllable: "e · quip · ment [ɪˈkwɪpmənt]",
+    shortAns: "n. 設備、器材、裝備【不可數名詞！】",
+    meaning: "n. (體育/實驗/工程)設備、器材【注意：恆不可數，絕對不加 s！】",
+    hack: "<b>大考文法必考</b>：equipment 是不可數名詞！一件器材要寫 <b>a piece of equipment</b>，絕不能寫 an equipment！",
+    example: "The equipment required for basketball is fairly simple: a ball, two baskets, and sneakers. (寫作 p.14)"
+  },
+  {
+    id: "v_1115_32",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "required",
+    syllable: "re · quired [rɪˈkwaɪɚd]",
+    shortAns: "adj. 必需的；必修的、被要求的",
+    meaning: "adj. 必需的、必備的；必修課程(required course)；動詞 require",
+    hack: "後位修飾寫作金句：<b>the equipment required by basketball</b>（籃球所需的裝備）。",
+    example: "Students must submit all the documents required for the exchange program before Friday. (寫作 p.15)"
+  },
+  {
+    id: "v_1115_33",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "opposing",
+    syllable: "op · pos · ing [əˈpozɪŋ]",
+    shortAns: "adj. 對方的、敵對的；相反的",
+    meaning: "adj. (競賽/辯論中)對方的、對立陣營的",
+    hack: "寫作高頻：<b>the opposing team</b>（對方球隊）；opposing view（對立觀點）。",
+    example: "Players attempt to score by shooting the basketball through the opposing team's basket. (寫作 p.14)"
+  },
+  {
+    id: "v_1115_34",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "opponent",
+    syllable: "op · po · nent [əˈponənt]",
+    shortAns: "n. 對手、競爭對手；反對者",
+    meaning: "n. (比賽或辯論中的)對手、敵手；反對該政策的人",
+    hack: "字尾 -ent 表人；防守對手：defend against one's opponent；擊敗對手：defeat an opponent。",
+    example: "They must defend their own basket and prevent their opponents from scoring easily. (寫作 p.14)"
+  },
+  {
+    id: "v_1115_35",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "oppose",
+    syllable: "op · pose [əˈpoz]",
+    shortAns: "vt. 反對、對抗；使對立",
+    meaning: "vt. 反對(計畫/政策)；對抗；片語：be opposed to + N/V-ing",
+    hack: "<b>四合一反對片語</b>：<br><b>oppose + N</b><br>= <b>be opposed to + N</b><br>= <b>object to + N</b><br>= <b>be against + N</b>",
+    example: "Most local residents strongly opposed the construction of the chemical plant near the river. (寫作 p.14 筆記)"
+  },
+  {
+    id: "v_1115_36",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "defend",
+    syllable: "de · fend [dɪˈfɛnd]",
+    shortAns: "v. 防守、防禦；為...辯護",
+    meaning: "v. 防守(球門/球框)；保衛、防禦；辯護",
+    hack: "名詞 <b>defense</b>；反義動詞 <b>offend</b>（進攻/冒犯）；防守球門：defend the basket。",
+    example: "Good basketball teams not only attack effectively but also defend their own basket tenaciously. (寫作 p.14)"
+  },
+  {
+    id: "v_1115_37",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "defense",
+    syllable: "de · fense [dɪˈfɛns]",
+    shortAns: "n. 防守、防禦；國防",
+    meaning: "n. (球類運動)防守隊員、防守技術；防護措施；國防",
+    hack: "經典體育名言：<b>Offense sells tickets, but defense wins championships!</b>（進攻賣門票，防守贏總冠軍！）。",
+    example: "Offense wins regular games, but solid defense is what truly wins championship titles. (寫作 p.14 筆記)"
+  },
+  {
+    id: "v_1115_38",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "offense",
+    syllable: "of · fense [əˈfɛns]",
+    shortAns: "n. 進攻、進攻策略；冒犯、違法",
+    meaning: "n. (球賽)進攻、攻擊；冒犯；罪行",
+    hack: "格言必背：<b>Offense is the best defense.</b>（進攻是最好的防守）。",
+    example: "The coach redesigned their offense to maximize their three-point shooting advantages. (寫作 p.14 筆記)"
+  },
+  {
+    id: "v_1115_39",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "competitor",
+    syllable: "com · pet · i · tor [kəmˈpɛtətɚ]",
+    shortAns: "n. 競爭者、競賽對手",
+    meaning: "n. (商業或體育上的)競爭對手、參賽者",
+    hack: "動詞 <b>compete</b> ➔ 名詞 <b>competition</b> ➔ 人 <b>competitor</b>！",
+    example: "The young athlete trained eight hours a day to outperform all other competitors. (寫作 p.14 筆記)"
+  },
+  {
+    id: "v_1115_40",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "contestant",
+    syllable: "con · test · ant [kənˈtɛstənt]",
+    shortAns: "n. 參賽者、比賽選手",
+    meaning: "n. (演講、選美、問答等比賽的)參賽選手",
+    hack: "名詞 <b>contest</b>（比賽）+ <b>-ant (人)</b> ➔ 演講比賽參賽者：speech contest contestant。",
+    example: "Each contestant in the speech contest was given three minutes to deliver an impromptu speech. (寫作 p.14 筆記)"
+  },
+  {
+    id: "v_1115_41",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "rival",
+    syllable: "ri · val [ˈraɪvl]",
+    shortAns: "n. 競爭對手、宿敵；v. 與...匹敵",
+    meaning: "n. 競爭對手、死對頭 (= opponent)；v. 可與...相比",
+    hack: "名詞 <b>rivalry</b>（競爭關係）；宿敵：fierce rivals；無人能匹敵：have no rival。",
+    example: "Manchester United worked tirelessly to beat their traditional rivals in the championship final. (寫作 p.14 筆記)"
+  },
+  {
+    id: "v_1115_42",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "rivalry",
+    syllable: "ri · val · ry [ˈraɪvlrɪ]",
+    shortAns: "n. 相互競爭、敵對關係",
+    meaning: "n. (球隊、企業或兄弟間的)長期競爭、敵對狀態",
+    hack: "名詞字尾 -ry 表狀態；兄弟競爭：sibling rivalry；歷史宿敵對決：historic rivalry。",
+    example: "The fierce rivalry between the two top high school basketball teams attracted thousands of fans. (寫作 p.14 筆記)"
+  },
+  {
+    id: "v_1115_43",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "dribble",
+    syllable: "drib · ble [ˈdrɪbl]",
+    shortAns: "v./n. (球類)運球；慢流、滴落",
+    meaning: "v./n. (籃球/足球)連擊運球前進；(液體)滴下",
+    hack: "籃球核心動作：<b>dribbling past defenders</b>（運球過人）。",
+    example: "Players advance the ball up the court by dribbling or passing it to an open teammate. (寫作 p.14)"
+  },
+  {
+    id: "v_1115_44",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "phonics",
+    catName: "🔤 單字與音節",
+    word: "rebound",
+    syllable: "re · bound [ˈriˌbaʊnd]",
+    shortAns: "n./v. (籃球)籃板球；彈回、復甦",
+    meaning: "n./v. (籃球)搶籃板球；(球或光線)彈回；(經濟)回升",
+    hack: "字根：<b>re- (回) + bound (彈跳)</b> ➔ 彈跳回來的球 ➔ 籃板球！grab a rebound 搶下籃板球。",
+    example: "The tall center jumped high above the rim to grab the defensive rebound and secure victory. (寫作 p.14)"
+  },
+  {
+    id: "p_1115_01",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "be about to",
+    syllable: "be · a · bout · to",
+    shortAns: "即將、正要(後接原形動詞 VR)",
+    meaning: "phr. 即將、正要做某事；公式：be about to + VR",
+    hack: "<b>三大考點</b>：1. 接原形動詞；2. = <b>be on the point of + V-ing</b>；3. 本身已有「即將」意味，絕不可再加 tomorrow 或 at once！",
+    example: "I was just about to leave my home when the telephone suddenly rang. (L8 p.107)"
+  },
+  {
+    id: "p_1115_02",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "be on the point of",
+    syllable: "be · on · the · point · of",
+    shortAns: "正要...之際、瀕臨(後接 V-ing)",
+    meaning: "phr. 正要做...的時候；介系詞 of 後接動名詞",
+    hack: "同義代換公式：<b>be about to + VR</b> = <b>be on the point of + V-ing</b>！",
+    example: "He was on the point of resigning when the company offered him a promotion. (L8 p.108 筆記)"
+  },
+  {
+    id: "p_1115_03",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "turn around",
+    syllable: "turn · a · round",
+    shortAns: "轉身；回轉、掉頭；(使)扭轉好轉",
+    meaning: "phr. 轉過身來；調轉車頭；扭轉局勢使好轉",
+    hack: "代名詞放中間：<b>turn it around</b>；企業/成績起死回生：turn the economy around。",
+    example: "I turned around and saw that the teacher was standing right behind my desk. (L8 p.108)"
+  },
+  {
+    id: "p_1115_04",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "take turns",
+    syllable: "take · turns",
+    shortAns: "輪流做某事(take turns V-ing / to V)",
+    meaning: "phr. 輪流、替換著做；後接 (in/at) + V-ing",
+    hack: "<b>必考細節</b>：turns 恆用複數！句型：<b>take turns V-ing</b> = do sth <b>by turns</b>。",
+    example: "During our road trip across the island, John and I took turns driving the car. (L8 p.109)"
+  },
+  {
+    id: "p_1115_05",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "take one's turn",
+    syllable: "take · one's · turn",
+    shortAns: "等待輪到自己、按順序輪到某人",
+    meaning: "phr. 按次序排隊輪流（此時 turn 為單數）",
+    hack: "區別：大家輪流做事用 <b>take turns</b>（複數）；按次序排隊等輪到自己用 <b>take one's turn</b>（單數）！",
+    example: "A polite passenger always waits patiently in line to take his turn to board the train. (L8 p.109)"
+  },
+  {
+    id: "p_1115_06",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "by turns",
+    syllable: "by · turns",
+    shortAns: "交替地、輪流地(副詞片語)",
+    meaning: "phr. 輪流地、交替地 (= alternately)；修飾動詞",
+    hack: "副詞片語放句尾：wash the dishes <b>by turns</b> = take turns washing the dishes。",
+    example: "The mother and father watched over the sick child by turns throughout the night. (L8 p.109)"
+  },
+  {
+    id: "p_1115_07",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "in turn",
+    syllable: "in · turn",
+    shortAns: "依次地、輪流地；轉而、反過來",
+    meaning: "phr. 依照順序地；因而、轉而 (cause and effect)",
+    hack: "依序介紹自己：introduce themselves <b>in turn</b>；蝴蝶效應：Stress causes fatigue, which in turn leads to illness.",
+    example: "Each student in turn stepped onto the stage and delivered a one-minute self-introduction. (L8 p.109)"
+  },
+  {
+    id: "p_1115_08",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "pay attention to",
+    syllable: "pay · at · ten · tion · to",
+    shortAns: "注意、專心於、重視(to 為介系詞！)",
+    meaning: "phr. 對...加以注意、專注於；to 為介系詞後接 N/V-ing",
+    hack: "<b>李奇必考陷阱</b>：to 是介系詞！Pay attention to <b>keeping</b> the room clean（絕不能接原形動詞）！",
+    example: "You must pay more attention to what the teacher says if you wish to get higher grades. (L8 p.110)"
+  },
+  {
+    id: "p_1115_09",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "attend to",
+    syllable: "at · tend · to",
+    shortAns: "專注於；照料、處理(事務)",
+    meaning: "phr. 注意、留心；照料病人或客戶；處理公務",
+    hack: "注意禮貌：<b>Attend to your manners</b>；處理緊急事務：attend to urgent business。",
+    example: "The busy doctor had several critical patients to attend to in the emergency room. (L8 p.110 筆記)"
+  },
+  {
+    id: "p_1115_10",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "go on",
+    syllable: "go · on",
+    shortAns: "繼續進行；發生",
+    meaning: "phr. 繼續下去 (= continue)；發生 (= happen)",
+    hack: "口語鼓勵：<b>Go on! Go on!</b>（繼續說！繼續講！）；發生什麼事：What is going on here?",
+    example: "'Go on! Go on!' she urged eagerly. 'Tell me everything that happened during the trip.' (L8 p.111)"
+  },
+  {
+    id: "p_1115_11",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "grammar",
+    catName: "⚡ 文法秒殺",
+    word: "go on to",
+    syllable: "go · on · to",
+    shortAns: "(前事做完)接著去做另一件事(後接不定詞 to VR)",
+    meaning: "phr. 原工作完成後，接著進行下一件新事務",
+    hack: "<b>各大考題必考對決</b>：<br>1. <b>go on + V-ing</b>：繼續做「同一件」未完之事。<br>2. <b>go on + to VR</b>：前事做完，「接著做另一件」新事！",
+    example: "After graduating from high school, Robert went on to study computer science in college. (L8 p.111 考題)"
+  },
+  {
+    id: "p_1115_12",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "over and over",
+    syllable: "o · ver · and · o · ver",
+    shortAns: "一再、反覆、再三(= repeatedly)",
+    meaning: "phr. 反覆地、一次又一次地；常放句尾",
+    hack: "同義詞組：<b>over and over again = repeatedly = time after time</b>。",
+    example: "He seems to make the exact same careless mistake over and over again. (L8 p.112)"
+  },
+  {
+    id: "p_1115_13",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "wear out",
+    syllable: "wear · out",
+    shortAns: "穿破、磨損；(使人)筋疲力竭",
+    meaning: "phr. 穿舊穿破(物)；筋疲力竭(人，= tire out)",
+    hack: "三態：<b>wear - wore - worn</b>！衣服磨損：My shoes are worn out；人累垮了：<b>I am worn out</b>！",
+    example: "The strenuous mountain hike completely wore me out, and I fell asleep immediately. (L8 p.113)"
+  },
+  {
+    id: "p_1115_14",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "throw away",
+    syllable: "throw · a · way",
+    shortAns: "丟棄、扔掉；白費/放棄(機會)",
+    meaning: "phr. 把...當垃圾扔掉；浪費錯失(機會、努力)",
+    hack: "代名詞放中間：<b>throw them away</b>！浪費絕佳良機：<b>throw away a golden opportunity</b>。",
+    example: "When your clothes are worn out, don't just throw them away; donate or recycle them. (L8 p.113)"
+  },
+  {
+    id: "p_1115_15",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "fall in love with",
+    syllable: "fall · in · love · with",
+    shortAns: "愛上某人、墜入愛河(強調動作)",
+    meaning: "phr. 愛上某人；與某人墜入情網（動態動作）",
+    hack: "<b>動作 vs. 狀態</b>：<br>1. <b>fall in love with sb</b>（動作：墜入愛河）。<br>2. <b>be in love with sb</b>（狀態：戀愛中）。",
+    example: "They fell in love with each other the very first semester they met in university. (L8 p.114)"
+  },
+  {
+    id: "p_1115_16",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "be in love with",
+    syllable: "be · in · love · with",
+    shortAns: "與...在戀愛中(強調持續狀態)",
+    meaning: "phr. 與某人彼此相愛、處於戀愛狀態中",
+    hack: "若兩人為主詞，with 可省略：<b>Tom and Amy are in love.</b>",
+    example: "Tom has been deeply in love with Amy for over five years, and they plan to wed soon. (L8 p.114)"
+  },
+  {
+    id: "p_1115_17",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "go out",
+    syllable: "go · out",
+    shortAns: "外出、離開；(火或燈)自行熄滅",
+    meaning: "phr. 外出；(火、蠟燭、燈光)自行熄滅（不及物）",
+    hack: "<b>物自身熄滅 vs. 人撲滅</b>：<br>1. <b>The fire went out.</b>（火自己熄了，不及物）。<br>2. <b>Firefighters put out the fire.</b>（消防隊把火滅了，及物）！",
+    example: "The match went out in the draft before he had a chance to light the campfire. (L8 p.115)"
+  },
+  {
+    id: "p_1115_18",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "put out",
+    syllable: "put · out",
+    shortAns: "撲滅、熄滅(火或燈，及物動詞)",
+    meaning: "phr. (人)熄滅、撲滅(火、香菸、燈) (= extinguish)",
+    hack: "代名詞放中間：<b>put it out</b>！改被動：The fire was put out by firefighters.",
+    example: "Please make sure to put out your campfire completely before leaving the campsite. (L8 p.115 筆記)"
+  },
+  {
+    id: "p_1115_19",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "as yet",
+    syllable: "as · yet",
+    shortAns: "迄今、到目前為止(多用於否定句)",
+    meaning: "phr. 到現在為止 (= so far, up to now, until now)",
+    hack: "<b>李奇考點</b>：常放在<b>否定句句首或句尾</b>！As yet, we have received no official reply.",
+    example: "As yet, authorities have not discovered the exact cause of the mysterious outage. (L8 p.115)"
+  },
+  {
+    id: "p_1115_20",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "have to do with",
+    syllable: "have · to · do · with",
+    shortAns: "與...有關聯",
+    meaning: "phr. 與...有關係；have something/anything to do with",
+    hack: "程度代換：<br>• <b>have a lot to do with</b>（大有關係）<br>• <b>have nothing to do with</b>（毫無關係）<br>• <b>have little to do with</b>（幾乎無關）",
+    example: "His poor test performance had a lot to do with his severe lack of sleep. (L8 p.116)"
+  },
+  {
+    id: "p_1115_21",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "have nothing to do with",
+    syllable: "have · no · thing · to · do",
+    shortAns: "與...毫無關係、完全無關",
+    meaning: "phr. 與某人事物一點關聯都沒有",
+    hack: "澄清必用句型：<b>I have nothing to do with that mistake!</b>（那件事跟我完全沒關係！）。",
+    example: "He insisted that he had nothing to do with writing or leaking that confidential letter. (L8 p.116)"
+  },
+  {
+    id: "p_1115_22",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "better off",
+    syllable: "bet · ter · off",
+    shortAns: "過得更好、處境改善、更欣慰",
+    meaning: "phr. 經濟或處境過得更好；feel better off",
+    hack: "<b>1108小考文意選填 Q33 出題</b>：feel better off pursuing a true passion；逝者地下有知更欣慰：would be better off knowing。",
+    example: "After leaving that stressful job, he felt much better off pursuing his true passion. (p.36 / 1108小考)"
+  },
+  {
+    id: "p_1115_23",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "better safe than sorry",
+    syllable: "bet · ter · safe · than · sor · ry",
+    shortAns: "有備無患、小心為上(防患未然好過事後後悔)",
+    meaning: "phr. (英美著名諺語) 謹慎總比事後懊悔來得好",
+    hack: "英文寫作防患未然名言：Always wear a seatbelt; it's <b>better safe than sorry</b>.",
+    example: "The doctor recommended extra medical tests, following the wise rule of better safe than sorry. (p.36)"
+  },
+  {
+    id: "p_1115_24",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "better late than never",
+    syllable: "bet · ter · late · than · nev · er",
+    shortAns: "遲做總比不做好、亡羊補牢未為晚也",
+    meaning: "phr. (著名諺語) 雖然晚了，但總比永遠不做要好",
+    hack: "道歉或交卷金句：John finally apologized for his rude behavior—<b>better late than never</b>.",
+    example: "He finally started saving for retirement in his forties—better late than never. (p.36)"
+  },
+  {
+    id: "p_1115_25",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "know better than to",
+    syllable: "know · bet · ter · than · to",
+    shortAns: "夠明事理而不至於做某傻事",
+    meaning: "phr. 明事理、有足夠的常識而不去做愚蠢的事",
+    hack: "公式：<b>know better than to + VR</b>！如：You should know better than to play with fire.",
+    example: "An experienced hiker knows better than to venture into the snowy mountains without GPS. (p.36)"
+  },
+  {
+    id: "p_1115_26",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "get the better of",
+    syllable: "get · the · bet · ter · of",
+    shortAns: "勝過、佔上風；(情緒)壓倒征服某人",
+    meaning: "phr. 戰勝、勝過；(嫉妒/憤怒)戰勝理智使失控",
+    hack: "情緒戰勝理智必考：<b>Jealousy got the better of him</b>（嫉妒沖昏了他的頭腦）。",
+    example: "Never let your sudden anger get the better of your good judgment during negotiations. (p.37)"
+  },
+  {
+    id: "p_1115_27",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "beyond description",
+    syllable: "be · yond · de · scrip · tion",
+    shortAns: "難以形容、筆墨無法形容",
+    meaning: "phr. 筆墨難以形容 (= beyond words, indescribable)",
+    hack: "寫作大考修辭必備：The grandeur of the Grand Canyon was <b>beyond description</b>.",
+    example: "The devastation caused by the fierce earthquake was completely beyond description. (p.37)"
+  },
+  {
+    id: "p_1115_28",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "give birth to",
+    syllable: "give · birth · to",
+    shortAns: "生下(小孩/幼崽)；引發、促成",
+    meaning: "phr. 產下、分娩；(比喻)帶來、產生",
+    hack: "<b>112學測真題片語</b>：animals use tea farms as safe shelters to <b>give birth</b>.",
+    example: "Moreover, pregnant animals often use quiet farms as safe shelters to give birth to their young. (p.38 / 112學測)"
+  },
+  {
+    id: "p_1115_29",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "bitter enemy",
+    syllable: "bit · ter · en · e · my",
+    shortAns: "死對頭、大仇敵、宿敵",
+    meaning: "phr. 勢不兩立的死對頭、充滿仇恨的敵人",
+    hack: "形容詞 bitter 修飾敵意：<b>bitter rivals / bitter enemies</b>（不共戴天的死對頭）。",
+    example: "Despite their childhood friendship, the failed business partnership made them bitter enemies. (p.39)"
+  },
+  {
+    id: "p_1115_30",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "take the blame",
+    syllable: "take · the · blame",
+    shortAns: "承擔責任、扛下過錯",
+    meaning: "phr. 承擔錯誤與批評 (= take responsibility)",
+    hack: "搭配：<b>take the blame for sth</b>；負起政治責任：The minister took the blame and resigned.",
+    example: "The general manager courageously stepped forward to take the blame for the product recall. (p.40)"
+  },
+  {
+    id: "p_1115_31",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "put the blame on",
+    syllable: "put · the · blame · on",
+    shortAns: "把過錯推卸給某人、責怪某人",
+    meaning: "phr. 將失敗或錯誤歸咎於某人 (= blame sb for sth)",
+    hack: "推卸責任句型：It's unfair to <b>put the blame on one person</b> when the whole team erred.",
+    example: "It is completely unfair to put the blame on junior staff when executive leaders made the call. (p.40)"
+  },
+  {
+    id: "p_1115_32",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "grammar",
+    catName: "⚡ 文法秒殺",
+    word: "is to blame",
+    syllable: "is · to · blame",
+    shortAns: "應該負責、該受責備(用主動形表示被動！)",
+    meaning: "phr. 應承擔過失責任；語法上恆用不定詞主動形 to blame",
+    hack: "<b>各大名校文法考題</b>：Who is to blame for the fire?（絕不可寫 is to be blamed，恆用主動形 <b>to blame</b>）！",
+    example: "The court determined that the reckless driver was solely to blame for the fatal collision. (p.40)"
+  },
+  {
+    id: "p_1115_33",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "fill in the blanks",
+    syllable: "fill · in · the · blanks",
+    shortAns: "填空、填補空白",
+    meaning: "phr. 在空白處填寫答案；(比喻)補齊未知細節",
+    hack: "題型必讀說明：<b>fill in the blanks with the correct forms</b>（填空題）。",
+    example: "Students are asked to fill in the blanks with appropriate prepositions and transitional words. (p.40)"
+  },
+  {
+    id: "p_1115_34",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "bleed to death",
+    syllable: "bleed · to · death",
+    shortAns: "失血過多致死",
+    meaning: "phr. 流血過多而死亡",
+    hack: "動詞 bleed 的片語搭配：bleed to death；大量流血：bleed profusely。",
+    example: "Without immediate emergency surgical intervention, the victim would have bled to death. (p.40)"
+  },
+  {
+    id: "p_1115_35",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "be blessed with",
+    syllable: "be · blessed · with",
+    shortAns: "有幸享有...、得天獨厚擁有...",
+    meaning: "phr. 幸運地擁有(天賦、健康、家庭、資源)",
+    hack: "學測寫作萬用金句：Taiwan is <b>blessed with</b> rich natural resources and breathtaking scenery.",
+    example: "She was blessed with remarkable musical talent, which she shared generously with the community. (p.40)"
+  },
+  {
+    id: "p_1115_36",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "grammar",
+    catName: "⚡ 文法秒殺",
+    word: "be opposed to",
+    syllable: "be · op · posed · to",
+    shortAns: "反對...(to 為介系詞！後接名詞或 V-ing)",
+    meaning: "phr. 強烈反對某事；to 為介系詞",
+    hack: "<b>李奇必考陷阱</b>：to 是介系詞！句型：<b>be opposed to + V-ing</b>（反對做某事），絕不可接原形！",
+    example: "Environmental groups are fiercely opposed to building another waste incinerator. (寫作 p.14 筆記)"
+  },
+  {
+    id: "p_1115_37",
+    pack: "lichi_1115",
+    packName: "李奇 11/15",
+    cat: "chunks",
+    catName: "🔗 必考片語",
+    word: "prevent from",
+    syllable: "pre · vent · from",
+    shortAns: "阻止/防止某人做某事(prevent sb from V-ing)",
+    meaning: "phr. 防止、阻止某人做某事；介系詞 from 接動名詞",
+    hack: "防守必用寫作句：<b>prevent their opponents from scoring</b>（阻止對手得分）。",
+    example: "Disciplined defenders work cohesively to prevent their opponents from scoring easy baskets. (寫作 p.14)"
+  },
+  // ==========================================================================
+  // 📅 歷屆考試與錯題題庫 (共 197 張)
   // ==========================================================================
   {
     id: "c_1108x_01",
@@ -899,9 +1957,6 @@
     hack: "<b>1108 版本 L5 Q66 混淆錯題</b>：工廠自動化降低「生產成本」production costs！絕不可填 population (人口)！",
     example: "Robots have replaced workers on assembly lines, greatly reducing production costs. (1108小考)"
   },
-  // ==========================================================================
-  // 🔥 11/08 小考全範圍題庫 (共 92 張)
-  // ==========================================================================
   {
     id: "v_1108_01",
     pack: "lichi_1108",
@@ -2098,9 +3153,6 @@
     hack: "<b>時態早於現在用完成式</b>：<br>It is said that Bill Gates was once the richest.<br>= Bill Gates is said <b>to have once been</b> the richest.",
     example: "The mysterious traveler is said to have lived in Kyoto for twenty years. (文法 p.53-54)"
   },
-  // ==========================================================================
-  // 📅 歷屆考試與學校進度題庫 (共 91 張)
-  // ==========================================================================
   {
     id: "c_1101x_01",
     pack: "lichi_1101x",
@@ -3300,7 +4352,7 @@
     };
 
     // DEFAULT TO THIS WEEK'S PACK ('lichi_1101')
-    let currentPack = "lichi_1108x";
+    let currentPack = "lichi_1115";
     let currentCat = "all";
     let currentMode = "todo"; // 'todo' | 'sos' | 'mastered' | 'report'
     let filteredDeck = [];
@@ -3353,7 +4405,7 @@
 
     function buildSyncPayload() {
       const summary = { mastered: [], review: [], sos: [], errCards: {}, byPack: {} };
-      ["lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
+      ["lichi_1115", "lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
         summary.byPack[pk] = { total: 0, mastered: 0, sos: 0 };
       });
       CARDS_DB.forEach(c => {
@@ -3449,7 +4501,7 @@
       // 1. Update live counts inside the Dropdown <option> labels
       const packTotals = {};
       const packMastered = {};
-      ["lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
+      ["lichi_1115", "lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
         packTotals[pk] = 0;
         packMastered[pk] = 0;
       });
@@ -3879,6 +4931,7 @@
       const attempts = appState.stats.totalAttempts || 0;
       const correct = appState.stats.firstTryCorrect || 0;
       const acc = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
+      const b1115 = p.summary.byPack.lichi_1115 || { mastered: 0, total: 0, sos: 0 };
       const b1108x = p.summary.byPack.lichi_1108x || { mastered: 0, total: 0, sos: 0 };
       const b1108 = p.summary.byPack.lichi_1108 || { mastered: 0, total: 0, sos: 0 };
       const b1101 = p.summary.byPack.lichi_1101;
@@ -3887,8 +4940,10 @@
       const text = [
         `【🌿 Gordon 英文閃卡分週進度戰報】`,
         `時間：${new Date().toLocaleString("zh-TW")}`,
+        `🔥 本週 (11/15 考試進度)：已封印 ${b1115.mastered} / ${b1115.total} 張 (急救 ${b1115.sos} 張)`,
         `🎯 11/08 考後錯題攻堅：已封印 ${b1108x.mastered} / ${b1108x.total} 張 (急救 ${b1108x.sos} 張)`,
         `🔥 本週 (11/08 考試進度)：已封印 ${b1108.mastered} / ${b1108.total} 張 (急救 ${b1108.sos} 張)`,
+        `🔥 本週 (11/15 考試進度)：已封印 ${b1115.mastered} / ${b1115.total} 張 (急救 ${b1115.sos} 張)`,
         `🎯 11/08 考後錯題攻堅：已封印 ${b1108x.mastered} / ${b1108x.total} 張 (急救 ${b1108x.sos} 張)`,
         `🔥 本週 (11/08 考試進度)：已封印 ${b1108.mastered} / ${b1108.total} 張 (急救 ${b1108.sos} 張)`,
         `🔥 本週 (11/01 9000單B篇) 進度：已封印 ${b1101.mastered} / ${b1101.total} 張 (急救 ${b1101.sos} 張)`,
