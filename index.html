@@ -604,15 +604,14 @@
     </div>
     <div class="select-wrapper">
       <select id="pack-select" class="pack-select" onchange="onPackSelectChange(this.value)">
-        <optgroup label="📌 本週最新考試進度（預設）">
-          <option value="lichi_1115" id="opt-lichi_1115" selected>🔥 李奇 11/15 小考｜9000單B+片語L8+寫作U1 (0/81 已封印)</option>
-        </optgroup>
-        <optgroup label="🎯 考後錯題攻堅專區">
+        <optgroup label="🎯 最新考後錯題攻堅專區（本週預設）">
+          <option value="lichi_1115x" id="opt-lichi_1115x" selected>🎯 李奇 11/15 考後｜錯題＋不會單字 (0/34 已封印)</option>
           <option value="lichi_1108x" id="opt-lichi_1108x">🎯 李奇 11/08 考後｜錯題＋圈字 (0/14 已封印)</option>
           <option value="lichi_1101x" id="opt-lichi_1101x">🎯 李奇 11/01 考後｜錯題＋圈字 (0/23 已封印)</option>
         </optgroup>
         <optgroup label="📅 歷屆李奇小考進度（由新到舊）">
-          <option value="lichi_1108" id="opt-lichi_1108">📅 李奇 11/08 小考全範圍 (0/92 已封印)</option>
+          <option value="lichi_1115" id="opt-lichi_1115">📅 李奇 11/15 考前｜9000單B+片語L8+寫作U1 (0/81 已封印)</option>
+          <option value="lichi_1108" id="opt-lichi_1108">📅 李奇 11/08 全範圍｜9000單B+片語L7+火藥陰謀+L5 (0/92 已封印)</option>
           <option value="lichi_1101" id="opt-lichi_1101">📅 李奇 11/01 考前｜9000單A+片語L6 (0/28 已封印)</option>
           <option value="lichi_1025" id="opt-lichi_1025">📅 李奇 10/25 小考｜新聞長字與完成式 (0/16 已封印)</option>
           <option value="lichi_1018" id="opt-lichi_1018">📅 李奇 10/18 小考｜無被動與片語搭配 (0/12 已封印)</option>
@@ -621,7 +620,7 @@
           <option value="midterm1" id="opt-midterm1">🏫 台中一中 一段｜核心語塊與詞性 (0/12 已封印)</option>
         </optgroup>
         <optgroup label="📚 考前跨週大複習">
-          <option value="all" id="opt-all">📚 跨週全部進度總複習 (0/278 已封印)</option>
+          <option value="all" id="opt-all">📚 跨週全部進度總複習 (0/312 已封印)</option>
         </optgroup>
       </select>
       <span class="select-arrow">▾</span>
@@ -705,7 +704,8 @@
     // 1. FLASHCARD DATABASE (Separated cleanly by Weekly Exam Pack)
     // ============================================================================
     const PACK_META = {
-  lichi_1115:  { name: "🔥 李奇 11/15 小考｜9000單B(p.36-40)+片語L8+寫作U1 (81張)", shortName: "李奇 11/15" },
+  lichi_1115x: { name: "🎯 李奇 11/15 考後｜錯題＋不會單字 (34張)", shortName: "11/15 考後" },
+  lichi_1115:  { name: "📅 李奇 11/15 小考｜9000單B(p.36-40)+片語L8+寫作U1 (81張)", shortName: "李奇 11/15" },
   lichi_1108x: { name: "🎯 李奇 11/08 考後｜錯題＋圈字 (14張)", shortName: "11/08 考後" },
   lichi_1108:  { name: "📅 李奇 11/08 小考全範圍 (92張)", shortName: "李奇 11/08" },
   lichi_1101x: { name: "🎯 李奇 11/01 考後｜錯題＋圈字 (23張)", shortName: "11/01 考後" },
@@ -717,12 +717,457 @@
 
     const CARDS_DB = [
   // ==========================================================================
-  // 🔥 本週最新考試進度：李奇 11/15 小考 (單字 44 + 片語 37 = 共 81 張)
+  // 🎯 11/15 考後錯題＋不會單字攻堅專屬題庫 (共 34 張)
+  // ==========================================================================
+  {
+    id: "x_1115_01",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔤 不會單字 (文意選填)",
+    word: "release",
+    syllable: "re · lease [rɪˈlis]",
+    shortAns: "v./n. 釋放；發布",
+    meaning: "v. 釋放、排出（氣體／飛沫）；公開發布 n. 釋放；發行",
+    hack: "<b>re-(向後/回) + lease(鬆開)</b> ➔ 鬆開並釋放出來。考卷 Q23 考過去分詞當後位修飾：droplets <b>released</b> when we cough（咳嗽時排出的飛沫）。",
+    example: "The droplets released when we cough or sneeze remain smaller in dry winter air. (Q23)"
+  },
+  {
+    id: "x_1115_02",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "🔗 不會片語 (文意選填)",
+    word: "yet another",
+    syllable: "yet a · noth · er",
+    shortAns: "又一個、再一個",
+    meaning: "phr. 又一個、再多一個（常用於強調不斷增加的理由或事例）",
+    hack: "⚠️ <b>yet</b> 不只當「尚未 / 但是」！在 <b>yet another + 單數名詞</b> 中，yet 當副詞表「又、再」。考卷 Q26：<b>yet another reason</b>（又多一個原因）。",
+    example: "Cold air makes cilia less effective—yet another reason the common cold strikes often in winter! (Q26)"
+  },
+  {
+    id: "x_1115_03",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "🔗 不會片語 (文意選填)",
+    word: "shed light on",
+    syllable: "shed light on",
+    shortAns: "闡明、使…更清楚",
+    meaning: "phr. 闡明、解釋清楚、為…提供新線索",
+    hack: "把光 (light) 灑 (shed) 在問題上 ➔ 照亮盲點＝<b>闡明</b>！⚠️ 三態同形：<b>shed - shed - shed</b>。考卷 Q21：Scientists have <b>shed light on</b> this question.",
+    example: "Scientists have shed light on this question by explaining how cold weather helps viruses spread. (Q21)"
+  },
+  {
+    id: "x_1115_04",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔤 不會單字 (文意選填)",
+    word: "furthermore",
+    syllable: "fur · ther · more [ˈfɝðɚˌmɔr]",
+    shortAns: "adv. 此外、而且",
+    meaning: "adv. 此外、而且（轉折連接副詞，等同於 besides / moreover / in addition）",
+    hack: "放在句首接逗點，用來「補充下一個重要論點」。考卷 Q28 前句講洗手，這句補充：<b>Furthermore,</b> respiratory viruses can spread...。",
+    example: "Furthermore, respiratory viruses can generally spread to a two-meter radius around a sick person. (Q28)"
+  },
+  {
+    id: "x_1115_05",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔤 不會單字 (文意選填)",
+    word: "multiply",
+    syllable: "mul · ti · ply [ˈmʌltəˌplaɪ]",
+    shortAns: "v. 繁殖；倍增；乘",
+    meaning: "v. 繁殖、大量增加；乘（數學）",
+    hack: "字根 <b>multi-(多)</b> ➔ 變多＝繁殖、倍增。考卷 Q22 與 survive 並列：allow them to survive for longer and <b>multiply</b> more rapidly。",
+    example: "Cooler temperatures allow flu viruses to survive for longer and multiply more rapidly. (Q22)"
+  },
+  {
+    id: "x_1115_06",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔤 不會單字 (文意選填)",
+    word: "thoroughly",
+    syllable: "thor · ough · ly [ˈθɝolɪ]",
+    shortAns: "adv. 徹底地、完全地",
+    meaning: "adv. 徹底地、仔細地、完全地（形容詞 thorough 徹底的）",
+    hack: "⚠️ 拼字常與 through (穿過) 混淆！<b>thorough</b> 多了 <b>o</b> ➔「徹頭徹尾的」。搭配動詞：wash your hands <b>thoroughly</b>（徹底洗手）。",
+    example: "For example, be sure to wash your hands thoroughly for at least 20 seconds. (Q27)"
+  },
+  {
+    id: "x_1115_07",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔤 不會單字 (文意選填)",
+    word: "consequently",
+    syllable: "con · se · quent · ly [ˈkɑnsəˌkwɛntlɪ]",
+    shortAns: "adv. 因此、結果",
+    meaning: "adv. 因此、結果（因果關係副詞，等同於 therefore / as a result）",
+    hack: "字根 <b>con-(一起) + sequ-(跟隨)</b> ➔ 緊跟著發生的結果＝<b>因此</b>。考卷 Q24 承接前面「飛沫變小且飄更久」，因此別人更容易吸入。",
+    example: "Droplets float in the air for longer. Consequently, somebody else is more likely to breathe them in. (Q24)"
+  },
+  {
+    id: "x_1115_08",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "🔗 不會片語 (文意選填)",
+    word: "out and about",
+    syllable: "out and a · bout",
+    shortAns: "外出活動、四處走動",
+    meaning: "phr. 外出活動、出門走動（常用於 be out and about）",
+    hack: "在外面 (out) 且四處走動 (about) ➔ <b>外出活動</b>！考卷 Q29：when you are <b>out and about</b>, avoid getting too close to anyone sick.",
+    example: "When you are out and about, you should avoid getting too close to anyone who isn't feeling well. (Q29)"
+  },
+  {
+    id: "x_1115_09",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "🔗 不會片語 (文意選填)",
+    word: "take hold",
+    syllable: "take hold",
+    shortAns: "開始產生影響、生根",
+    meaning: "phr. 開始產生影響、生根、站穩腳步（病毒在體內扎根發作）",
+    hack: "抓住 (hold) 一個地方不放 ➔ 病毒在體內扎根＝<b>開始產生影響</b>。考卷 Q25 考介系詞後接 V-ing：prevent viruses from <b>taking hold</b>。",
+    example: "Mucus and cilia prevent many viruses that enter our bodies from taking hold. (Q25)"
+  },
+  {
+    id: "x_1115_10",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔤 不會單字 (文意選填)",
+    word: "inevitable",
+    syllable: "in · ev · i · ta · ble [ɪnˈɛvətəbḷ]",
+    shortAns: "adj. 不可避免的",
+    meaning: "adj. 不可避免的、必然發生的（副詞 inevitably）",
+    hack: "字首 <b>in-(不) + e-(出) + vit-(避開) + -able(能)</b> ➔ 無法避開的＝<b>不可避免的</b>。高頻搭配：an <b>inevitable</b> part of life。",
+    example: "Getting sick is an inevitable part of life, but we can still take simple measures. (Q30)"
+  },
+  {
+    id: "x_1115_11",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "🎯 考卷錯題 (搭配詞)",
+    word: "on board",
+    syllable: "on board",
+    shortAns: "成為團隊一員；在船/機上",
+    meaning: "phr. 成為團隊一員、加入合作；在船上／飛機上",
+    hack: "⚠️ 考卷 Q5 錯選 blouse！記住高頻句型：<b>have sb on board</b>（讓某人加入團隊）或 <b>welcome sb on board</b>。",
+    example: "We are excited to have Maria on board as our new marketing manager. (Q5)"
+  },
+  {
+    id: "x_1115_12",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "🎯 考卷錯題 (搭配詞)",
+    word: "put the blame on",
+    syllable: "put the blame on",
+    shortAns: "把責任推給…、責怪某人",
+    meaning: "phr. 責怪某人、將過錯歸咎於某人（= blame sb for sth）",
+    hack: "⚠️ 考卷 Q6 錯選 blanket！固定搭配：<b>put / lay the blame on sb</b>（把責備放到某人身上）。",
+    example: "I cannot understand why Andy is putting the blame on Julie for his own mistake. (Q6)"
+  },
+  {
+    id: "x_1115_13",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "meaning",
+    catName: "🎯 考卷錯題 (熟詞生義)",
+    word: "bound",
+    syllable: "bound [baʊnd]",
+    shortAns: "adj./p.p. 受約束的；必定的",
+    meaning: "adj./p.p. 受(契約/承諾)約束的（bind 的過去分詞）；be bound to V 一定會",
+    hack: "⚠️ 考卷 Q9 錯選 blamed！三態：<b>bind - bound - bound</b>。搭配詞：<b>feel bound by promises</b>（感到受承諾所約束）。",
+    example: "Even though Jason wanted to quit, he felt bound by the promises he had made. (Q9)"
+  },
+  {
+    id: "x_1115_14",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "🎯 考卷錯題 (片語)",
+    word: "as yet",
+    syllable: "as yet",
+    shortAns: "到目前為止",
+    meaning: "phr. 到目前為止、迄今（= so far / up to now，常搭配完成式或否定句）",
+    hack: "⚠️ 考卷 Q12 錯選 went on！看到 <b>have + as yet + failed to V</b>（至今仍未能…）就要秒選 as yet！",
+    example: "The results of the new experiment have as yet failed to show any notable improvements. (Q12)"
+  },
+  {
+    id: "x_1115_15",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔍 閱讀圈字 (同義替換)",
+    word: "aerial",
+    syllable: "aer · i · al [ˈɛrɪəl]",
+    shortAns: "adj. 空中的、航空的",
+    meaning: "adj. 空中的、從空中進行的；航空的（字根 aer- 空氣/空中）",
+    hack: "⚠️ 考卷 Q33 關鍵圈字！文中 <b>aerial spraying</b> ＝ 選項 <b>sprayed pesticide from the air</b>（從空中噴灑）。看到字首 aer- 就想到空中！",
+    example: "The city declared a state of emergency and began aerial spraying of a pesticide. (閱讀測驗 Q33)"
+  },
+  {
+    id: "x_1115_16",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "meaning",
+    catName: "🔍 閱讀畫線 (同義替換)",
+    word: "mild",
+    syllable: "mild [maɪld]",
+    shortAns: "adj. 溫和的、暖和的；輕微的",
+    meaning: "adj. （天氣）溫和的、暖和的；（症狀／味道）輕微的、不刺激的",
+    hack: "⚠️ 考卷 Q34 關鍵畫線！文中 <b>an extremely mild winter</b>（極為溫暖的冬天）＝ 選項 <b>not as cold as usual</b>（不如往常寒冷）。",
+    example: "An extremely mild winter allowed more mosquitoes than usual to survive. (閱讀測驗 Q34)"
+  },
+  {
+    id: "x_1115_17",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔍 閱讀圈字 (高頻形容詞)",
+    word: "scorching",
+    syllable: "scorch · ing [ˈskɔrtʃɪŋ]",
+    shortAns: "adj. 酷熱的、炙熱的",
+    meaning: "adj. 酷熱的、極其炎熱的（動詞 scorch 燒焦、炙烤）",
+    hack: "考卷閱讀測驗圈字！<b>scorching summer</b> = 酷熱的夏天（等同於 boiling hot / burning hot）。",
+    example: "The unusually high temperatures in that scorching summer further increased their number. (閱讀測驗)"
+  },
+  {
+    id: "x_1115_18",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "meaning",
+    catName: "🔍 閱讀圈字 (熟詞生義)",
+    word: "property",
+    syllable: "prop · er · ty [ˈprɑpɚtɪ]",
+    shortAns: "n. 房地產、財產；性質",
+    meaning: "n. 房地產、物業（常複數 properties）；個人財產；物質的性質",
+    hack: "考卷閱讀測驗圈字！屋主付不出貸款只好棄置房產：<b>abandon their properties</b>（遺棄他們的房地產）。",
+    example: "Homeowners who were not able to pay their bank loans were forced to abandon their properties. (閱讀測驗)"
+  },
+  {
+    id: "x_1115_19",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🎯 考卷錯題 (精修寫作)",
+    word: "proper",
+    syllable: "prop · er [ˈprɑpɚ]",
+    shortAns: "adj. 適當的、合宜的",
+    meaning: "adj. 適當的、正確的、合宜的（副詞 properly 適當地）",
+    hack: "⚠️ 考卷 Q35 錯選 vacant（空的）！高頻搭配：<b>proper personal hygiene</b>（適當的個人衛生）。",
+    example: "Maintaining proper personal hygiene plays a vital role in preventing infection. (Q35)"
+  },
+  {
+    id: "x_1115_20",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "trap",
+    catName: "🎯 考卷錯題 (文法死穴)",
+    word: "object to",
+    syllable: "ob · ject to",
+    shortAns: "v. 反對（絕無被動！）",
+    meaning: "phr. 反對…（= oppose / be opposed to / be against；後方接 N / V-ing）",
+    hack: "🚨 <b>考卷 Q36 大陷阱！</b> object 是不及物動詞，所以<b>絕對沒有 be objected to</b>！只能寫 <b>object to</b> 或 <b>be opposed to</b>。",
+    example: "Many residents object to ( / are opposed to / oppose) the construction of a new factory. (Q36)"
+  },
+  {
+    id: "x_1115_21",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🎯 考卷錯題 (精修寫作)",
+    word: "dribble",
+    syllable: "drib · ble [ˈdrɪbḷ]",
+    shortAns: "v. 運球；滴下、流口水",
+    meaning: "v. （籃球／足球）運球；液體一滴滴落下、流口水",
+    hack: "⚠️ 考卷 Q37 錯選 stretched！籃球必備動詞：<b>dribble the ball down the court</b>（運球過半場／衝向籃框）。",
+    example: "During the final seconds, the player skillfully dribbled the ball down the court. (Q37)"
+  },
+  {
+    id: "x_1115_22",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "trap",
+    catName: "🎯 考卷錯題 (文法語態)",
+    word: "be composed of",
+    syllable: "be com · posed of",
+    shortAns: "由…組成（主動用 consist of）",
+    meaning: "phr. （整體）由（各部分／成分）組成（= be made up of = consist of）",
+    hack: "🚨 <b>考卷 Q42 必背三大等式！</b><br><b>整體 + be composed of / be made up of / consist of + 成分</b>。<br>⚠️ consist of 無被動；made up 少了 of 也錯！",
+    example: "The giant chandelier is composed of a metal frame, crystal pieces, and electric light bulbs. (Q42)"
+  },
+  {
+    id: "x_1115_23",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "trap",
+    catName: "🎯 考卷錯題 (介系詞)",
+    word: "be made from",
+    syllable: "be made from",
+    shortAns: "由…製成（看不出原貌）",
+    meaning: "phr. 由…原料製成（經過化學變化，看不出原本原料，如酒由葡萄製成）",
+    hack: "⚠️ 考卷 Q42 誤選！對比：<b>be made of</b> 看得出原料（木桌）；<b>be made from</b> 看不出原料（紙由木頭製成）；<b>be composed of</b> 則是整體由零件組成。",
+    example: "Paper is made from wood, whereas the table is made of wood. (Q42筆記)"
+  },
+  {
+    id: "x_1115_24",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "🎯 考卷錯題 (介系詞)",
+    word: "remind sb of sth",
+    syllable: "re · mind sb of sth",
+    shortAns: "提醒某人某事；使想起",
+    meaning: "phr. 提醒某人某事；讓某人聯想到某事",
+    hack: "⚠️ 考卷 Q46 錯選 with！固定搭配介系詞 <b>of</b>：<b>remind people of important dates</b>。",
+    example: "One theory is that Stonehenge was built as a calendar to remind people of important dates. (Q46)"
+  },
+  {
+    id: "x_1115_25",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 考卷高價單字",
+    word: "precaution",
+    syllable: "pre · cau · tion [prɪˈkɔʃən]",
+    shortAns: "n. 預防措施、防範",
+    meaning: "n. 預防措施、防範（常搭配 take precautions against...）",
+    hack: "字首 <b>pre-(預先) + caution(小心)</b> ➔ 預先小心＝<b>預防措施</b>。考卷 Q16：As a <b>precaution against</b> the storm。",
+    example: "As a precaution against the upcoming storm, the homeowners boarded up their windows. (Q16)"
+  },
+  {
+    id: "x_1115_26",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 考卷高價單字",
+    word: "incumbent",
+    syllable: "in · cum · bent [ɪnˈkʌmbənt]",
+    shortAns: "adj. 義不容辭的；現任的",
+    meaning: "adj. 義不容辭的、負有責任的（it is incumbent upon sb to V）；現任的 n. 現任者",
+    hack: "新聞英文高頻必考！固定句型：<b>it is incumbent upon sb to V</b>（某人有責任必須做某事）。考卷 Q17 原題！",
+    example: "As the team leader, it is incumbent upon him to ensure everyone has an equal opportunity. (Q17)"
+  },
+  {
+    id: "x_1115_27",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 考卷高價單字",
+    word: "quarantine",
+    syllable: "quar · an · tine [ˈkwɔrənˌtin]",
+    shortAns: "n./v. 隔離檢疫",
+    meaning: "n. 隔離檢疫期 v. 將…隔離檢疫",
+    hack: "字源為義大利語「四十天 (quaranta)」。高頻搭配：<b>place sb in quarantine</b>（將某人隔離檢疫）。考卷 Q19 原題！",
+    example: "The authorities placed everyone who had been exposed to the virus in quarantine for two weeks. (Q19)"
+  },
+  {
+    id: "x_1115_28",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 考卷高價單字",
+    word: "isolate",
+    syllable: "i · so · late [ˈaɪsəˌlet]",
+    shortAns: "v. 使隔離、孤立",
+    meaning: "v. 將（病患）隔離；使孤立（名詞 isolation）",
+    hack: "字根 <b>isol-(島)</b> ➔ 像孤島一樣分開＝<b>隔離</b>。注意與 quarantine 的詞性搭配差異！考卷 Q20：<b>isolated</b> the patient immediately。",
+    example: "The doctor isolated the patient immediately to prevent the highly contagious virus from spreading. (Q20)"
+  },
+  {
+    id: "x_1115_29",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 考卷高價單字",
+    word: "droplet",
+    syllable: "drop · let [ˈdrɑplɪt]",
+    shortAns: "n. 飛沫、小水滴",
+    meaning: "n. 微小水滴、飛沫（drop 水滴 + -let 小）",
+    hack: "字尾 <b>-let</b> 表「小的」（如 booklet 小冊子、piglet 小豬）。<b>respiratory droplets</b> = 呼吸道飛沫。",
+    example: "Winter air is drier, so the droplets released when we cough remain smaller and float longer. (文意選填)"
+  },
+  {
+    id: "x_1115_30",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 考卷高價單字",
+    word: "thrive",
+    syllable: "thrive [θraɪv]",
+    shortAns: "v. 興旺、茁壯、滋長",
+    meaning: "v. 繁榮、興旺、茁壯成長；（病毒／細菌）大量滋生",
+    hack: "考卷同時出現在文意選填與閱讀測驗 Q31！<b>conditions its virus thrives in</b> = 病毒得以滋長的條件（= prosper / flourish）。",
+    example: "Many viruses, such as flu viruses, thrive in cold weather. (文意選填 & Q31)"
+  },
+  {
+    id: "x_1115_31",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 考卷高價單字",
+    word: "pesticide",
+    syllable: "pes · ti · cide [ˈpɛstəˌsaɪd]",
+    shortAns: "n. 殺蟲劑、農藥",
+    meaning: "n. 殺蟲劑、農藥",
+    hack: "字根 <b>pest(害蟲) + -cide(殺)</b> ➔ 殺害蟲的藥＝<b>殺蟲劑</b>（對比 suicide 自殺、homicide 殺人）。",
+    example: "Dallas County began aerial spraying of a pesticide to kill the mosquitoes. (閱讀測驗)"
+  },
+  {
+    id: "x_1115_32",
+    pack: "lichi_1115x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "💎 考卷高價片語",
+    word: "adapt into",
+    syllable: "a · dapt in · to",
+    shortAns: "改編成…（電影/劇）",
+    meaning: "phr. 把（小說／原著）改編成（電影／音樂劇），常用被動 be adapted into",
+    hack: "⚠️ 區分介系詞：<b>adapt to</b>（適應環境）；<b>be adapted into</b>（被改編成電影／戲劇）。考卷 Q41 原題！",
+    example: "Over the years, the novel has been adapted into various movies, TV series, and musicals. (Q41)"
+  },
+  {
+    id: "x_1115_33",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 考卷高價單字",
+    word: "landmark",
+    syllable: "land · mark [ˈlændˌmɑrk]",
+    shortAns: "n. 地標；里程碑",
+    meaning: "n. 地標建築；歷史上重要的里程碑",
+    hack: "<b>land(土地) + mark(記號)</b> ➔ 土地上最顯眼的記號＝<b>地標</b>（如 Stonehenge 巨石陣）。考卷 Q45 原題！",
+    example: "Stonehenge is one of the most famous landmarks in the world. (Q45)"
+  },
+  {
+    id: "x_1115_34",
+    pack: "lichi_1115x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 考卷高價單字",
+    word: "accomplish",
+    syllable: "ac · com · plish [əˈkɑmplɪʃ]",
+    shortAns: "v. 完成、達成",
+    meaning: "v. 順利完成、達成（任務／目標）（名詞 accomplishment 成就）",
+    hack: "高頻搭配：<b>accomplish a task / goal</b>（完成任務／目標）。考卷 Q48 原題：a difficult task to <b>accomplish</b>。",
+    example: "Considering how heavy the stones are, building such a structure must have been a difficult task to accomplish. (Q48)"
+  },
+  // ==========================================================================
+  // 📚 歷屆與考前核心題庫 (共 278 張)
   // ==========================================================================
   {
     id: "v_1115_01",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "berry",
@@ -735,7 +1180,7 @@
   {
     id: "v_1115_02",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "besides",
@@ -748,7 +1193,7 @@
   {
     id: "v_1115_03",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bet",
@@ -761,7 +1206,7 @@
   {
     id: "v_1115_04",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "better",
@@ -774,7 +1219,7 @@
   {
     id: "v_1115_05",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "beyond",
@@ -787,7 +1232,7 @@
   {
     id: "v_1115_06",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bill",
@@ -800,7 +1245,7 @@
   {
     id: "v_1115_07",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "billion",
@@ -813,7 +1258,7 @@
   {
     id: "v_1115_08",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bin",
@@ -826,7 +1271,7 @@
   {
     id: "v_1115_09",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "bind",
@@ -839,7 +1284,7 @@
   {
     id: "v_1115_10",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "birth",
@@ -852,7 +1297,7 @@
   {
     id: "v_1115_11",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "biscuit",
@@ -865,7 +1310,7 @@
   {
     id: "v_1115_12",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bit",
@@ -878,7 +1323,7 @@
   {
     id: "v_1115_13",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "bitter",
@@ -891,7 +1336,7 @@
   {
     id: "v_1115_14",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "blackboard",
@@ -904,7 +1349,7 @@
   {
     id: "v_1115_15",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "blame",
@@ -917,7 +1362,7 @@
   {
     id: "v_1115_16",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "blank",
@@ -930,7 +1375,7 @@
   {
     id: "v_1115_17",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "blanket",
@@ -943,7 +1388,7 @@
   {
     id: "v_1115_18",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bleed",
@@ -956,7 +1401,7 @@
   {
     id: "v_1115_19",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bless",
@@ -969,7 +1414,7 @@
   {
     id: "v_1115_20",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "alternate",
@@ -982,7 +1427,7 @@
   {
     id: "v_1115_21",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "complete",
@@ -995,7 +1440,7 @@
   {
     id: "v_1115_22",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "opposite",
@@ -1008,7 +1453,7 @@
   {
     id: "v_1115_23",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "direction",
@@ -1021,7 +1466,7 @@
   {
     id: "v_1115_24",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "attentive",
@@ -1034,7 +1479,7 @@
   {
     id: "v_1115_25",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "importance",
@@ -1047,7 +1492,7 @@
   {
     id: "v_1115_26",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "proceed",
@@ -1060,7 +1505,7 @@
   {
     id: "v_1115_27",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "repeatedly",
@@ -1073,7 +1518,7 @@
   {
     id: "v_1115_28",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "discard",
@@ -1086,7 +1531,7 @@
   {
     id: "v_1115_29",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "cease",
@@ -1099,7 +1544,7 @@
   {
     id: "v_1115_30",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "connection",
@@ -1112,7 +1557,7 @@
   {
     id: "v_1115_31",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "equipment",
@@ -1125,7 +1570,7 @@
   {
     id: "v_1115_32",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "required",
@@ -1138,7 +1583,7 @@
   {
     id: "v_1115_33",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "opposing",
@@ -1151,7 +1596,7 @@
   {
     id: "v_1115_34",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "opponent",
@@ -1164,7 +1609,7 @@
   {
     id: "v_1115_35",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "oppose",
@@ -1177,7 +1622,7 @@
   {
     id: "v_1115_36",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "defend",
@@ -1190,7 +1635,7 @@
   {
     id: "v_1115_37",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "defense",
@@ -1203,7 +1648,7 @@
   {
     id: "v_1115_38",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "offense",
@@ -1216,7 +1661,7 @@
   {
     id: "v_1115_39",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "competitor",
@@ -1229,7 +1674,7 @@
   {
     id: "v_1115_40",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "contestant",
@@ -1242,7 +1687,7 @@
   {
     id: "v_1115_41",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "rival",
@@ -1255,7 +1700,7 @@
   {
     id: "v_1115_42",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "rivalry",
@@ -1268,7 +1713,7 @@
   {
     id: "v_1115_43",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "dribble",
@@ -1281,7 +1726,7 @@
   {
     id: "v_1115_44",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "rebound",
@@ -1294,7 +1739,7 @@
   {
     id: "p_1115_01",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be about to",
@@ -1307,7 +1752,7 @@
   {
     id: "p_1115_02",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be on the point of",
@@ -1320,7 +1765,7 @@
   {
     id: "p_1115_03",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "turn around",
@@ -1333,7 +1778,7 @@
   {
     id: "p_1115_04",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "take turns",
@@ -1346,7 +1791,7 @@
   {
     id: "p_1115_05",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "take one's turn",
@@ -1359,7 +1804,7 @@
   {
     id: "p_1115_06",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "by turns",
@@ -1372,7 +1817,7 @@
   {
     id: "p_1115_07",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "in turn",
@@ -1385,7 +1830,7 @@
   {
     id: "p_1115_08",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "pay attention to",
@@ -1398,7 +1843,7 @@
   {
     id: "p_1115_09",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "attend to",
@@ -1411,7 +1856,7 @@
   {
     id: "p_1115_10",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "go on",
@@ -1424,7 +1869,7 @@
   {
     id: "p_1115_11",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "go on to",
@@ -1437,7 +1882,7 @@
   {
     id: "p_1115_12",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "over and over",
@@ -1450,7 +1895,7 @@
   {
     id: "p_1115_13",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "wear out",
@@ -1463,7 +1908,7 @@
   {
     id: "p_1115_14",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "throw away",
@@ -1476,7 +1921,7 @@
   {
     id: "p_1115_15",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "fall in love with",
@@ -1489,7 +1934,7 @@
   {
     id: "p_1115_16",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be in love with",
@@ -1502,7 +1947,7 @@
   {
     id: "p_1115_17",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "go out",
@@ -1515,7 +1960,7 @@
   {
     id: "p_1115_18",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "put out",
@@ -1528,7 +1973,7 @@
   {
     id: "p_1115_19",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "as yet",
@@ -1541,7 +1986,7 @@
   {
     id: "p_1115_20",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "have to do with",
@@ -1554,7 +1999,7 @@
   {
     id: "p_1115_21",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "have nothing to do with",
@@ -1567,7 +2012,7 @@
   {
     id: "p_1115_22",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "better off",
@@ -1580,7 +2025,7 @@
   {
     id: "p_1115_23",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "better safe than sorry",
@@ -1593,7 +2038,7 @@
   {
     id: "p_1115_24",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "better late than never",
@@ -1606,7 +2051,7 @@
   {
     id: "p_1115_25",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "know better than to",
@@ -1619,7 +2064,7 @@
   {
     id: "p_1115_26",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "get the better of",
@@ -1632,7 +2077,7 @@
   {
     id: "p_1115_27",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "beyond description",
@@ -1645,7 +2090,7 @@
   {
     id: "p_1115_28",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "give birth to",
@@ -1658,7 +2103,7 @@
   {
     id: "p_1115_29",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "bitter enemy",
@@ -1671,7 +2116,7 @@
   {
     id: "p_1115_30",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "take the blame",
@@ -1684,7 +2129,7 @@
   {
     id: "p_1115_31",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "put the blame on",
@@ -1697,7 +2142,7 @@
   {
     id: "p_1115_32",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "is to blame",
@@ -1710,7 +2155,7 @@
   {
     id: "p_1115_33",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "fill in the blanks",
@@ -1723,7 +2168,7 @@
   {
     id: "p_1115_34",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "bleed to death",
@@ -1736,7 +2181,7 @@
   {
     id: "p_1115_35",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be blessed with",
@@ -1749,7 +2194,7 @@
   {
     id: "p_1115_36",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "be opposed to",
@@ -1762,7 +2207,7 @@
   {
     id: "p_1115_37",
     pack: "lichi_1115",
-    packName: "李奇 11/15",
+    subPack: "phrase",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "prevent from",
@@ -1772,13 +2217,10 @@
     hack: "防守必用寫作句：<b>prevent their opponents from scoring</b>（阻止對手得分）。",
     example: "Disciplined defenders work cohesively to prevent their opponents from scoring easy baskets. (寫作 p.14)"
   },
-  // ==========================================================================
-  // 📅 歷屆考試與錯題題庫 (共 197 張)
-  // ==========================================================================
   {
     id: "c_1108x_01",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "beard the lion in its den",
@@ -1791,7 +2233,7 @@
   {
     id: "c_1108x_02",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "beg to differ",
@@ -1804,7 +2246,7 @@
   {
     id: "c_1108x_03",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "anonymous",
@@ -1817,7 +2259,7 @@
   {
     id: "c_1108x_04",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "deceased",
@@ -1830,7 +2272,7 @@
   {
     id: "c_1108x_05",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "reunion",
@@ -1843,7 +2285,7 @@
   {
     id: "c_1108x_06",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "associate A with B",
@@ -1856,7 +2298,7 @@
   {
     id: "c_1108x_07",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "aside from",
@@ -1869,7 +2311,7 @@
   {
     id: "c_1108x_08",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "as what is known today",
@@ -1882,7 +2324,7 @@
   {
     id: "c_1108x_09",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "better off",
@@ -1895,7 +2337,7 @@
   {
     id: "c_1108x_10",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "golf course",
@@ -1908,7 +2350,7 @@
   {
     id: "c_1108x_11",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "study methods",
@@ -1921,7 +2363,7 @@
   {
     id: "c_1108x_12",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "poisonous",
@@ -1934,7 +2376,7 @@
   {
     id: "c_1108x_13",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "substance",
@@ -1947,7 +2389,7 @@
   {
     id: "c_1108x_14",
     pack: "lichi_1108x",
-    packName: "11/08 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "production",
@@ -1960,7 +2402,7 @@
   {
     id: "v_1108_01",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bay",
@@ -1973,7 +2415,7 @@
   {
     id: "v_1108_02",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bead",
@@ -1986,7 +2428,7 @@
   {
     id: "v_1108_03",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "beam",
@@ -1999,7 +2441,7 @@
   {
     id: "v_1108_04",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "beard",
@@ -2012,7 +2454,7 @@
   {
     id: "v_1108_05",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "beast",
@@ -2025,7 +2467,7 @@
   {
     id: "v_1108_06",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "beat",
@@ -2038,7 +2480,7 @@
   {
     id: "v_1108_07",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "beauty",
@@ -2051,7 +2493,7 @@
   {
     id: "v_1108_08",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "beetle",
@@ -2064,7 +2506,7 @@
   {
     id: "v_1108_09",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "beg",
@@ -2077,7 +2519,7 @@
   {
     id: "v_1108_10",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "beggar",
@@ -2090,7 +2532,7 @@
   {
     id: "v_1108_11",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "beginner",
@@ -2103,7 +2545,7 @@
   {
     id: "v_1108_12",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "behave",
@@ -2116,7 +2558,7 @@
   {
     id: "v_1108_13",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "behavior",
@@ -2129,7 +2571,7 @@
   {
     id: "v_1108_14",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "being",
@@ -2142,7 +2584,7 @@
   {
     id: "v_1108_15",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "belief",
@@ -2155,7 +2597,7 @@
   {
     id: "v_1108_16",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bend",
@@ -2168,7 +2610,7 @@
   {
     id: "v_1108_17",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "beneath",
@@ -2181,7 +2623,7 @@
   {
     id: "v_1108_18",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "benefit",
@@ -2194,7 +2636,7 @@
   {
     id: "v_1108_19",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "treason",
@@ -2207,7 +2649,7 @@
   {
     id: "v_1108_20",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "plot",
@@ -2220,7 +2662,7 @@
   {
     id: "v_1108_21",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "persecution",
@@ -2233,7 +2675,7 @@
   {
     id: "v_1108_22",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "prosecution",
@@ -2246,7 +2688,7 @@
   {
     id: "v_1108_23",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "conspirator",
@@ -2259,7 +2701,7 @@
   {
     id: "v_1108_24",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "conspire",
@@ -2272,7 +2714,7 @@
   {
     id: "v_1108_25",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "audacious",
@@ -2285,7 +2727,7 @@
   {
     id: "v_1108_26",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "audacity",
@@ -2298,7 +2740,7 @@
   {
     id: "v_1108_27",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "lenient",
@@ -2311,7 +2753,7 @@
   {
     id: "v_1108_28",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "anonymous",
@@ -2324,7 +2766,7 @@
   {
     id: "v_1108_29",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "cellar",
@@ -2337,7 +2779,7 @@
   {
     id: "v_1108_30",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "fuse",
@@ -2350,7 +2792,7 @@
   {
     id: "v_1108_31",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "imprison",
@@ -2363,7 +2805,7 @@
   {
     id: "v_1108_32",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "torture",
@@ -2376,7 +2818,7 @@
   {
     id: "v_1108_33",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "foil",
@@ -2389,7 +2831,7 @@
   {
     id: "v_1108_34",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "repeal",
@@ -2402,7 +2844,7 @@
   {
     id: "v_1108_35",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "ceremonial",
@@ -2415,7 +2857,7 @@
   {
     id: "v_1108_36",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "villain",
@@ -2428,7 +2870,7 @@
   {
     id: "v_1108_37",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "oppression",
@@ -2441,7 +2883,7 @@
   {
     id: "v_1108_38",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "📰 新聞進階字彙",
     word: "popularize",
@@ -2454,7 +2896,7 @@
   {
     id: "v_1108_39",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "plastic",
@@ -2467,7 +2909,7 @@
   {
     id: "v_1108_40",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "convenience",
@@ -2480,7 +2922,7 @@
   {
     id: "v_1108_41",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "eager",
@@ -2493,7 +2935,7 @@
   {
     id: "v_1108_42",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "surroundings",
@@ -2506,7 +2948,7 @@
   {
     id: "v_1108_43",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "drift",
@@ -2519,7 +2961,7 @@
   {
     id: "v_1108_44",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "envy",
@@ -2532,7 +2974,7 @@
   {
     id: "v_1108_45",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "consume",
@@ -2545,7 +2987,7 @@
   {
     id: "v_1108_46",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "poisonous",
@@ -2558,7 +3000,7 @@
   {
     id: "v_1108_47",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "substance",
@@ -2571,7 +3013,7 @@
   {
     id: "v_1108_48",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "harmful",
@@ -2584,7 +3026,7 @@
   {
     id: "v_1108_49",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "proper",
@@ -2597,7 +3039,7 @@
   {
     id: "v_1108_50",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "indicate",
@@ -2610,7 +3052,7 @@
   {
     id: "v_1108_51",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "composition",
@@ -2623,7 +3065,7 @@
   {
     id: "v_1108_52",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "punctual",
@@ -2636,7 +3078,7 @@
   {
     id: "v_1108_53",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "advisable",
@@ -2649,7 +3091,7 @@
   {
     id: "v_1108_54",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "calculate",
@@ -2662,7 +3104,7 @@
   {
     id: "v_1108_55",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "postpone",
@@ -2675,7 +3117,7 @@
   {
     id: "v_1108_56",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "defy",
@@ -2688,7 +3130,7 @@
   {
     id: "p_1108_01",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be at bay",
@@ -2701,7 +3143,7 @@
   {
     id: "p_1108_02",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "keep at bay",
@@ -2714,7 +3156,7 @@
   {
     id: "p_1108_03",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "beard the lion in its den",
@@ -2727,7 +3169,7 @@
   {
     id: "p_1108_04",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "beat around the bush",
@@ -2740,7 +3182,7 @@
   {
     id: "p_1108_05",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "beat a hasty retreat",
@@ -2753,7 +3195,7 @@
   {
     id: "p_1108_06",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "beg to differ",
@@ -2766,7 +3208,7 @@
   {
     id: "p_1108_07",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "Beggars cannot be choosers",
@@ -2779,7 +3221,7 @@
   {
     id: "p_1108_08",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "behave oneself",
@@ -2792,7 +3234,7 @@
   {
     id: "p_1108_09",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "come into being",
@@ -2805,7 +3247,7 @@
   {
     id: "p_1108_10",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "bend to",
@@ -2818,7 +3260,7 @@
   {
     id: "p_1108_11",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be beneath",
@@ -2831,7 +3273,7 @@
   {
     id: "p_1108_12",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "benefit from",
@@ -2844,7 +3286,7 @@
   {
     id: "p_1108_13",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "point out",
@@ -2857,7 +3299,7 @@
   {
     id: "p_1108_14",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be over",
@@ -2870,7 +3312,7 @@
   {
     id: "p_1108_15",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be through with",
@@ -2883,7 +3325,7 @@
   {
     id: "p_1108_16",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be up",
@@ -2896,7 +3338,7 @@
   {
     id: "p_1108_17",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "on time",
@@ -2909,7 +3351,7 @@
   {
     id: "p_1108_18",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "in time",
@@ -2922,7 +3364,7 @@
   {
     id: "p_1108_19",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "get better",
@@ -2935,7 +3377,7 @@
   {
     id: "p_1108_20",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "had better",
@@ -2948,7 +3390,7 @@
   {
     id: "p_1108_21",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "would rather",
@@ -2961,7 +3403,7 @@
   {
     id: "p_1108_22",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "by the way",
@@ -2974,7 +3416,7 @@
   {
     id: "p_1108_23",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "figure out",
@@ -2987,7 +3429,7 @@
   {
     id: "p_1108_24",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "put off",
@@ -3000,7 +3442,7 @@
   {
     id: "p_1108_25",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "come along",
@@ -3013,7 +3455,7 @@
   {
     id: "p_1108_26",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "pack up",
@@ -3026,7 +3468,7 @@
   {
     id: "p_1108_27",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "on one's own",
@@ -3039,7 +3481,7 @@
   {
     id: "p_1108_28",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "for a while",
@@ -3052,7 +3494,7 @@
   {
     id: "p_1108_29",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "end up",
@@ -3065,7 +3507,7 @@
   {
     id: "p_1108_30",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "consist of",
@@ -3078,7 +3520,7 @@
   {
     id: "p_1108_31",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be composed of",
@@ -3091,7 +3533,7 @@
   {
     id: "p_1108_32",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be on a short fuse",
@@ -3104,7 +3546,7 @@
   {
     id: "p_1108_33",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "a matter of debate",
@@ -3117,7 +3559,7 @@
   {
     id: "p_1108_34",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "deal with",
@@ -3130,7 +3572,7 @@
   {
     id: "p_1108_35",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "see sb do sth",
@@ -3143,7 +3585,7 @@
   {
     id: "p_1108_36",
     pack: "lichi_1108",
-    packName: "李奇 11/08",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "It is said that",
@@ -3156,7 +3598,7 @@
   {
     id: "c_1101x_01",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "measure (n.)",
@@ -3169,7 +3611,7 @@
   {
     id: "c_1101x_02",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "possession",
@@ -3182,7 +3624,7 @@
   {
     id: "c_1101x_03",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "substances",
@@ -3195,7 +3637,7 @@
   {
     id: "c_1101x_04",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "roots",
     catName: "🧩 字根拆解",
     word: "autonomy",
@@ -3208,7 +3650,7 @@
   {
     id: "c_1101x_05",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "personnel",
@@ -3221,7 +3663,7 @@
   {
     id: "c_1101x_06",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "identify (students at risk)",
@@ -3234,7 +3676,7 @@
   {
     id: "c_1101x_07",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "roots",
     catName: "🧩 字根拆解",
     word: "infiltration",
@@ -3247,7 +3689,7 @@
   {
     id: "c_1101x_08",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "manage to V",
@@ -3260,7 +3702,7 @@
   {
     id: "c_1101x_09",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "bare one's soul (to sb)",
@@ -3273,7 +3715,7 @@
   {
     id: "c_1101x_10",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "on the basis of vs. the basics of",
@@ -3286,7 +3728,7 @@
   {
     id: "c_1101x_11",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be baying for blood",
@@ -3299,7 +3741,7 @@
   {
     id: "c_1101x_12",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "law enforcement (agents)",
@@ -3312,7 +3754,7 @@
   {
     id: "c_1101x_13",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "evidence",
@@ -3325,7 +3767,7 @@
   {
     id: "c_1101x_14",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "poisonous",
@@ -3338,7 +3780,7 @@
   {
     id: "c_1101x_15",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "roots",
     catName: "🧩 字根拆解",
     word: "doctrine",
@@ -3351,7 +3793,7 @@
   {
     id: "c_1101x_16",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "indicator",
@@ -3364,7 +3806,7 @@
   {
     id: "c_1101x_17",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "roots",
     catName: "🧩 字根拆解",
     word: "admissible",
@@ -3377,7 +3819,7 @@
   {
     id: "c_1101x_18",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "get (criminal) charges dropped",
@@ -3390,7 +3832,7 @@
   {
     id: "c_1101x_19",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "Two years from now + will be V-ing",
@@ -3403,7 +3845,7 @@
   {
     id: "c_1101x_20",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "專有名詞 + , which",
@@ -3416,7 +3858,7 @@
   {
     id: "c_1101x_21",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "the impression that + 完整句",
@@ -3429,7 +3871,7 @@
   {
     id: "c_1101x_22",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "avoid exposing oneself to",
@@ -3442,7 +3884,7 @@
   {
     id: "c_1101x_23",
     pack: "lichi_1101x",
-    packName: "11/01 考後",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "progress",
@@ -3455,7 +3897,7 @@
   {
     id: "c_1101_01",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "baggage",
@@ -3468,7 +3910,7 @@
   {
     id: "c_1101_02",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "bait / bait sb into V-ing",
@@ -3481,7 +3923,7 @@
   {
     id: "c_1101_03",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bake & bakery",
@@ -3494,7 +3936,7 @@
   {
     id: "c_1101_04",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "balance (一詞多義)",
@@ -3507,7 +3949,7 @@
   {
     id: "c_1101_05",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "strike a balance / a sense of balance",
@@ -3520,7 +3962,7 @@
   {
     id: "c_1101_06",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "balcony",
@@ -3533,7 +3975,7 @@
   {
     id: "c_1101_07",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "ballet & balloon",
@@ -3546,7 +3988,7 @@
   {
     id: "c_1101_08",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bamboo",
@@ -3559,7 +4001,7 @@
   {
     id: "c_1101_09",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "bang (against)",
@@ -3572,7 +4014,7 @@
   {
     id: "c_1101_10",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "banker",
@@ -3585,7 +4027,7 @@
   {
     id: "c_1101_11",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "bar / behind bars",
@@ -3598,7 +4040,7 @@
   {
     id: "c_1101_12",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "barbecue & barber",
@@ -3611,7 +4053,7 @@
   {
     id: "c_1101_13",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "bare (adj. & v.)",
@@ -3624,7 +4066,7 @@
   {
     id: "c_1101_14",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "bare one's heart / soul",
@@ -3637,7 +4079,7 @@
   {
     id: "c_1101_15",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "barely",
@@ -3650,7 +4092,7 @@
   {
     id: "c_1101_16",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "bark (一詞多義)",
@@ -3663,7 +4105,7 @@
   {
     id: "c_1101_17",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "barn",
@@ -3676,7 +4118,7 @@
   {
     id: "c_1101_18",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "barrel / One rotten apple spoils the barrel",
@@ -3689,7 +4131,7 @@
   {
     id: "c_1101_19",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "base (基礎 vs. 卑鄙的)",
@@ -3702,7 +4144,7 @@
   {
     id: "c_1101_20",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "based on... / service-based",
@@ -3715,7 +4157,7 @@
   {
     id: "c_1101_21",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "basement",
@@ -3728,7 +4170,7 @@
   {
     id: "c_1101_22",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "basic (adj.) & basics (n. pl.)",
@@ -3741,7 +4183,7 @@
   {
     id: "c_1101_23",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "basis / on the basis of...",
@@ -3754,7 +4196,7 @@
   {
     id: "c_1101_24",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "on a regular / daily basis",
@@ -3767,7 +4209,7 @@
   {
     id: "c_1101_25",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "bathe",
@@ -3780,7 +4222,7 @@
   {
     id: "c_1101_26",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "battle",
@@ -3793,7 +4235,7 @@
   {
     id: "c_1101_27",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "bay (一詞多義)",
@@ -3806,7 +4248,7 @@
   {
     id: "c_1101_28",
     pack: "lichi_1101",
-    packName: "李奇 11/01",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "keep ... at bay / be at bay / bay for blood",
@@ -3819,7 +4261,7 @@
   {
     id: "c_1025_01",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "undermine",
@@ -3832,7 +4274,7 @@
   {
     id: "c_1025_02",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "supervision",
@@ -3845,7 +4287,7 @@
   {
     id: "c_1025_03",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "scaremonger",
@@ -3858,7 +4300,7 @@
   {
     id: "c_1025_04",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "YouTube personalities",
@@ -3871,7 +4313,7 @@
   {
     id: "c_1025_05",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "tell A and B apart",
@@ -3884,7 +4326,7 @@
   {
     id: "c_1025_06",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "lacks real proof",
@@ -3897,7 +4339,7 @@
   {
     id: "c_1025_07",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "interaction",
@@ -3910,7 +4352,7 @@
   {
     id: "c_1025_08",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "reject",
@@ -3923,7 +4365,7 @@
   {
     id: "c_1025_09",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "decline",
@@ -3936,7 +4378,7 @@
   {
     id: "c_1025_10",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "nationwide debate",
@@ -3949,7 +4391,7 @@
   {
     id: "c_1025_11",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "Up to now + have/has p.p.",
@@ -3962,7 +4404,7 @@
   {
     id: "c_1025_12",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "have gone to vs. have been to",
@@ -3975,7 +4417,7 @@
   {
     id: "c_1025_13",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "diseases",
@@ -3988,7 +4430,7 @@
   {
     id: "c_1025_14",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "exposure",
@@ -4001,7 +4443,7 @@
   {
     id: "c_1025_15",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "assignments",
@@ -4014,7 +4456,7 @@
   {
     id: "c_1025_16",
     pack: "lichi_1025",
-    packName: "李奇 10/25",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "rewards",
@@ -4027,7 +4469,7 @@
   {
     id: "c_1018_01",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "associate with sb",
@@ -4040,7 +4482,7 @@
   {
     id: "c_1018_02",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "assume a serious look",
@@ -4053,7 +4495,7 @@
   {
     id: "c_1018_03",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "attempt to escape",
@@ -4066,7 +4508,7 @@
   {
     id: "c_1018_04",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "wait on sb",
@@ -4079,7 +4521,7 @@
   {
     id: "c_1018_05",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "overtake",
@@ -4092,7 +4534,7 @@
   {
     id: "c_1018_06",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "strong figures",
@@ -4105,7 +4547,7 @@
   {
     id: "c_1018_07",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "take place / result from",
@@ -4118,7 +4560,7 @@
   {
     id: "c_1018_08",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "break out / collapse",
@@ -4131,7 +4573,7 @@
   {
     id: "c_1018_09",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "grammar",
     catName: "⚡ 文法秒殺",
     word: "Let + O + be + p.p.",
@@ -4144,7 +4586,7 @@
   {
     id: "c_1018_10",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "be stripped of + N",
@@ -4157,7 +4599,7 @@
   {
     id: "c_1018_11",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "too overwhelmed to V",
@@ -4170,7 +4612,7 @@
   {
     id: "c_1018_12",
     pack: "lichi_1018",
-    packName: "李奇 10/18",
+    subPack: "vocab",
     cat: "roots",
     catName: "⚠️ 熟詞生義",
     word: "emerge from downturn",
@@ -4183,7 +4625,7 @@
   {
     id: "c_mid1_01",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "complete ignorance of",
@@ -4196,7 +4638,7 @@
   {
     id: "c_mid1_02",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "accidentally",
@@ -4209,7 +4651,7 @@
   {
     id: "c_mid1_03",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "breathe a sigh of relief",
@@ -4222,7 +4664,7 @@
   {
     id: "c_mid1_04",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "serve a practical purpose",
@@ -4235,7 +4677,7 @@
   {
     id: "c_mid1_05",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "remain glued to the screen",
@@ -4248,7 +4690,7 @@
   {
     id: "c_mid1_06",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "easy to come by",
@@ -4261,7 +4703,7 @@
   {
     id: "c_mid1_07",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "spice up + N",
@@ -4274,7 +4716,7 @@
   {
     id: "c_mid1_08",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "addictive cycle",
@@ -4287,7 +4729,7 @@
   {
     id: "c_mid1_09",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "phonics",
     catName: "🔤 單字與音節",
     word: "go outdoors",
@@ -4300,7 +4742,7 @@
   {
     id: "c_mid1_10",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "convenience store",
@@ -4313,7 +4755,7 @@
   {
     id: "c_mid1_11",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "a variety of + 複數名詞",
@@ -4326,7 +4768,7 @@
   {
     id: "c_mid1_12",
     pack: "midterm1",
-    packName: "一中一段",
+    subPack: "vocab",
     cat: "chunks",
     catName: "🔗 必考片語",
     word: "within walking distance of",
@@ -4352,7 +4794,7 @@
     };
 
     // DEFAULT TO THIS WEEK'S PACK ('lichi_1101')
-    let currentPack = "lichi_1115";
+    let currentPack = "lichi_1115x";
     let currentCat = "all";
     let currentMode = "todo"; // 'todo' | 'sos' | 'mastered' | 'report'
     let filteredDeck = [];
@@ -4405,7 +4847,7 @@
 
     function buildSyncPayload() {
       const summary = { mastered: [], review: [], sos: [], errCards: {}, byPack: {} };
-      ["lichi_1115", "lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
+      ["lichi_1115x", "lichi_1115", "lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
         summary.byPack[pk] = { total: 0, mastered: 0, sos: 0 };
       });
       CARDS_DB.forEach(c => {
@@ -4501,7 +4943,7 @@
       // 1. Update live counts inside the Dropdown <option> labels
       const packTotals = {};
       const packMastered = {};
-      ["lichi_1115", "lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
+      ["lichi_1115x", "lichi_1115", "lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
         packTotals[pk] = 0;
         packMastered[pk] = 0;
       });
@@ -4931,6 +5373,7 @@
       const attempts = appState.stats.totalAttempts || 0;
       const correct = appState.stats.firstTryCorrect || 0;
       const acc = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
+      const b1115x = p.summary.byPack.lichi_1115x || { mastered: 0, total: 0, sos: 0 };
       const b1115 = p.summary.byPack.lichi_1115 || { mastered: 0, total: 0, sos: 0 };
       const b1108x = p.summary.byPack.lichi_1108x || { mastered: 0, total: 0, sos: 0 };
       const b1108 = p.summary.byPack.lichi_1108 || { mastered: 0, total: 0, sos: 0 };
@@ -4940,10 +5383,12 @@
       const text = [
         `【🌿 Gordon 英文閃卡分週進度戰報】`,
         `時間：${new Date().toLocaleString("zh-TW")}`,
-        `🔥 本週 (11/15 考試進度)：已封印 ${b1115.mastered} / ${b1115.total} 張 (急救 ${b1115.sos} 張)`,
+        `🎯 11/15 考後錯題＋不會單字：已封印 ${b1115x.mastered} / ${b1115x.total} 張 (急救 ${b1115x.sos} 張)`,
+        `📅 李奇 11/15 考前全範圍：已封印 ${b1115.mastered} / ${b1115.total} 張 (急救 ${b1115.sos} 張)`,
         `🎯 11/08 考後錯題攻堅：已封印 ${b1108x.mastered} / ${b1108x.total} 張 (急救 ${b1108x.sos} 張)`,
         `🔥 本週 (11/08 考試進度)：已封印 ${b1108.mastered} / ${b1108.total} 張 (急救 ${b1108.sos} 張)`,
-        `🔥 本週 (11/15 考試進度)：已封印 ${b1115.mastered} / ${b1115.total} 張 (急救 ${b1115.sos} 張)`,
+        `🎯 11/15 考後錯題＋不會單字：已封印 ${b1115x.mastered} / ${b1115x.total} 張 (急救 ${b1115x.sos} 張)`,
+        `📅 李奇 11/15 考前全範圍：已封印 ${b1115.mastered} / ${b1115.total} 張 (急救 ${b1115.sos} 張)`,
         `🎯 11/08 考後錯題攻堅：已封印 ${b1108x.mastered} / ${b1108x.total} 張 (急救 ${b1108x.sos} 張)`,
         `🔥 本週 (11/08 考試進度)：已封印 ${b1108.mastered} / ${b1108.total} 張 (急救 ${b1108.sos} 張)`,
         `🔥 本週 (11/01 9000單B篇) 進度：已封印 ${b1101.mastered} / ${b1101.total} 張 (急救 ${b1101.sos} 張)`,
