@@ -604,15 +604,16 @@
     </div>
     <div class="select-wrapper">
       <select id="pack-select" class="pack-select" onchange="onPackSelectChange(this.value)">
-        <optgroup label="🏫 學校二段衝刺專區（最新預設）">
-          <option value="midterm2_textbook" id="opt-midterm2_textbook" selected>🏫 二段｜龍騰課本 L4–L6 核心單字片語 (0/94 已封印)</option>
-          <option value="midterm2_mag1" id="opt-midterm2_mag1">📰 二段｜Live 雜誌 (上) p.12–37 (0/83 已封印)</option>
-          <option value="midterm2_mag2" id="opt-midterm2_mag2">📰 二段｜Live 雜誌 (下) p.39–59 (0/80 已封印)</option>
-        </optgroup>
-        <optgroup label="🎯 李奇考後錯題攻堅專區">
+        <optgroup label="🎯 最新考後錯題攻堅（優先清零）">
+          <option value="lichi_1122x" id="opt-lichi_1122x" selected>🎯 李奇 11/22 考後｜二段複習錯題＋生字 (0/20 已封印)</option>
           <option value="lichi_1115x" id="opt-lichi_1115x">🎯 李奇 11/15 考後｜錯題＋不會單字 (0/34 已封印)</option>
           <option value="lichi_1108x" id="opt-lichi_1108x">🎯 李奇 11/08 考後｜錯題＋圈字 (0/14 已封印)</option>
           <option value="lichi_1101x" id="opt-lichi_1101x">🎯 李奇 11/01 考後｜錯題＋圈字 (0/23 已封印)</option>
+        </optgroup>
+        <optgroup label="🏫 學校二段衝刺專區">
+          <option value="midterm2_textbook" id="opt-midterm2_textbook">🏫 二段｜龍騰課本 L4–L6 核心單字片語 (0/94 已封印)</option>
+          <option value="midterm2_mag1" id="opt-midterm2_mag1">📰 二段｜Live 雜誌 (上) p.12–37 (0/83 已封印)</option>
+          <option value="midterm2_mag2" id="opt-midterm2_mag2">📰 二段｜Live 雜誌 (下) p.39–59 (0/80 已封印)</option>
         </optgroup>
         <optgroup label="📅 歷屆李奇小考進度（由新到舊）">
           <option value="lichi_1115" id="opt-lichi_1115">📅 李奇 11/15 考前｜9000單B+片語L8+寫作U1 (0/81 已封印)</option>
@@ -625,7 +626,7 @@
           <option value="midterm1" id="opt-midterm1">🏫 台中一中 一段｜核心語塊與詞性 (0/12 已封印)</option>
         </optgroup>
         <optgroup label="📚 考前跨週大複習">
-          <option value="all" id="opt-all">📚 跨週全部進度總複習 (0/569 已封印)</option>
+          <option value="all" id="opt-all">📚 跨週全部進度總複習 (0/589 已封印)</option>
         </optgroup>
       </select>
       <span class="select-arrow">▾</span>
@@ -709,23 +710,287 @@
     // 1. FLASHCARD DATABASE (Separated cleanly by Weekly Exam Pack)
     // ============================================================================
     const PACK_META = {
+  lichi_1122x:       { name: "🎯 李奇 11/22 考後｜二段複習錯題＋不會單字 (20張)", shortName: "11/22 考後" },
   midterm2_textbook: { name: "🏫 二段｜龍騰課本 L4–L6 核心單字片語 (94張)", shortName: "二段課本" },
   midterm2_mag1:     { name: "📰 二段｜Live 雜誌 (上) p.12–37 (83張)", shortName: "二段雜誌上" },
   midterm2_mag2:     { name: "📰 二段｜Live 雜誌 (下) p.39–59 (80張)", shortName: "二段雜誌下" },
-  lichi_1115x: { name: "🎯 李奇 11/15 考後｜錯題＋不會單字 (34張)", shortName: "11/15 考後" },
-  lichi_1115:  { name: "📅 李奇 11/15 小考｜9000單B(p.36-40)+片語L8+寫作U1 (81張)", shortName: "李奇 11/15" },
-  lichi_1108x: { name: "🎯 李奇 11/08 考後｜錯題＋圈字 (14張)", shortName: "11/08 考後" },
-  lichi_1108:  { name: "📅 李奇 11/08 小考全範圍 (92張)", shortName: "李奇 11/08" },
-  lichi_1101x: { name: "🎯 李奇 11/01 考後｜錯題＋圈字 (23張)", shortName: "11/01 考後" },
-  lichi_1101:  { name: "📅 李奇 11/01 考前進度 (28張)", shortName: "11/01 考前" },
-  lichi_1025:  { name: "📅 李奇 10/25 小考 (16張)", shortName: "10/25" },
-  lichi_1018:  { name: "📅 李奇 10/18 小考 (12張)", shortName: "10/18" },
-  midterm1:    { name: "🏫 台中一中 一段核心 (12張)", shortName: "一中一段" }
+  lichi_1115x:       { name: "🎯 李奇 11/15 考後｜錯題＋不會單字 (34張)", shortName: "11/15 考後" },
+  lichi_1115:        { name: "📅 李奇 11/15 小考｜9000單B(p.36-40)+片語L8+寫作U1 (81張)", shortName: "李奇 11/15" },
+  lichi_1108x:       { name: "🎯 李奇 11/08 考後｜錯題＋圈字 (14張)", shortName: "11/08 考後" },
+  lichi_1108:        { name: "📅 李奇 11/08 小考全範圍 (92張)", shortName: "李奇 11/08" },
+  lichi_1101x:       { name: "🎯 李奇 11/01 考後｜錯題＋圈字 (23張)", shortName: "11/01 考後" },
+  lichi_1101:        { name: "📅 李奇 11/01 考前進度 (28張)", shortName: "11/01 考前" },
+  lichi_1025:        { name: "📅 李奇 10/25 小考 (16張)", shortName: "10/25" },
+  lichi_1018:        { name: "📅 李奇 10/18 小考 (12張)", shortName: "10/18" },
+  midterm1:          { name: "🏫 台中一中 一段核心 (12張)", shortName: "一中一段" }
 };
 
     const CARDS_DB = [
   // ==========================================================================
-  // 🏫 二段英文單字專屬題庫 (課本L4-L6 + Live雜誌上/下, 共 257 張)
+  // 🎯 11/22 月考複習考後錯題＋不會單字 (共 20 張)
+  // ==========================================================================
+  {
+    id: "x_1122_01",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔤 錯題衍生字",
+    word: "sensitivity",
+    syllable: "sen · si · tiv · i · ty [ˌsɛnsəˈtɪvətɪ]",
+    shortAns: "n. 敏銳度；體貼、同理心",
+    meaning: "n. [U] 敏感度、敏銳度；體貼、同理心（sensitive 的名詞）",
+    hack: "⚠️ <b>11/22 Q6 錯寫 specify！</b>看到「體察學生感受」且前面有動詞 need（需要名詞），就要把 L4 <b>sensitive</b> 轉成名詞 <b>sensitivity</b>！",
+    example: "Teachers need sensitivity to understand what their students are feeling in different situations. (Q6)"
+  },
+  {
+    id: "x_1122_02",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔤 空白衍生字",
+    word: "productive",
+    syllable: "pro · duc · tive [prəˈdʌktɪv]",
+    shortAns: "adj. 有效率的、富有成效的",
+    meaning: "adj. 有效率的、多產的、富有成效的（product 的形容詞）",
+    hack: "⚠️ <b>11/22 Q7 空白！</b>字根 <b>product(產出) + -ive</b> ➔ 產出高的＝<b>有效率的</b>。搭配：a productive meeting / team。",
+    example: "Working together as a team can be more productive than doing everything alone. (Q7)"
+  },
+  {
+    id: "x_1122_03",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔤 R2 空白單字",
+    word: "pedestrian",
+    syllable: "pe · des · tri · an [pəˈdɛstrɪən]",
+    shortAns: "n. 行人、步行者",
+    meaning: "n. [C] 行人、步行者（字根 ped- = 腳）",
+    hack: "⚠️ <b>11/22 Q13 (R2) 空白！</b>字根 <b>ped-(腳)</b>（同 pedal 踏板）➔ 用腳走路的人＝<b>行人</b>。搭配：give way to pedestrians（禮讓行人）。",
+    example: "According to the traffic rule, a driver failing to give way to pedestrians on a crossing will be fined. (Q13)"
+  },
+  {
+    id: "x_1122_04",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔤 R2 空白單字",
+    word: "signal",
+    syllable: "sig · nal [ˈsɪgnḷ]",
+    shortAns: "v. 示意、發信號 n. 信號",
+    meaning: "v. 發信號、示意、預示 n. 信號、暗號",
+    hack: "⚠️ <b>11/22 Q14 (R2) 空白！</b>字根 <b>sign(記號) + -al</b> ➔ 亮綠燈「示意」車輛通行：<b>signal that + 子句</b>。",
+    example: "The traffic light turned green to signal that it was safe for cars to move forward. (Q14)"
+  },
+  {
+    id: "x_1122_05",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔤 R2 空白單字",
+    word: "motivation",
+    syllable: "mo · ti · va · tion [ˌmotəˈveʃən]",
+    shortAns: "n. 動機、動力、積極性",
+    meaning: "n. [U] 動機、動力（動詞 motivate 激勵）",
+    hack: "⚠️ <b>11/22 Q15 (R2) 空白！</b>搭配：<b>lack motivation</b>（缺乏動力）。與二段 Live 雜誌 U14 微習慣同字！",
+    example: "It's common to see that some students are intelligent but lack motivation. (Q15)"
+  },
+  {
+    id: "x_1122_06",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "meaning",
+    catName: "🔍 閱測錯題關鍵字",
+    word: "sticky",
+    syllable: "stick · y [ˈstɪkɪ]",
+    shortAns: "adj. 棘手的、難處理的；黏的",
+    meaning: "adj. 棘手的、令人為難的（如 sticky problems）；黏黏的",
+    hack: "⚠️ <b>11/22 Q60 閱測錯題關鍵！</b>sticky 不只「黏」，<b>sticky problems</b> = 像口香糖黏住甩不掉的「棘手問題」（指難送養的高齡或失聰毛孩）。",
+    example: "The ad is encouraging people to adopt animals with sticky problems. (Q60)"
+  },
+  {
+    id: "x_1122_07",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔍 閱測核心單字",
+    word: "monarch",
+    syllable: "mon · arch [ˈmɑnɚk]",
+    shortAns: "n. 君主、帝王、女王",
+    meaning: "n. [C] 君主、帝王、女王（= king or queen）",
+    hack: "字首 <b>mon-(單一) + arch-(統治)</b> ➔ 唯一統治者＝<b>君主</b>！考卷 Q61 貓咪叫 Monarch，線索字就是 <b>queen</b>。",
+    example: "The cat named Monarch would love to be your queen. (Q61)"
+  },
+  {
+    id: "x_1122_08",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 翻譯核心單字",
+    word: "cautious",
+    syllable: "cau · tious [ˈkɔʃəs]",
+    shortAns: "adj. 謹慎的、小心的",
+    meaning: "adj. 謹慎小心的、戒備的（名詞 caution；衍生字 precaution 預防措施）",
+    hack: "搭配：<b>be cautious when + V-ing / about sth</b>。與 11/15 考過的 precaution 同字根！",
+    example: "All the students should be cautious when they carry out experiments. (翻譯題)"
+  },
+  {
+    id: "x_1122_09",
+    pack: "lichi_1122x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "🚨 雙殺錯題片語",
+    word: "carry out",
+    syllable: "car · ry out",
+    shortAns: "phr. 執行、進行（實驗/檢查）",
+    meaning: "phr. 執行、實施、進行（計畫、實驗、檢查等）",
+    hack: "🚨 <b>11/22 連錯兩次（Q29 ＆ 翻譯 Q66-67）！</b>L4 必背片語：<b>carry out an inspection / experiment</b>。注意 manage to 後接動詞，不可直接接名詞！",
+    example: "The security team quickly moved in to carry out a thorough inspection. (Q29 & Q66-67)"
+  },
+  {
+    id: "x_1122_10",
+    pack: "lichi_1122x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "🎯 翻譯錯題片語",
+    word: "do harm to",
+    syllable: "do harm to",
+    shortAns: "phr. 對…造成傷害（= harm）",
+    meaning: "phr. 對…造成傷害、危害（= cause harm to / be harmful to）",
+    hack: "🚨 <b>11/22 翻譯 Q70–72 失分！</b>三格填「對…造成傷害」必寫 <b>do harm to</b>（或 cause harm to），不可只寫一個字 harm！",
+    example: "These experiments may involve poisonous substances that can do harm to humans. (Q70-72)"
+  },
+  {
+    id: "x_1122_11",
+    pack: "lichi_1122x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "🎯 錯題介系詞搭配",
+    word: "choose A over B",
+    syllable: "choose A o · ver B",
+    shortAns: "phr. 選擇 A 而非 B；捨 B 取 A",
+    meaning: "phr. 寧可選擇 A 也不選 B（over 表示「優先於、勝過」）",
+    hack: "⚠️ <b>11/22 Q49 錯選 upon！</b>英文表達「兩者擇一、偏愛前者」固定用介系詞 <b>over</b>（如 prefer A to B / choose A over B）。",
+    example: "The number of people who chose the stairs over the escalator went up by 66%. (Q49)"
+  },
+  {
+    id: "x_1122_12",
+    pack: "lichi_1122x",
+    subPack: "phrase",
+    cat: "trap",
+    catName: "🎯 錯題介系詞陷阱",
+    word: "go up by",
+    syllable: "go up by",
+    shortAns: "phr. 增加了…（表增幅／百分比）",
+    meaning: "phr. 上升了…、增加了…（後方接「增加的幅度或百分比」）",
+    hack: "🚨 <b>11/22 Q50 錯選 to！</b>區分：<b>go up by 66%</b> = 增加了 66%（增幅）；<b>go up to 100</b> = 上升「到」100（最終數字）！",
+    example: "After turning the stairs into piano keys, stair usage went up by 66%. (Q50)"
+  },
+  {
+    id: "x_1122_13",
+    pack: "lichi_1122x",
+    subPack: "phrase",
+    cat: "trap",
+    catName: "🎯 錯題文法陷阱",
+    word: "plenty of",
+    syllable: "plen · ty of",
+    shortAns: "phr. 大量的（絕不可省略 of！）",
+    meaning: "phr. 大量的、許多的（可接可數複數或不可數名詞）",
+    hack: "🚨 <b>11/22 Q33 錯選裸字 plenty！</b><code>plenty</code> 不能直接加名詞，必須有 <b>of</b>！若沒有 of，可數名詞複數要用 <b>a few / many</b>。",
+    example: "We filled a few bags ( / plenty of bags) with plastic straws and wrappers. (Q33)"
+  },
+  {
+    id: "x_1122_14",
+    pack: "lichi_1122x",
+    subPack: "phrase",
+    cat: "trap",
+    catName: "🎯 錯題核心句型",
+    word: "It is ... that",
+    syllable: "It is ... that",
+    shortAns: "分裂強調句（把強調部分抽出來）",
+    meaning: "pattern 分裂句：It is/was + [被強調的主詞/受詞/副詞子句] + that + [原句其餘部分]",
+    hack: "⚠️ <b>11/22 Q25 錯選 Henry！</b>把 <code>It was ... that</code> 遮掉後，剩下的字必須能拼回完整句子！<code>he was punished</code> 已有主詞 he，故只能強調原因子句 <b>because...</b>！",
+    example: "It was because Billy didn't turn in his homework that he was punished. (Q25)"
+  },
+  {
+    id: "x_1122_15",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "🔍 篇章結構關鍵字",
+    word: "no-man's-land",
+    syllable: "no-man's-land",
+    shortAns: "n. 無人地帶、三不管地帶",
+    meaning: "n. （兩軍或兩國邊界之間的）無人地帶、緩衝禁區",
+    hack: "<b>11/22 Q53 篇章結構關鍵字！</b>冷戰時期布蘭登堡門夾在東西柏林之間，變成無人能靠近的 <b>no-man's-land</b>。",
+    example: "During the Cold War, it turned into a no-man's-land between East and West Berlin. (Q53)"
+  },
+  {
+    id: "x_1122_16",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "meaning",
+    catName: "🔍 閱測熟詞生義",
+    word: "overlook",
+    syllable: "o · ver · look [ˌovɚˈlʊk]",
+    shortAns: "v. 忽略、忽視；俯瞰",
+    meaning: "v. 忽略、沒注意到；從高處俯瞰（二段 Live 雜誌清邁篇也考過！）",
+    hack: "一字雙考！Reading B 首句：<code>these animals tend to be overlooked</code>（這些動物容易被忽視）。",
+    example: "Being harder to place, these homeless animals tend to be overlooked. (Reading B)"
+  },
+  {
+    id: "x_1122_17",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 考卷高價單字",
+    word: "prominent",
+    syllable: "prom · i · nent [ˈprɑmənənt]",
+    shortAns: "adj. 傑出的、著名的；顯著的",
+    meaning: "adj. 傑出的、地位顯赫的；顯眼的（= famous / distinguished）",
+    hack: "字根 <b>pro-(向前) + min-(突出)</b> ➔ 鶴立雞群＝<b>傑出著名的</b>。考卷 Q22：successful and prominent。",
+    example: "After many years of hard work, Tom ended up successful and prominent. (Q22)"
+  },
+  {
+    id: "x_1122_18",
+    pack: "lichi_1122x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "💎 考卷高價片語",
+    word: "household name",
+    syllable: "house · hold name",
+    shortAns: "n. 家喻戶曉的人物／品牌",
+    meaning: "n. phr. 家喻戶曉的名字、無人不知的人物或品牌",
+    hack: "家家戶戶 (household) 都叫得出來的名字 (name) ➔ <b>家喻戶曉的人物</b>！考卷 Q22 原片語！",
+    example: "After the hit movie, the young actor became a household name. (Q22)"
+  },
+  {
+    id: "x_1122_19",
+    pack: "lichi_1122x",
+    subPack: "phrase",
+    cat: "chunks",
+    catName: "💎 考卷高價片語",
+    word: "put behind bars",
+    syllable: "put be · hind bars",
+    shortAns: "phr. 關進監獄、鋃鐺入獄",
+    meaning: "phr. 將某人關進監獄（bars 指監獄的鐵欄杆）",
+    hack: "被關在「鐵窗 (bars) 後面 (behind)」➔ <b>坐牢／入獄</b>！考卷 Q22 選項！",
+    example: "The criminal was finally caught and put behind bars for ten years. (Q22)"
+  },
+  {
+    id: "x_1122_20",
+    pack: "lichi_1122x",
+    subPack: "vocab",
+    cat: "phonics",
+    catName: "💎 考卷高價單字",
+    word: "patina",
+    syllable: "pa · ti · na [pəˈtinə]",
+    shortAns: "n. 銅綠（氧化層）；歲月光澤",
+    meaning: "n. 青銅或銅器表面經氧化形成的綠色保護層（銅綠）",
+    hack: "龍騰 L6 自由女神像必考背景字！這層綠色 <b>patina</b> 保護雕像免受風雨侵蝕（exposure to wind and water）。",
+    example: "The copper reacted with air and water, forming a green layer called patina. (Cloze C)"
+  },
+  // ==========================================================================
+  // 📚 二段全範圍與歷屆核心題庫 (共 569 張)
   // ==========================================================================
   {
     id: "m2tb_001",
@@ -4068,9 +4333,6 @@
     hack: "對比 <b>go bad</b>（食物變質壞掉）。",
     example: "Something went wrong with the computer. (Mag p.59)"
   },
-  // ==========================================================================
-  // 📚 歷屆小考與一段核心題庫 (共 312 張)
-  // ==========================================================================
   {
     id: "x_1115_01",
     pack: "lichi_1115x",
@@ -8143,7 +8405,7 @@
     };
 
     // DEFAULT TO THIS WEEK'S PACK ('lichi_1101')
-    let currentPack = "midterm2_textbook";
+    let currentPack = "lichi_1122x";
     let currentCat = "all";
     let currentMode = "todo"; // 'todo' | 'sos' | 'mastered' | 'report'
     let filteredDeck = [];
@@ -8196,7 +8458,7 @@
 
     function buildSyncPayload() {
       const summary = { mastered: [], review: [], sos: [], errCards: {}, byPack: {} };
-      ["midterm2_textbook", "midterm2_mag1", "midterm2_mag2", "lichi_1115x", "lichi_1115", "lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
+      ["lichi_1122x", "midterm2_textbook", "midterm2_mag1", "midterm2_mag2", "lichi_1115x", "lichi_1115", "lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1"].forEach(pk => {
         summary.byPack[pk] = { total: 0, mastered: 0, sos: 0 };
       });
       CARDS_DB.forEach(c => {
@@ -8292,7 +8554,7 @@
       // 1. Update live counts inside the Dropdown <option> labels
       const packTotals = {};
       const packMastered = {};
-      ["midterm2_textbook", "midterm2_mag1", "midterm2_mag2", "lichi_1115x", "lichi_1115", "lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
+      ["lichi_1122x", "midterm2_textbook", "midterm2_mag1", "midterm2_mag2", "lichi_1115x", "lichi_1115", "lichi_1108x", "lichi_1108", "lichi_1101x", "lichi_1101", "lichi_1025", "lichi_1018", "midterm1", "all"].forEach(pk => {
         packTotals[pk] = 0;
         packMastered[pk] = 0;
       });
@@ -8722,6 +8984,7 @@
       const attempts = appState.stats.totalAttempts || 0;
       const correct = appState.stats.firstTryCorrect || 0;
       const acc = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
+      const b1122x = p.summary.byPack.lichi_1122x || { mastered: 0, total: 0, sos: 0 };
       const bm2tb = p.summary.byPack.midterm2_textbook || { mastered: 0, total: 0, sos: 0 };
       const bm2m1 = p.summary.byPack.midterm2_mag1 || { mastered: 0, total: 0, sos: 0 };
       const bm2m2 = p.summary.byPack.midterm2_mag2 || { mastered: 0, total: 0, sos: 0 };
@@ -8735,6 +8998,7 @@
       const text = [
         `【🌿 Gordon 英文閃卡分週進度戰報】`,
         `時間：${new Date().toLocaleString("zh-TW")}`,
+        `🎯 11/22 二段複習錯題＋生字：已封印 ${b1122x.mastered} / ${b1122x.total} 張 (急救 ${b1122x.sos} 張)`,
         `🏫 二段課本 L4–L6：已封印 ${bm2tb.mastered} / ${bm2tb.total} 張 (急救 ${bm2tb.sos} 張)`,
         `📰 二段雜誌 (上)：已封印 ${bm2m1.mastered} / ${bm2m1.total} 張 (急救 ${bm2m1.sos} 張)`,
         `📰 二段雜誌 (下)：已封印 ${bm2m2.mastered} / ${bm2m2.total} 張 (急救 ${bm2m2.sos} 張)`,
@@ -8742,6 +9006,7 @@
         `📅 李奇 11/15 考前全範圍：已封印 ${b1115.mastered} / ${b1115.total} 張 (急救 ${b1115.sos} 張)`,
         `🎯 11/08 考後錯題攻堅：已封印 ${b1108x.mastered} / ${b1108x.total} 張 (急救 ${b1108x.sos} 張)`,
         `🔥 本週 (11/08 考試進度)：已封印 ${b1108.mastered} / ${b1108.total} 張 (急救 ${b1108.sos} 張)`,
+        `🎯 11/22 二段複習錯題＋生字：已封印 ${b1122x.mastered} / ${b1122x.total} 張 (急救 ${b1122x.sos} 張)`,
         `🏫 二段課本 L4–L6：已封印 ${bm2tb.mastered} / ${bm2tb.total} 張 (急救 ${bm2tb.sos} 張)`,
         `📰 二段雜誌 (上)：已封印 ${bm2m1.mastered} / ${bm2m1.total} 張 (急救 ${bm2m1.sos} 張)`,
         `📰 二段雜誌 (下)：已封印 ${bm2m2.mastered} / ${bm2m2.total} 張 (急救 ${bm2m2.sos} 張)`,
